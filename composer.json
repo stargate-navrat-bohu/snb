@@ -1,0 +1,45 @@
+{
+    "name": "stargate-navrat-bohu/snb",
+    "description": "StarGate - Návrat bohů",
+    "type": "application",
+    "license": "GNUv3",
+    "keywords": [
+        "application",
+        "php",
+        "zf",
+        "zend-framework"
+    ],
+    "homepage": "https://github.com/stargate-navrat-bohu/snb",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "zendframework/zend-component-installer": "^1.0 || ^0.7 || ^1.0.0-dev@dev",
+        "zendframework/zend-mvc": "^3.0.1",
+        "zfcampus/zf-development-mode": "^3.0",
+        "ondrejd/zf2-cron-helper": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "module/Application/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApplicationTest\\": "module/Application/test/"
+        }
+    },
+    "extra": [],
+    "scripts": {
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "development-disable": "zf-development-mode disable",
+        "development-enable": "zf-development-mode enable",
+        "development-status": "zf-development-mode status",
+        "post-create-project-cmd": [
+            "@development-enable"
+        ],
+        "serve": "php -S 127.0.0.0:8000 -t public/ public/index.php",
+        "test": "phpunit"
+    }
+}
