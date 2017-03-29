@@ -1,8 +1,5 @@
-
-
-<?
-
-mysql_query("SET NAMES cp1250");
+<?php
+//mysql_query("SET NAMES cp1250");
 
 	$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,skin,koho FROM uzivatele where cislo = '$logcislo'");	
 
@@ -40,7 +37,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 			endwhile;
 
-			if($dobre!=1){echo "<h1>Neexistující login</h1>";break;};
+			if($dobre!=1){echo "<h1>Neexistujï¿½cï¿½ login</h1>";break;};
 
 			$kontrola1 = MySQL_Query("SELECT cislo,jmeno,penize FROM uzivatele where jmeno = '$hracn'");
 
@@ -58,7 +55,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 			MySQL_Query("update uzivatele set penize=$p where cislo=$cislo");
 
-			echo "<h1>Hráèi $hracn posláno $naq naq.</h1>";
+			echo "<h1>Hrï¿½ï¿½i $hracn poslï¿½no $naq naq.</h1>";
 
 
 
@@ -68,7 +65,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 			$rasa="admin";
 
-			$text="Hráèi $hracn posláno jako kompenzace $naq naq.";
+			$text="Hrï¿½ï¿½i $hracn poslï¿½no jako kompenzace $naq naq.";
 
 			$text=HTMLSpecialChars($text);
 
@@ -86,7 +83,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
       
 
-      MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('1',$den,'$hracn','poslán naq hráèi',$naq,'$zaznam1[jmeno]')");
+      MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('1',$den,'$hracn','poslï¿½n naq hrï¿½ï¿½i',$naq,'$zaznam1[jmeno]')");
 
 		}while(false);
 
@@ -110,7 +107,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 		MySQL_Query("update vudce set fond=$p where rasa=$rase");
 
-		echo "<h1>Rase $zaznam3[nazevrasy] posláno $naq naq.</h1>";
+		echo "<h1>Rase $zaznam3[nazevrasy] poslï¿½no $naq naq.</h1>";
 
 	 	$den = Date("U");
 
@@ -118,7 +115,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 		$rasa="admin";
 
-		$text="Rase $zaznam3[nazevrasy] posláno jako kompenzace $naq naq.";
+		$text="Rase $zaznam3[nazevrasy] poslï¿½no jako kompenzace $naq naq.";
 
 		$text=HTMLSpecialChars($text);
 
@@ -140,7 +137,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
       
 
-  	MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('3',$den,'$zaznam3[nazevrasy]','poslán naq rase',$naq,'$zaznam1[jmeno]')");							
+  	MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('3',$den,'$zaznam3[nazevrasy]','poslï¿½n naq rase',$naq,'$zaznam1[jmeno]')");							
 
 	endif;
 
@@ -158,7 +155,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 			endwhile;
 
-			if($dobre!=1){echo "<h1>Neexistující login</h1>";break;};
+			if($dobre!=1){echo "<h1>Neexistujï¿½cï¿½ login</h1>";break;};
 
 			$kontrola1 = MySQL_Query("SELECT cislo,jmeno FROM uzivatele where jmeno = '$hrach'");
 
@@ -180,7 +177,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 	    MySQL_Query("INSERT INTO log (cil,den,cilt,akce,admin) VALUES ('18',$den,'$hrach','zmeneno heslo','$zaznam1[jmeno]')");
 
-    	echo "<h1>Hráèi $hrach heslo zmìnìno.</h1>";
+    	echo "<h1>Hrï¿½ï¿½i $hrach heslo zmï¿½nï¿½no.</h1>";
 
 		}while(false);
 
@@ -224,11 +221,11 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 			$cislo=$zaznam5[cislo];
 
-			$typ="Veliké mìsto";
+			$typ="Velikï¿½ mï¿½sto";
 
 			MySQL_Query("insert into planety (cislo,nazev,majitel,cislomaj,lidi,mesta,vyrobna,typ,status) values($zaznam4[cp],'$cp','$nazavrasyprocp',$cislo,$lidi,$mesta,$vyrobna,'$typ',2)");	
 
-			MySQL_Query("insert into log (cil,admin,akce,konk,cilt,den) values ('9','$zaznam1[jmeno]','vytvoøení CP','$cp','$nazavrasyprocp',$den)");
+			MySQL_Query("insert into log (cil,admin,akce,konk,cilt,den) values ('9','$zaznam1[jmeno]','vytvoï¿½enï¿½ CP','$cp','$nazavrasyprocp',$den)");
 
       //, '$zaznam3[nazevrasy]', 'vytvoreni CP', '$nazavrasyprocp', '$zaznam1[jmeno]')");
 
@@ -282,7 +279,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 			MySQL_Query("insert into planety (cislo,nazev,majitel,cislomaj,lidi,mesta,vyrobna,typ,status) values($zaznam4[cp],'$dbp','$nazavrasyprodbp',$cislo,$lidi,$mesta,$vyrobna,'$typ',3)");	
 
-			MySQL_Query("insert into log (cil,admin,akce,konk,cilt,den) values ('10','$zaznam1[jmeno]','vytvoøení PP','$dbp','$nazavrasyprodbp',$den)");
+			MySQL_Query("insert into log (cil,admin,akce,konk,cilt,den) values ('10','$zaznam1[jmeno]','vytvoï¿½enï¿½ PP','$dbp','$nazavrasyprodbp',$den)");
 
 			$c=$zaznam4[cp]+1;
 
@@ -308,13 +305,13 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 				$text=AddSlashes($text);
 
-				$text="Admin pošta pro všechny:<br>".$text;
+				$text="Admin poï¿½ta pro vï¿½echny:<br>".$text;
 
 				$den = Date("U");
 
 				$odesilatel="Admin";
 
-				$adresat="všichni";
+				$adresat="vï¿½ichni";
 
 				$rasa="admin";
 
@@ -330,7 +327,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 				$odesilatel="Admin";
 
-				$adresat="vùdcové";
+				$adresat="vï¿½dcovï¿½";
 
 				$den = Date("U");
 
@@ -350,7 +347,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 				$text=AddSlashes($text);
 
-				$text="Admin pošta, pro všechny vùdce:<br>".$text;
+				$text="Admin poï¿½ta, pro vï¿½echny vï¿½dce:<br>".$text;
 
 				$sql_vudce_posta = mysql_query("SELECT jmeno, rasa FROM uzivatele WHERE status = '1'");
 
@@ -450,7 +447,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 				$odesilatel="Admin";
 
-				$adresat="vùdcové";
+				$adresat="vï¿½dcovï¿½";
 
 				$den = Date("U");
 
@@ -470,7 +467,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 				$text=AddSlashes($text);
 
-				$text="Admin pošta, pro všechny uèitele:<br>".$text;
+				$text="Admin poï¿½ta, pro vï¿½echny uï¿½itele:<br>".$text;
 
 				$sql_ucitel_posta = mysql_query("SELECT jmeno, rasa FROM uzivatele WHERE statusucitel = '1'");
 
@@ -490,7 +487,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 				
 
-				echo "odesila se posta pro uèitele $adresat :)<br />";
+				echo "odesila se posta pro uï¿½itele $adresat :)<br />";
 
         MySQL_Query("INSERT INTO posta (id,odeslano_kdy,odesilatel,adresat,nazev,rasa_odesilatel,text,rasa_prijemce,`p/n`,typ,smaz) VALUES ($id,$den,'$odesilatel','$adresat','$predmet','99','$text','$rasa_prijemce','n','2','0')") or die("nejde odeslat");
 
@@ -518,7 +515,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 		do{
 
-			if($vyzkumkolik<0){echo "Èísla musí být vìtší jak nula";break;};
+			if($vyzkumkolik<0){echo "ï¿½ï¿½sla musï¿½ bï¿½t vï¿½tï¿½ï¿½ jak nula";break;};
 
 			$vys = MySQL_Query("select * from vyzkum");
 
@@ -580,7 +577,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 				
 
-		MySQL_Query("insert into log (cil,admin,akce,konk,cilt,den) values ('8','$zaznam1[jmeno]','vytvoøení NH','$zaznam21[nazev]','$zaznam22[nazevrasy]',$den)");
+		MySQL_Query("insert into log (cil,admin,akce,konk,cilt,den) values ('8','$zaznam1[jmeno]','vytvoï¿½enï¿½ NH','$zaznam21[nazev]','$zaznam22[nazevrasy]',$den)");
 
 		$hrdinove+=1;
 
@@ -600,7 +597,7 @@ if(isset($hracn) and $_POST['over_post']==1):
 
 <form name='form' method='post' action='hlavni.php?page=admin4'>
 
-Poslat èastku <input type='text' name="naq" size=10> naq hráèi <input type='text' name='hracn'><input type='hidden' name='over_post' value=1><input type='submit' value="pošli">
+Poslat ï¿½astku <input type='text' name="naq" size=10> naq hrï¿½ï¿½i <input type='text' name='hracn'><input type='hidden' name='over_post' value=1><input type='submit' value="poï¿½li">
 
 </form>
 
@@ -626,7 +623,7 @@ Poslat <input type='text' name="naq" size=10> naq rase
 
 </select>
 
-<input type='hidden' name='over_post' value=1><input type='submit' value='pošli'>	
+<input type='hidden' name='over_post' value=1><input type='submit' value='poï¿½li'>	
 
 </form>
 
@@ -634,7 +631,7 @@ Poslat <input type='text' name="naq" size=10> naq rase
 
 <form name='form3' method='post' action='hlavni.php?page=admin4'>
 
-Zmìnit hráèi <input type='text' name="hrach"> heslo na <input type='password' name="heslo" size=15><input type='hidden' name='over_post' value=1><input type='submit' value="zmìò">
+Zmï¿½nit hrï¿½ï¿½i <input type='text' name="hrach"> heslo na <input type='password' name="heslo" size=15><input type='hidden' name='over_post' value=1><input type='submit' value="zmï¿½ï¿½">
 
 </form>
 
@@ -642,7 +639,7 @@ Zmìnit hráèi <input type='text' name="hrach"> heslo na <input type='password' na
 
 <form name='form4' method='post' action='hlavni.php?page=admin4'>
 
-Vytvoø CP se jménem <input type='text' name="cp" size=20> patøící rase
+Vytvoï¿½ CP se jmï¿½nem <input type='text' name="cp" size=20> patï¿½ï¿½cï¿½ rase
 
 <select name='rasecp'>
 
@@ -660,7 +657,7 @@ Vytvoø CP se jménem <input type='text' name="cp" size=20> patøící rase
 
 </select>
 
-<input type='hidden' name='over_post' value=1><input type='submit' value='vytvoø'>	
+<input type='hidden' name='over_post' value=1><input type='submit' value='vytvoï¿½'>	
 
 </form>
 
@@ -668,7 +665,7 @@ Vytvoø CP se jménem <input type='text' name="cp" size=20> patøící rase
 
 <form name='form4' method='post' action='hlavni.php?page=admin4'>
 
-Vytvoø dobývací planetu se jménem <input type='text' name="dbp" size=20> patøící rase
+Vytvoï¿½ dobï¿½vacï¿½ planetu se jmï¿½nem <input type='text' name="dbp" size=20> patï¿½ï¿½cï¿½ rase
 
 <select name='rasedbp'>
 
@@ -686,7 +683,7 @@ Vytvoø dobývací planetu se jménem <input type='text' name="dbp" size=20> patøící
 
 </select>
 
-<input type='hidden' name='over_post' value=1><input type='submit' value='vytvoø'>	
+<input type='hidden' name='over_post' value=1><input type='submit' value='vytvoï¿½'>	
 
 </form>
 
@@ -694,31 +691,31 @@ Vytvoø dobývací planetu se jménem <input type='text' name="dbp" size=20> patøící
 
 <form name='form5' method='post' action='hlavni.php?page=admin4'>
 
-Pošli 
+Poï¿½li 
 
 <select name='posta'>
 
-	<?php //<option value=99>všem ?>
+	<?php //<option value=99>vï¿½em ?>
 
-	<option value=1>vùdcùm
+	<option value=1>vï¿½dcï¿½m
 
 	<?php //<option value=2>jednotlivci	?>
 
-	<option value=3>uèitelùm
+	<option value=3>uï¿½itelï¿½m
 
 </select>
 
- Pøedmìt: <input type='text' name='predmet' size='20'>	
+ Pï¿½edmï¿½t: <input type='text' name='predmet' size='20'>	
 
 <br><textarea name='text' rows=5 cols=60></textarea>
 
-<br><input type='hidden' name='over_post' value=1><input type='submit' value='pošli'></form>
+<br><input type='hidden' name='over_post' value=1><input type='submit' value='poï¿½li'></form>
 
 
 
 <form name='form6' method='post' action='hlavni.php?page=admin4'>
 
-Vytvoø hrdinu <input type='text' name="hjmeno" size=20 value=jmeno> rase
+Vytvoï¿½ hrdinu <input type='text' name="hjmeno" size=20 value=jmeno> rase
 
 <select name='hrasa'>
 
@@ -758,7 +755,7 @@ typ
 
 <br><textarea name='text' rows=5 cols=60>text k hrdinovi</textarea>
 
-<br><input type='hidden' name='over_post' value=1><input type='submit' value='vytvoø'></form>
+<br><input type='hidden' name='over_post' value=1><input type='submit' value='vytvoï¿½'></form>
 
 <?		
 
@@ -804,7 +801,7 @@ typ
 
     $border= 'border=1';
 
-		echo "<br><br><br><b><u>Nastavení výzkumu:</b></u>";
+		echo "<br><br><br><b><u>Nastavenï¿½ vï¿½zkumu:</b></u>";
 
 		echo "<form action='hlavni.php?page=admin4' method='post'>";
 
@@ -814,9 +811,9 @@ typ
 
 		echo "<th>Rasa</th>";
 
-		echo "<th>Cíl výzkumu</th>";
+		echo "<th>Cï¿½l vï¿½zkumu</th>";
 
-		echo "<th>Cena výzkumu</th>";
+		echo "<th>Cena vï¿½zkumu</th>";
 
 		echo "</tr>";
 
@@ -860,7 +857,7 @@ typ
 
 			$zaznam44 = MySQL_Fetch_Array($vys44);
 
-		echo "<br></br><form>Název výzkumu: <input type='text' size = 30 value='$zaznam44[vyzkum]' name='nazvyz'>";
+		echo "<br></br><form>Nï¿½zev vï¿½zkumu: <input type='text' size = 30 value='$zaznam44[vyzkum]' name='nazvyz'>";
 
 
 
@@ -868,7 +865,7 @@ typ
 
 		echo "<input type='hidden' name='zmena_vyzkumu' value='1'>";
 
-		echo "<input type='submit' value='zmìò'>";
+		echo "<input type='submit' value='zmï¿½ï¿½'>";
 
 		echo "</form>";
 
@@ -876,7 +873,7 @@ typ
 
 		echo "<form action='hlavni.php?page=admin4' method='post'><input type='hidden' name='nuluj' value='1'>";
 
-		echo "<input type='submit' value='vynuluj výzkum'>";
+		echo "<input type='submit' value='vynuluj vï¿½zkum'>";
 
 		echo "</form>";
 
@@ -904,19 +901,19 @@ $zaznam54 = MySQL_Fetch_Array($vys54);
 
 
 
-		echo "<br></br><form>Nastavení ceny agenta (soèasná cena je $zaznam54[jed7_cena] * výroba jedné tìžírny) : <input type='text' size = 5 value='$zaznam54[jed7_cena]' name='agent'>";
+		echo "<br></br><form>Nastavenï¿½ ceny agenta (soï¿½asnï¿½ cena je $zaznam54[jed7_cena] * vï¿½roba jednï¿½ tï¿½ï¿½rny) : <input type='text' size = 5 value='$zaznam54[jed7_cena]' name='agent'>";
 
 		echo "<input type='hidden' name='cena' value='1'>";
 
-		echo "<input type='submit' value='zmìò'>";
+		echo "<input type='submit' value='zmï¿½ï¿½'>";
 
 
 
-/*		echo "<br></br><form>Cena zlodìje (soèasná cena je $zaznam54[jed6_cena] * výroba jedné tìžírny) : <input type='text' size = 5 value='$zaznam54[jed6_cena]' name='zlodej'>";
+/*		echo "<br></br><form>Cena zlodï¿½je (soï¿½asnï¿½ cena je $zaznam54[jed6_cena] * vï¿½roba jednï¿½ tï¿½ï¿½rny) : <input type='text' size = 5 value='$zaznam54[jed6_cena]' name='zlodej'>";
 
 		echo "<input type='hidden' name='cena' value='1'>";
 
-		echo "<input type='submit' value='zmìò'>";
+		echo "<input type='submit' value='zmï¿½ï¿½'>";
 
 */		echo "</form>";
 
@@ -926,11 +923,11 @@ $zaznam54 = MySQL_Fetch_Array($vys54);
 
   	echo "<br><br><br><tr><form>";
 
-  	echo "Postaví na každé CP 28 000 výroben ";
+  	echo "Postavï¿½ na kaï¿½dï¿½ CP 28 000 vï¿½roben ";
 
 		echo "<input type='hidden' name='postavvyrovnynacp' value='1'>";
 
-		echo "<input type='submit' value='postav výrobny na CP'>";
+		echo "<input type='submit' value='postav vï¿½robny na CP'>";
 
 		echo "</form>";
 
@@ -944,7 +941,7 @@ $zaznam54 = MySQL_Fetch_Array($vys54);
 
 		
 
-		echo "Zpráva dne(zobrazovana na infu): ";
+		echo "Zprï¿½va dne(zobrazovana na infu): ";
 
 		echo "<form method='post' action='hlavni.php?page=admin4'>";
 

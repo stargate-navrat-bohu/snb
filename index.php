@@ -4,44 +4,20 @@ require './data_1.php';
 
 $restart_1=0;
 
-//mysql_query("SET NAMES UFT-8");
-
-//session_start();
-
-
-
-if (!stristr($user_agent, 'bot') AND ! stristr($user_agent, 'holmes') AND ! stristr($user_agent, 'validator')) {  //pokud neni robot nebo validator nasadim session
-
-	//session_start();
-
-}
-
-
-
-
-
-if($_POST['zpracuj']){
+$zpracuj = filter_input(INPUT_POST, 'zpracuj');
+if ($zpracuj) {
 
 $adresa="http://sg-nb.cz";
 
 if(($REMOTE_ADDR == "88.86.100.176") OR ($REMOTE_ADDR == "195.47.4.135") OR ($REMOTE_ADDR == "84.16.106.9") OR ($REMOTE_ADDR == "127.0.0.1"))
-
 {
-
 	setcookie("logjmeno",$jmeno1,null);
-
 	setcookie("logheslo",md5($heslo1),null);
-
 }
-
 else 
-
 {
-
 	setcookie("logjmeno",$jmeno1,time()+10800);
-
 	setcookie("logheslo",md5($heslo1),time()+10800);
-
 }
 
 if(empty($k)):
@@ -203,12 +179,6 @@ else{
 $hlavni='hlavni.php?page=info';
 
 }
-
-					//echo $adresa;
-
-					//exit;".$adresa."
-
-		
 
 					$id=$REMOTE_ADDR;
 

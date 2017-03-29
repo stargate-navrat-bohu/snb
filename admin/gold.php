@@ -1,26 +1,23 @@
+<?php
+//mysql_query("SET NAMES cp1250");
 
-<?
-mysql_query("SET NAMES cp1250");
+function fcislo($a){
+    $a=number_format($a,1,"."," ");	
+    return $a;	
+}
+function fcislo2($a){
+    $a=number_format($a,0,"."," ");	
+    return $a;	
+}		
 
-	
-	function fcislo($a){
-		$a=number_format($a,1,"."," ");	
-		return $a;	
-		}
-	function fcislo2($a){
-		$a=number_format($a,0,"."," ");	
-		return $a;	
-		}		
+$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,skin,koho FROM uzivatele where cislo = '$logcislo'");	
+$zaznam1 = MySQL_Fetch_Array($vys1);	
 
-	$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,skin,koho FROM uzivatele where cislo = '$logcislo'");	
-	$zaznam1 = MySQL_Fetch_Array($vys1);	
-	
-	require("adkontrola.php");
+require("adkontrola.php");
 
 ?>
 
-
-<h6>Vyhledat hráèe se statusem gold nebo silver</h6>
+<h6>Vyhledat hrÃ¡Äe se statusem gold nebo silver</h6>
 <form name='form1' method='post' action='hlavni.php?page=gold'>
 <font class=text_bili>
 <input type=hidden name=novac value=1>
@@ -28,37 +25,31 @@ mysql_query("SET NAMES cp1250");
 </font>
 </form>
 
-<?
+<?php
 
+if(isset($novac)):		
+    $vys1=MySQL_Query("SELECT jmeno,rasa,gold,silver FROM uzivatele where gold!='0' or silver!='0' order by jmeno");
 
-		if(isset($novac)):		
-  $vys1=MySQL_Query("SELECT jmeno,rasa,gold,silver FROM uzivatele where gold!='0' or silver!='0' order by jmeno");
-
-  echo "<center><table border=1 width=50%>";
+    echo "<center><table border=1 width=50%>";
 	echo "<tr>";
-	echo "<th colspan=1><font color=white>Jméno</th>";
+	echo "<th colspan=1><font color=white>Jmï¿½no</th>";
 	echo "<th colspan=1><font color=white>Gold</th>";
 	echo "<th colspan=1><font color=white>Silver</th>";
 	echo "<th colspan=1><font color=white>Rasa</th>";
 	echo "</tr>";
 
-echo "</tr>";
+    while ($zaznam1=MySQL_Fetch_Array($vys1)) {
+        echo "<tr>";
+        echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
+        echo "<th><font color=white>".$zaznam1[gold]."</th>";
+        echo "<th><font color=white>".$zaznam1[silver]."</th>";
+        echo "<th><font color=white>".$zaznam1[rasa]."</th>";
+        echo "</tr>";
+    }
 
+    echo "</table></center>";exit;
 
-while ($zaznam1=MySQL_Fetch_Array($vys1)) {
-
-
-
-echo "<tr>";
-echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
-echo "<th><font color=white>".$zaznam1[gold]."</th>";
-echo "<th><font color=white>".$zaznam1[silver]."</th>";
-echo "<th><font color=white>".$zaznam1[rasa]."</th>";
-echo "</tr>";
-}							
-echo "</table>";exit;
-
-		endif;
+endif;
 
 
 ?>
@@ -73,22 +64,22 @@ echo "</table>";exit;
 
 <center>
 
-<h6>Udìlit status gold hráèi:</h6>
+<h6>Udï¿½lit status gold hrï¿½ï¿½i:</h6>
 <form name='form1' method='post' action='hlavni.php?page=gold'>
 <font class=text_bili>
 <input type='text' name='pridejnov' size='8' value=<?echo $pridejnov;?>>
-<input type=submit value="pøidej"><br>
+<input type=submit value="pï¿½idej"><br>
 </font>
 </form>
 
 
 <br><center>
 
-<h6>Vzít status gold hráèi:</h6>
+<h6>Vzï¿½t status gold hrï¿½ï¿½i:</h6>
 <form name='form1' method='post' action='hlavni.php?page=gold'>
 <font class=text_bili>
 <input type='text' name='ubernov' size='8' value=<?echo $ubernov;?>>
-<input type=submit value="proveï"><br>
+<input type=submit value="proveï¿½"><br>
 </font>
 </form>
 
@@ -98,22 +89,22 @@ echo "</table>";exit;
 
 <center>
 
-<h6>Udìlit status silver hráèi:</h6>
+<h6>Udï¿½lit status silver hrï¿½ï¿½i:</h6>
 <form name='form1' method='post' action='hlavni.php?page=gold'>
 <font class=text_bili>
 <input type='text' name='pridejuci' size='8' value=<?echo $pridejuci;?>>
-<input type=submit value="pøidej"><br>
+<input type=submit value="pï¿½idej"><br>
 </font>
 </form>
 
 
 <br><center>
 
-<h6>Vzít status silver hráèi:</h6>
+<h6>Vzï¿½t status silver hrï¿½ï¿½i:</h6>
 <form name='form1' method='post' action='hlavni.php?page=gold'>
 <font class=text_bili>
 <input type='text' name='uberuci' size='8' value=<?echo $uberuci;?>>
-<input type=submit value="proveï"><br>
+<input type=submit value="proveï¿½"><br>
 </font>
 </form>
 
@@ -125,22 +116,22 @@ echo "</table>";exit;
 
 <center>
 
-<h6>Udìlit status legenda hráèi:</h6> Nezadávat!! ve vıvoji
+<h6>Udï¿½lit status legenda hrï¿½ï¿½i:</h6> Nezadï¿½vat!! ve vï¿½voji
 <form name='form1' method='post' action='hlavni.php?page=gold'>
 <font class=text_bili>
 <input type='text' name='pridejnov' size='8' value=<?echo $pridejnov;?>>
-<input type=submit value="pøidej"><br>
+<input type=submit value="pï¿½idej"><br>
 </font>
 </form>
 
 
 <br><center>
 
-<h6>Vzít status legenda hráèi:</h6>
+<h6>Vzï¿½t status legenda hrï¿½ï¿½i:</h6>
 <form name='form1' method='post' action='hlavni.php?page=gold'>
 <font class=text_bili>
 <input type='text' name='ubernov' size='8' value=<?echo $ubernov;?>>
-<input type=submit value="proveï"><br>
+<input type=submit value="proveï¿½"><br>
 </font>
 </form>
 

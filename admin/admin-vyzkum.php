@@ -1,5 +1,5 @@
 <?php
-mysql_query("SET NAMES cp1250");
+
 	$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,skin,koho FROM uzivatele where cislo = '$logcislo'");	
 	$zaznam1 = MySQL_Fetch_Array($vys1);	
 	require("adkontrola.php");
@@ -11,7 +11,7 @@ mysql_query("SET NAMES cp1250");
 
 ?>
 
-<h1>Vızkum</h1>
+<h1>VÃ½zkum</h1>
 <?php
 
 if(isset($_POST)) {
@@ -19,14 +19,14 @@ if(isset($_POST)) {
         $sql = "UPDATE `vyzkum` SET `kolik` = '0' WHERE `rasa` = {$_POST["rasa"]} LIMIT 1";
         $vysledek = mysql_query($sql, $spojeni);
         if($vysledek) {
-            echo "Rase {$nazev_rasy[$_POST["rasa"]]} byl vynulován vızkum";
+            echo "Rase {$nazev_rasy[$_POST["rasa"]]} byl vynulovÃ¡n vÃ½zkum";
         }
     }
     else { 
         $sql = "UPDATE `vyzkum` SET `kolik` = '0', `max` = '{$_POST["cena"]}', `nazevvyz` = '{$_POST["nazev"]}' WHERE `rasa` = {$_POST["rasa"]} LIMIT 1";
         $vysledek = mysql_query($sql, $spojeni);
         if($vysledek) {
-            echo "Rase {$nazev_rasy[$_POST["rasa"]]} byl zmìnìn vızkum";
+            echo "Rase {$nazev_rasy[$_POST["rasa"]]} byl zmÄ›nÄ›n vÃ½zkum";
         }   
     }
 }
@@ -36,8 +36,8 @@ if(isset($_POST)) {
 <table class="table" cellpadding=0 cellspacing=0>
   <tr class="vrsek">
     <td>Rasa</td>
-    <td>Název vızkumu</td>
-    <td>Cena vızkumu</td>
+    <td>NÃ¡zev vÃ½zkumu</td>
+    <td>Cena vÃ½zkumu</td>
     <td colspan=2>&nbsp;</td>
   </tr>
 <?php
@@ -52,8 +52,8 @@ if(isset($_POST)) {
     <th>'.$nazev_rasy[$row["rasa"]].'</th>
     <td><input type="text" name="nazev" value="'.stripslashes($row["nazevvyz"]).'"></td>
     <td><input type="text" name="cena" value="'.stripslashes($row["max"]).'"></td>
-    <td><input type="submit" value="Zmìn"></td>
-    <td><input type="submit" value="Vynulovat" onclick="this.form.action = \'hlavni.php?page=admin-vyzkum&nuluj=1\'"></form></td>
+    <td><input type="submit" value="ZmÄ›n"></td>
+    <td><input type="submit" value="Vynulovat" onclick="this.form.action = \'hlavni.php?page=admin-vyzkum&amp;nuluj=1\'"></form></td>
   </tr>';
       }
     }

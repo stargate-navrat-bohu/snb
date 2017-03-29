@@ -1,114 +1,107 @@
-
-<?
+<?php
 mysql_query("SET NAMES cp1250");
 	
-	function fcislo($a){
-		$a=number_format($a,1,"."," ");	
-		return $a;	
-		}
-	function fcislo2($a){
-		$a=number_format($a,0,"."," ");	
-		return $a;	
-		}		
+function fcislo($a){
+    $a=number_format($a,1,"."," ");	
+    return $a;	
+}
+function fcislo2($a){
+    $a=number_format($a,0,"."," ");	
+    return $a;	
+}		
 
-	$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,skin,koho FROM uzivatele where cislo = '$logcislo'");	
-	$zaznam1 = MySQL_Fetch_Array($vys1);	
-	
-	require("adkontrola.php");
+$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,skin,koho FROM uzivatele where cislo = '$logcislo'");
+$zaznam1 = MySQL_Fetch_Array($vys1);
 
+require("adkontrola.php");
 
+if(isset($smaznekoho)):
+    $den = Date("U");
+    $jmeno="$zaznam1[jmeno]";
+    $rasa="Bohovï¿½";
+    $text="Hrï¿½ï¿½ $hracn byl smazï¿½n z dï¿½vodu dlouhodobï¿½ neaktivity";
+    MySQL_Query("INSERT INTO log (cil,den,cilt,akce,admin) VALUES ('2','$den','$hracn','smazï¿½nï¿½ hrï¿½ï¿½e','$zaznam1[jmeno]')");
 
-		if(isset($smaznekoho)):		
+    $v1 = MySQL_Query("SELECT jmeno,cislo,koho,email FROM uzivatele where cislo = '$smaz'");	
+    $z1 = MySQL_Fetch_Array($v1);				
+    $email=$z1[email];echo $email;
+    $zprava="Toto je informaï¿½nï¿½ zprï¿½va ze hry stargate (http://sg-nb.cz). Jelikoï¿½ jste byl dlouhou dobu neaktivnï¿½, tak byl vï¿½ profil".$hracn." smazï¿½n.";
+    mail ($email,"Informaï¿½nï¿½ zprï¿½va ze hry SG-RTG",$zprava);
 
-		//echo "<font class='text_cerveny'>aaaaaa $hracn";
-		  	$den = Date("U");
-			$jmeno="$zaznam1[jmeno]";
-			$rasa="Bohové";
-			$text="Hráè $hracn byl smazán z dùvodu dlouhodobé neaktivity";
-			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,admin) VALUES ('2','$den','$hracn','smazání hráèe','$zaznam1[jmeno]')");
-			
+    if($z1[koho]!=$hracn):
+        $kdo=$z1[koho];
+        $vys5 = MySQL_Query("SELECT jmeno,volen,ref FROM uzivatele where jmeno = '$kdo'");
+        $zaznam5 = MySQL_Fetch_Array($vys5);
+        $kolik=$zaznam5[volen]-1;
+        MySQL_Query("update uzivatele set volen = $kolik where jmeno = '$kdo'");
+        MySQL_Query("DELETE FROM uzivatele WHERE cislo='$smaz'");
+        MySQL_Query("DELETE FROM planety WHERE cislomaj = '$smaz'");
+        MySQL_Query("DELETE FROM mul WHERE jmeno='$hracn'");
+        MySQL_Query("DELETE FROM obchod WHERE navrhovatel='$logjmeno'");					
+        MySQL_Query("DELETE FROM multaci WHERE cislo='$smaz'");
+    else:
+        MySQL_Query("DELETE FROM uzivatele WHERE cislo='$smaz'");			
+        MySQL_Query("DELETE FROM planety WHERE cislomaj = '$smaz'");
+        MySQL_Query("DELETE FROM mul WHERE jmeno='$hracn'");
+        MySQL_Query("DELETE FROM obchod WHERE navrhovatel='$logjmeno'");					
+        MySQL_Query("DELETE FROM multaci WHERE cislo='$smaz'");
+    endif;
 
-			$v1 = MySQL_Query("SELECT jmeno,cislo,koho,email FROM uzivatele where cislo = '$smaz'");	
-			$z1 = MySQL_Fetch_Array($v1);				
-			$email=$z1[email];echo $email;
-			$zprava="Toto je informaèní zpráva ze hry stargate (http://sg-nb.cz). Jelikož jste byl dlouhou dobu neaktivní, tak byl váš profil".$hracn." smazán.";
-			mail ($email,"Informaèní zpráva ze hry SG-RTG",$zprava);
-			//exit;			
-			if($z1[koho]!=$hracn):
-				$kdo=$z1[koho];
-				$vys5 = MySQL_Query("SELECT jmeno,volen,ref FROM uzivatele where jmeno = '$kdo'");
-				$zaznam5 = MySQL_Fetch_Array($vys5);
-				$kolik=$zaznam5[volen]-1;
-				MySQL_Query("update uzivatele set volen = $kolik where jmeno = '$kdo'");
-			    MySQL_Query("DELETE FROM uzivatele WHERE cislo='$smaz'");
-				MySQL_Query("DELETE FROM planety WHERE cislomaj = '$smaz'");
-				MySQL_Query("DELETE FROM mul WHERE jmeno='$hracn'");
-     			MySQL_Query("DELETE FROM obchod WHERE navrhovatel='$logjmeno'");					
-				MySQL_Query("DELETE FROM multaci WHERE cislo='$smaz'");
-			else:
-				MySQL_Query("DELETE FROM uzivatele WHERE cislo='$smaz'");			
-				MySQL_Query("DELETE FROM planety WHERE cislomaj = '$smaz'");
-				MySQL_Query("DELETE FROM mul WHERE jmeno='$hracn'");
-				MySQL_Query("DELETE FROM obchod WHERE navrhovatel='$logjmeno'");					
-				MySQL_Query("DELETE FROM multaci WHERE cislo='$smaz'");
-			endif;
+    // Odstraneni hlasovani v referendech - begin
+    $kdo=$z1[koho];
+    $vys5 = MySQL_Query("SELECT `ref`,`refn` FROM `uzivatele` where `jmeno` = '$kdo'");
+    $zaznam5 = MySQL_Fetch_Array($vys5);
 
-			// Odstraneni hlasovani v referendech - begin
-			$kdo=$z1[koho];
-			$vys5 = MySQL_Query("SELECT `ref`,`refn` FROM `uzivatele` where `jmeno` = '$kdo'");
-			$zaznam5 = MySQL_Fetch_Array($vys5);
+    $refer = MySQL_Query("SELECT `ano`,`ne` FROM `referendum` where `cislo`='0'");
+    @$ref = MySQL_Fetch_Array($refer);
 
-			$refer = MySQL_Query("SELECT `ano`,`ne` FROM `referendum` where `cislo`='0'");
-			@$ref = MySQL_Fetch_Array($refer);
-		    if ($zaznam5[ref]==1) {
-		      $aaa=$ref[ano]-1;
-		      MySQL_Query("update `referendum` set `ano`='$aaa' where `cislo`='0'");
-		    } elseif ($zaznam5[ref]==2) {
-		      $nnn=$ref[ne]-1;
-		      MySQL_Query("update `referendum` set `ne`='$nnn' where `cislo`='0'");
-		    };
-				
-			$refer = MySQL_Query("SELECT * FROM `referendum` where `cislo`='$zaznam5[rasa]'");
-			@$refn = MySQL_Fetch_Array($refer);
-		    if ($zaznam5[refn]==1) {
-		      $aaa=$refn[ano]-1;
-		      MySQL_Query("update referendum set ano = '$aaa' where cislo='$zaznam5[rasa]'");
-		    } elseif ($zaznam5[refn]==2) {
-		      $nnn=$refn[ne]-1;
-		      MySQL_Query("update referendum set ne = '$nnn' where cislo='$zaznam5[rasa]'");
-		    };	
-			// Odstraneni hlasovani v referendech - end
+    if ($zaznam5[ref]==1) {
+      $aaa=$ref[ano]-1;
+      MySQL_Query("update `referendum` set `ano`='$aaa' where `cislo`='0'");
+    } elseif ($zaznam5[ref]==2) {
+      $nnn=$ref[ne]-1;
+      MySQL_Query("update `referendum` set `ne`='$nnn' where `cislo`='0'");
+    }
 
-			echo "<font class='text_cerveny'>Smazáno</font>";exit;
-                           
-
-		endif;
+    $refer = MySQL_Query("SELECT * FROM `referendum` where `cislo`='$zaznam5[rasa]'");
+    @$refn = MySQL_Fetch_Array($refer);
+    if ($zaznam5[refn]==1) {
+      $aaa=$refn[ano]-1;
+      MySQL_Query("update referendum set ano = '$aaa' where cislo='$zaznam5[rasa]'");
+    } elseif ($zaznam5[refn]==2) {
+      $nnn=$refn[ne]-1;
+      MySQL_Query("update referendum set ne = '$nnn' where cislo='$zaznam5[rasa]'");
+    };	
+    // Odstraneni hlasovani v referendech - end
+    echo "<font class='text_cerveny'>Smazï¿½no</font>";
+    exit;
+endif;
 
 ?>
 
 <h6>Hodnoty</h6>
 <form name='form' method='post' action='hlavni.php?page=admin6'>
-<font class=text_bili>
-vypiš loginy s naquadahem nad <input type=text name=naq value=<?echo $naq;?>><br>
-vypiš loginy s planetami nad <input type=text name=pla value=<?echo $pla;?>><br>
-vypiš loginy se sílou nad <input type=text name=sil value=<?echo $sil;?>><br>
-zároveò nahlašuje všechny loginy s záporným naquadahem èi zápornými jednotkami<br><br>
-<input type=hidden name=kon value=1>
-<input type=submit value="hledej"></font>
+<font class="text_bili">
+vypiÅ¡ loginy s naquadahem nad <input type=text name=naq value=<?echo $naq;?>><br>
+vypiÅ¡ loginy s planetami nad <input type=text name=pla value=<?echo $pla;?>><br>
+vypiÅ¡ loginy se sï¿½lou nad <input type=text name=sil value=<?echo $sil;?>><br>
+zï¿½roveï¿½ nahlaï¿½uje vï¿½echny loginy s zï¿½pornï¿½m naquadahem ï¿½i zï¿½pornï¿½mi jednotkami<br><br>
+<input type="hidden" name="kon" value="1">
+<input type="submit" value="hledej"></font>
 </form>
 
-<h6>Najde všechny hráèe, kteøí mají s jiným hráèem stejné ID</h6>
+<h6>Najde vï¿½echny hrï¿½ï¿½e, kteï¿½ï¿½ majï¿½ s jinï¿½m hrï¿½ï¿½em stejnï¿½ ID</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
 <input type=hidden name=hledat_multaky value=1>
 <input type=submit value="prohledej"><br>
-<i>(mùže trvat až nìkolik (desítek) sekund, extrémnì nároèné na db - OMEZTE UŽITÍ!)</i>
+<i>(mï¿½ï¿½e trvat aï¿½ nï¿½kolik (desï¿½tek) sekund, extrï¿½mnï¿½ nï¿½roï¿½nï¿½ na db - OMEZTE Uï¿½ITï¿½!)</i>
 </font>
 </form>
 
-<?
-		if(isset($hledat_multaky)):
-		echo "<br><br><font class=text_bili><b>Všichni hráèi se stejným id</b>:<br><i>(v závorce je uveden poèet stejných cookies, které mají profily spoleèné)</i></font><br><br>";	
+<?php
+    if(isset($hledat_multaky)):
+		echo "<br><br><font class=text_bili><b>Vï¿½ichni hrï¿½ï¿½i se stejnï¿½m id</b>:<br><i>(v zï¿½vorce je uveden poï¿½et stejnï¿½ch cookies, kterï¿½ majï¿½ profily spoleï¿½nï¿½)</i></font><br><br>";	
 		$ji_id1 = MySQL_Query("SELECT jmeno,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10 FROM mul order by jmeno");		
 		echo "<font class=text_bili>";
 	    while ($ji_zaznam = MySQL_Fetch_Array($ji_id1)):
@@ -169,7 +162,7 @@ zároveò nahlašuje všechny loginy s záporným naquadahem èi zápornými jednotkami<b
 		endif;
 ?>
 
-<h6>Najde všechny hráèe, kteøí mají s jiným hráèem stejné heslo</h6>
+<h6>Najde vï¿½echny hrï¿½ï¿½e, kteï¿½ï¿½ majï¿½ s jinï¿½m hrï¿½ï¿½em stejnï¿½ heslo</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
 <input type=hidden name=hledat_multaky2 value=1>
@@ -177,11 +170,11 @@ zároveò nahlašuje všechny loginy s záporným naquadahem èi zápornými jednotkami<b
 </font>
 </form>
 
-<?
+<?php
 
-		if(isset($hledat_multaky2)){
-		  echo "<br><br><font class=text_bili><b>Všichni hráèi se stejným heslem</b>:<br></font><br><br>";	
-		  $sql = "SELECT COUNT( * ) AS `pocet` , `heslo` FROM `uzivatele` GROUP BY `heslo` ORDER BY `heslo`";
+    if(isset($hledat_multaky2)){
+      echo "<br><br><font class=text_bili><b>Vï¿½ichni hrï¿½ï¿½i se stejnï¿½m heslem</b>:<br></font><br><br>";	
+      $sql = "SELECT COUNT( * ) AS `pocet` , `heslo` FROM `uzivatele` GROUP BY `heslo` ORDER BY `heslo`";
       $result = mysql_query($sql, $spojeni);
       $pocet = 0;
       while($row=mysql_fetch_array($result)){
@@ -197,67 +190,56 @@ zároveò nahlašuje všechny loginy s záporným naquadahem èi zápornými jednotkami<b
         }
       }
       if($pocet==0){
-        echo "Nebyl nalezen zádný uživatel se stejným heslem";
+        echo "Nebyl nalezen zï¿½dnï¿½ uï¿½ivatel se stejnï¿½m heslem";
       }	
 		}
 
 ?>
 
-
-
 <br>
 
-
-
-
-<h6>Nabourávání do loginu</h6>
+<h6>Nabourï¿½vï¿½nï¿½ do loginu</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
-Jméno: <input type='text' name='nabourej' size='15' value="zadat jméno">&nbsp;&nbsp;
-Vše: <input type=radio name=vse value=2 checked>&nbsp;&nbsp;
-Nezdaøené: <input type=radio name=vse value=1>
-<input type=submit value="vypiš" name="akcenab"><br>
+Jmï¿½no: <input type='text' name='nabourej' size='15' value="zadat jmï¿½no">&nbsp;&nbsp;
+Vï¿½e: <input type=radio name=vse value=2 checked>&nbsp;&nbsp;
+Nezdaï¿½enï¿½: <input type=radio name=vse value=1>
+<input type=submit value="vypiï¿½" name="akcenab"><br>
 </font>
 </form>
 </table>
 
-<?
+<?php
+if(isset($akcenab)):	
 
+    $vys1 = MySQL_Query("SELECT * FROM error where jmeno='$nabourej' and result!='$vse' order by datum ASC");
+    $zaznam2=MySQL_Fetch_Array($vys1);
 
-		if(isset($akcenab)):	
-
-		$vys1 = MySQL_Query("SELECT * FROM error where jmeno='$nabourej' and result!='$vse' order by datum ASC");
-                $zaznam2=MySQL_Fetch_Array($vys1);
-
-  echo "<center><table border=1 width=50%>";
+    echo "<center><table border=1 width=50%>";
 	echo "<tr>";
-	echo "<th colspan=1><font color=white>Jméno</th>";
+	echo "<th colspan=1><font color=white>Jmï¿½no</th>";
 	echo "<th colspan=1><font color=white>den</th>";
 	echo "<th colspan=1><font color=white>IP</th>";
 	echo "<th colspan=1><font color=white>Result</th>";
 	echo "</tr>";
 
-echo "</tr>";
+    while ($zaznam1=MySQL_Fetch_Array($vys1)) {
+        $den = Date("j.m.Y G:i:s",$zaznam1["datum"]);
 
-while ($zaznam1=MySQL_Fetch_Array($vys1)) {
-  $den = Date("j.m.Y G:i:s",$zaznam1["datum"]);
+        echo "<tr>";
+        echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
+        echo "<td><font color=white>".$den."</td>";
+        echo "<td><font color=white>".$zaznam1[ip]."</td>";
+        echo "<td><font color=white>".$zaznam1[result]."</td>";
+        echo "</tr>";
+    }
 
-echo "<tr>";
-echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
-echo "<td><font color=white>".$den."</td>";
-echo "<td><font color=white>".$zaznam1[ip]."</td>";
-echo "<td><font color=white>".$zaznam1[result]."</td>";
-echo "</tr>";
-}					
-echo "</table>";
+    echo "</table>";
 endif;
-
 
 ?>
 
-
 <br>
-
 
 <h6>Najdi IP</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
@@ -267,348 +249,312 @@ IP adresa: <input type='text' name='ipn' size='15' value="zadat ip">&nbsp;&nbsp;
 </font>
 </form>
 </table>
+<?php
 
-<?
+if(isset($akceip)):	
 
+    $vys1 = MySQL_Query("SELECT jmeno,ip FROM uzivatele where ip='$ipn' ");
 
-		if(isset($akceip)):	
-
-		$vys1 = MySQL_Query("SELECT jmeno,ip FROM uzivatele where ip='$ipn' ");
-
-  echo "<center><table border=1 width=50%>";
+    echo "<center><table border=1 width=50%>";
 	echo "<tr>";
-	echo "<th colspan=1><font color=white>Jméno</th>";
+	echo "<th colspan=1><font color=white>Jmï¿½no</th>";
 	echo "<th colspan=1><font color=white>IP</th>";
 	echo "</tr>";
 
-echo "</tr>";
+    $zaznam1=MySQL_Fetch_Array($vys1);
 
-$zaznam1=MySQL_Fetch_Array($vys1);
-
-echo "<tr>";
-echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
-echo "<td><font color=white>".$zaznam1[ip]."</td>";
-echo "</tr>";
+    echo "<tr>";
+    echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
+    echo "<td><font color=white>".$zaznam1[ip]."</td>";
+    echo "</tr>";
 					
-echo "</table>";
-
+    echo "</table>";
 endif;
-
 
 ?>
 
 <br>
 
-
-<h6>Vypíše registraèní kolonku Kdo vám o høe øekl</h6>
+<h6>Vypï¿½e registraï¿½nï¿½ kolonku Kdo vï¿½m o hï¿½e ï¿½ekl</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
 <input type=hidden name=rekl value=1>
-<input type=submit value="vypiš"><br>
-<i>(mùže trvat až nìkolik (desítek) sekund, extrémnì nároèné na db - OMEZTE UŽITÍ!)</i>
+<input type=submit value="vypiï¿½"><br>
+<i>(mï¿½ï¿½e trvat aï¿½ nï¿½kolik (desï¿½tek) sekund, extrï¿½mnï¿½ nï¿½roï¿½nï¿½ na db - OMEZTE Uï¿½ITï¿½!)</i>
 </font>
 </form>
+<?php
 
-<?
+if(isset($rekl)):
+    $vys1=MySQL_Query("SELECT jmeno,rekl FROM uzivatele where rekl!='nikdo' and rekl!=' ' order by rekl");
+    $zaznam2=MySQL_Fetch_Array($vys1);
 
-
-		if(isset($rekl)):		
-  $vys1=MySQL_Query("SELECT jmeno,rekl FROM uzivatele where rekl!='nikdo' and rekl!=' ' order by rekl");
-  $zaznam2=MySQL_Fetch_Array($vys1);
-
-  echo "<center><table border=1 width=50%>";
+    echo "<center><table border=1 width=50%>";
 	echo "<tr>";
-	echo "<th colspan=1><font color=white>Jméno</th>";
-	echo "<th colspan=1><font color=white>Øekl</th>";
+	echo "<th colspan=1><font color=white>Jmï¿½no</th>";
+	echo "<th colspan=1><font color=white>ï¿½ekl</th>";
 	echo "</tr>";
 
-echo "</tr>";
-$counter = 1;
-while ($zaznam1=MySQL_Fetch_Array($vys1)) {
-echo "<tr>";
-echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
-echo "<td><font color=white>".$zaznam1[rekl]."</td>";
-echo "</tr>";
-$counter++;
-}							
-echo "</table>";
-		endif;
+    $counter = 1;
+    while ($zaznam1=MySQL_Fetch_Array($vys1)) {
+        echo "<tr>";
+        echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
+        echo "<td><font color=white>".$zaznam1[rekl]."</td>";
+        echo "</tr>";
+        $counter++;
+    }					
+    echo "</table>";
+endif;
 
 ?>
 
-
 <br>
 
-
-<h6>Vypíše hráèe s neaktivitou delší než</h6>
+<h6>Vypï¿½e hrï¿½ï¿½e s neaktivitou delï¿½ï¿½ neï¿½</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
-<input type='text' name='smazdny' size='3' value=<?echo $smazdny;?>>dní
-<input type=submit value="vypiš"><br>
-<i>(mùže trvat až nìkolik (desítek) sekund, extrémnì nároèné na db - OMEZTE UŽITÍ!)</i>
+<input type='text' name='smazdny' size='3' value=<?echo $smazdny;?>>dnï¿½
+<input type=submit value="vypiï¿½"><br>
+<i>(mï¿½ï¿½e trvat aï¿½ nï¿½kolik (desï¿½tek) sekund, extrï¿½mnï¿½ nï¿½roï¿½nï¿½ na db - OMEZTE Uï¿½ITï¿½!)</i>
 </font>
 </form>
 </table>
-
-<?
-
-
-		if(isset($smazdny)):	
-
-
+<?php
+	if(isset($smazdny)):	
 		$d=Date("U")-86400;
 		$e=Date("U");
 		$smazdny*=86400;
 
+        $vys1 = MySQL_Query("SELECT jmeno,den,koho,cislo,rasa,zmrazeni FROM uzivatele where ( ($d-den)>$smazdny and rasa!=20 and zmrazeni<$d)");
+        $zaznam2=MySQL_Fetch_Array($vys1);
 
-		$vys1 = MySQL_Query("SELECT jmeno,den,koho,cislo,rasa,zmrazeni FROM uzivatele where ( ($d-den)>$smazdny and rasa!=20 and zmrazeni<$d)");
-                $zaznam2=MySQL_Fetch_Array($vys1);
+        echo "<center><table border=1 width=50%>";
+        echo "<tr>";
+        echo "<th colspan=1><font color=white>Jmï¿½no</th>";
+        echo "<th colspan=1><font color=white>Dnï¿½</th>";
+        echo "<th colspan=1><font color=white>Stav zmraï¿½enï¿½</th>";
+        echo "<th colspan=1><font color=white>Rasa</th>";
+        echo "<th colspan=1><font color=white>Smaï¿½</th>";
+        echo "</tr>";
 
-  echo "<center><table border=1 width=50%>";
-	echo "<tr>";
-	echo "<th colspan=1><font color=white>Jméno</th>";
-	echo "<th colspan=1><font color=white>Dní</th>";
-	echo "<th colspan=1><font color=white>Stav zmražení</th>";
-	echo "<th colspan=1><font color=white>Rasa</th>";
-	echo "<th colspan=1><font color=white>Smaž</th>";
-	echo "</tr>";
+        $counter = 1;
+        while ($zaznam1=MySQL_Fetch_Array($vys1)) {
+            $datum1=$zaznam1[den];
+            $datum2=Date("U");
+            $datum1=$datum2-$datum1;
+            $datum1=$datum1/3600;
+            $datum1=$datum1/24;
+            $datum1=Round($datum1);
 
-echo "</tr>";
-$counter = 1;
-while ($zaznam1=MySQL_Fetch_Array($vys1)) {
-
-
-   			$datum1=$zaznam1[den];
-		  	$datum2=Date("U");
-	  		$datum1=$datum2-$datum1;
-			$datum1=$datum1/3600;
-  			$datum1=$datum1/24;
-	  		$datum1=Round($datum1);
-
-echo "<tr>";
-echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
-echo "<td><font color=white>".$datum1."</td>";
-echo "<td><font color=white>".$zaznam1[zmrazeni]."</td>";
-echo "<td><font color=white>".$zaznam1[rasa]."</td>";
-echo "<td>
-<form name='form1' method='post' action='hlavni.php?page=admin6'>
-<input type='hidden' name=hracn value='".$zaznam1[jmeno]."'>
-<input type='hidden' name=smaz value='".$zaznam1[cislo]."'>
-<input type='submit' name='smaznekoho' value='Smaž'>
-</form>
-</td>";
-echo "</tr>";
-$counter++;
-}					
-echo "</table>";
-		endif;
-
+            echo "<tr>";
+            echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
+            echo "<td><font color=white>".$datum1."</td>";
+            echo "<td><font color=white>".$zaznam1[zmrazeni]."</td>";
+            echo "<td><font color=white>".$zaznam1[rasa]."</td>";
+            echo "<td>
+                <form name='form1' method='post' action='hlavni.php?page=admin6'>
+                <input type='hidden' name=hracn value='".$zaznam1[jmeno]."'>
+                <input type='hidden' name=smaz value='".$zaznam1[cislo]."'>
+                <input type='submit' name='smaznekoho' value='Smaï¿½'>
+                </form>
+                </td>";
+            echo "</tr>";
+            $counter++;
+        }
+        echo "</table>";
+    endif;
 
 ?>
 
 <br>
 
 
-<h6>Vyhledat hráèe s poškozeným obchodem planet:</h6>
+<h6>Vyhledat hrï¿½ï¿½e s poï¿½kozenï¿½m obchodem planet:</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
 <input type=hidden name=chybka value=1>
-<input type=submit value="vypiš"><br>
-<i>(mùže trvat až nìkolik (desítek) sekund, extrémnì nároèné na db - OMEZTE UŽITÍ!)</i>
+<input type=submit value="vypiï¿½"><br>
+<i>(mï¿½ï¿½e trvat aï¿½ nï¿½kolik (desï¿½tek) sekund, extrï¿½mnï¿½ nï¿½roï¿½nï¿½ na db - OMEZTE Uï¿½ITï¿½!)</i>
 </font>
 </form>
 
-<?
-
-
-		if(isset($chybka)):		
+<?php
+if(isset($chybka)):		
   $vys1=MySQL_Query("SELECT jmeno,plan_koupe,plan_prodej FROM uzivatele where plan_koupe='4' or plan_prodej='4' or plan_prodej<'0' or plan_koupe<'0' ");
   $zaznam2=MySQL_Fetch_Array($vys1);
 
   echo "<center><table border=1 width=50%>";
-	echo "<tr>";
-	echo "<th colspan=1><font color=white>Jméno</th>";
-	echo "<th colspan=1><font color=white>Stav obchodu</th>";
-	echo "<th colspan=1><font color=white>Stav obchodu2</th>";
-	echo "</tr>";
+    echo "<tr>";
+    echo "<th colspan=1><font color=white>Jmï¿½no</th>";
+    echo "<th colspan=1><font color=white>Stav obchodu</th>";
+    echo "<th colspan=1><font color=white>Stav obchodu2</th>";
+    echo "</tr>";
 
-echo "</tr>";
-$counter = 1;
-while ($zaznam1=MySQL_Fetch_Array($vys1)) {
-echo "<tr>";
-echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
-echo "<th><font color=white>".$zaznam1[plan_koupe]."</th>";
-echo "<th><font color=white>".$zaznam1[plan_prodej]."</th>";
-echo "</tr>";
-$counter++;
-}							
-echo "</table>";
-		endif;
-
+    echo "</tr>";
+    $counter = 1;
+    while ($zaznam1=MySQL_Fetch_Array($vys1)) {
+        echo "<tr>";
+        echo "<th><font color=white>".$zaznam1[jmeno]."</th>";
+        echo "<th><font color=white>".$zaznam1[plan_koupe]."</th>";
+        echo "<th><font color=white>".$zaznam1[plan_prodej]."</th>";
+        echo "</tr>";
+        $counter++;
+    }
+    echo "</table>";
+endif;
 
 ?>
 <br>
-
-
 
 <h6>Opravit prodej planet:</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
 <input type=hidden name=chybkax value=1>
 <input type=submit value="oprav"><br>
-<i>(Používat pouze po pøedchozím vyhledání)</i>
+<i>(Pouï¿½ï¿½vat pouze po pï¿½edchozï¿½m vyhledï¿½nï¿½)</i>
 </font>
 </form>
 
-<?
+<?php
 
+if(isset($chybkax)):		
+    $vys1=MySQL_Query("SELECT jmeno,plan_koupe,plan_prodej FROM uzivatele where plan_koupe='4' or plan_prodej='4' or plan_prodej<'0' or plan_koupe<'0' ");
+    $zaznam2=MySQL_Fetch_Array($vys1);
+    $opravap=2;
+    $opravak=2;
 
-		if(isset($chybkax)):		
-  $vys1=MySQL_Query("SELECT jmeno,plan_koupe,plan_prodej FROM uzivatele where plan_koupe='4' or plan_prodej='4' or plan_prodej<'0' or plan_koupe<'0' ");
-  $zaznam2=MySQL_Fetch_Array($vys1);
+    MySQL_Query("update uzivatele set plan_koupe=$opravak where plan_koupe='4' or plan_koupe<'0' ");
+    MySQL_Query("update uzivatele set plan_prodej=$opravap where plan_prodej='4' or plan_prodej<'0' ");
 
-                                $opravap=2;
-                                $opravak=2;
+endif;
 
-				MySQL_Query("update uzivatele set plan_koupe=$opravak where plan_koupe='4' or plan_koupe<'0' ");
+if(isset($kon)):
+    echo "<font color=red>Loginy se zï¿½pornï¿½m naquadahem</font><br>";
+    echo "<font class=text_bili>";
+    $znaq2 = MySQL_Query("SELECT jmeno,penize FROM uzivatele where penize<0");	
+    while($znaq = MySQL_Fetch_Array($znaq2)):
+        echo $znaq[jmeno]." mï¿½ ".fcislo($znaq[penize])." naquadahu<br>";
+    endwhile;
+    echo "</font>";
 
-				MySQL_Query("update uzivatele set plan_prodej=$opravap where plan_prodej='4' or plan_prodej<'0' ");
+    echo "<font color=red>Loginy se zï¿½pornï¿½mi jednotkami</font><br>";
+    echo "<font class=text_bili>";
+    $znaq2 = MySQL_Query("SELECT jmeno,jed1,jed2,jed3,jed4,jed5 FROM uzivatele where (jed1<0 or jed2<0 or jed3<0 or jed4<0 or jed5<0)");	
+    while($znaq = MySQL_Fetch_Array($znaq2)):
+        echo $znaq[jmeno]." mï¿½ ";
+        if($znaq[jed1]<0){echo fcislo2($znaq[jed1])." jednotek1 ";};
+        if($znaq[jed2]<0){echo fcislo2($znaq[jed2])." jednotek2 ";};
+        if($znaq[jed3]<0){echo fcislo2($znaq[jed3])." jednotek3 ";};
+        if($znaq[jed4]<0){echo fcislo2($znaq[jed4])." jednotek4 ";};
+        if($znaq[jed5]<0){echo fcislo2($znaq[jed5])." jednotek5 ";};
+        echo "<br>";
+    endwhile;
+    echo "</font>";				
 
-		endif;
+    if($naq!=""):
+        echo "<font class=text_modry>Loginy s naquadahem vï¿½tï¿½ï¿½m neï¿½ ".fcislo($naq)."</font><br>";
+        echo "<font class=text_bili>";
+        $naq2 = MySQL_Query("SELECT jmeno,penize FROM uzivatele where penize>$naq");	
+        while($naq = MySQL_Fetch_Array($naq2)):
+            echo $naq[jmeno]." mï¿½ ".fcislo($naq[penize])." naquadahu<br>";
+        endwhile;
+        echo "</font>";
+    endif;
 
+    if($pla!=""):
+        echo "<font class=text_modry>Loginy s planetemi vï¿½tï¿½ï¿½ neï¿½ $pla</font><br>";
+        echo "<font class=text_bili>";
+        $plan2 = MySQL_Query("SELECT jmeno,planety FROM uzivatele where planety>$pla");	
+        while($plan = MySQL_Fetch_Array($plan2)):
+            echo "$plan[jmeno] mï¿½ $plan[planety] planet<br>";
+        endwhile;			
+        echo "</font>";				
+    endif;			
 
+    if($sil!=""):
+        echo "<font class=text_modry>Loginy se sï¿½lou vï¿½tï¿½ï¿½ neï¿½ ".fcislo($sil)."</font><br>";
+        echo "<font class=text_bili>";
+        $sila2 = MySQL_Query("SELECT jmeno,sila FROM uzivatele where sila>$sil");	
+        while($sila = MySQL_Fetch_Array($sila2)):
+            echo "$sila[jmeno] mï¿½ sï¿½lu ".fcislo($sila[sila])."<br>";
+        endwhile;			
+        echo "</font>";				
+    endif;							
 
-		
+endif;
 
+if(isset($hlasy)):
+    $den = Date("U");
+    MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('6',$den,'vsichni','srovnï¿½nï¿½ hlasï¿½','N/A','$zaznam1[jmeno]')");
 
-		if(isset($kon)):
-			echo "<font color=red>Loginy se záporným naquadahem</font><br>";
-			echo "<font class=text_bili>";
-			$znaq2 = MySQL_Query("SELECT jmeno,penize FROM uzivatele where penize<0");	
-			while($znaq = MySQL_Fetch_Array($znaq2)):
-				echo $znaq[jmeno]." má ".fcislo($znaq[penize])." naquadahu<br>";
-			endwhile;
-			echo "</font>";
-						
-			echo "<font color=red>Loginy se zápornými jednotkami</font><br>";
-			echo "<font class=text_bili>";
-			$znaq2 = MySQL_Query("SELECT jmeno,jed1,jed2,jed3,jed4,jed5 FROM uzivatele where (jed1<0 or jed2<0 or jed3<0 or jed4<0 or jed5<0)");	
-			while($znaq = MySQL_Fetch_Array($znaq2)):
-				echo $znaq[jmeno]." má ";
-				if($znaq[jed1]<0){echo fcislo2($znaq[jed1])." jednotek1 ";};
-				if($znaq[jed2]<0){echo fcislo2($znaq[jed2])." jednotek2 ";};
-				if($znaq[jed3]<0){echo fcislo2($znaq[jed3])." jednotek3 ";};
-				if($znaq[jed4]<0){echo fcislo2($znaq[jed4])." jednotek4 ";};
-				if($znaq[jed5]<0){echo fcislo2($znaq[jed5])." jednotek5 ";};
-				echo "<br>";
-			endwhile;
-			echo "</font>";				
-		
-			if($naq!=""):
-				echo "<font class=text_modry>Loginy s naquadahem vìtším než ".fcislo($naq)."</font><br>";
-				echo "<font class=text_bili>";
-				$naq2 = MySQL_Query("SELECT jmeno,penize FROM uzivatele where penize>$naq");	
-				while($naq = MySQL_Fetch_Array($naq2)):
-					echo $naq[jmeno]." má ".fcislo($naq[penize])." naquadahu<br>";
-				endwhile;
-				echo "</font>";
-			endif;
-			
-			if($pla!=""):
-				echo "<font class=text_modry>Loginy s planetemi vìtší než $pla</font><br>";
-				echo "<font class=text_bili>";
-				$plan2 = MySQL_Query("SELECT jmeno,planety FROM uzivatele where planety>$pla");	
-				while($plan = MySQL_Fetch_Array($plan2)):
-					echo "$plan[jmeno] má $plan[planety] planet<br>";
-				endwhile;			
-				echo "</font>";				
-			endif;			
-				
-			if($sil!=""):
-				echo "<font class=text_modry>Loginy se sílou vìtší než ".fcislo($sil)."</font><br>";
-				echo "<font class=text_bili>";
-				$sila2 = MySQL_Query("SELECT jmeno,sila FROM uzivatele where sila>$sil");	
-				while($sila = MySQL_Fetch_Array($sila2)):
-					echo "$sila[jmeno] má sílu ".fcislo($sila[sila])."<br>";
-				endwhile;			
-				echo "</font>";				
-			endif;							
+    $i=1000000;
+    $vys11 = MySQL_Query("select cislo,jmeno,koho from uzivatele");
+    while($zaznam11 = MySQL_Fetch_Array($vys11)):
+        $prom="p".$zaznam11[koho];
+        $$prom++;
+    endwhile;
 
-		endif;
-		
-		if(isset($hlasy)):
-  		$den = Date("U");
-	   	MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('6',$den,'vsichni','srovnání hlasù','N/A','$zaznam1[jmeno]')");
+    $vys11 = MySQL_Query("select cislo,jmeno,koho from uzivatele");
+    while($zaznam11 = MySQL_Fetch_Array($vys11)):
+        $prom="p".$zaznam11[jmeno];
+        $kolik=0;
+        $kolik=$$prom;
+        //echo $zaznam11[jmeno]." mï¿½ hlasï¿½: ".$kolik."<br>";
+        MySQL_Query("update uzivatele set volen=$kolik where cislo=$zaznam11[cislo]");
+    endwhile;		
+endif;
 
-			$i=1000000;
-			$vys11 = MySQL_Query("select cislo,jmeno,koho from uzivatele");
-			while($zaznam11 = MySQL_Fetch_Array($vys11)):
-				$prom="p".$zaznam11[koho];
-				$$prom++;
-			endwhile;
+if(isset($stat)):
+    $den = Date("U");
+    MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('7',$den,'vsichni','srovnï¿½nï¿½ sï¿½ly','N/A','$zaznam1[jmeno]')");
 
-			$vys11 = MySQL_Query("select cislo,jmeno,koho from uzivatele");
-			while($zaznam11 = MySQL_Fetch_Array($vys11)):
-				$prom="p".$zaznam11[jmeno];
-				$kolik=0;
-				$kolik=$$prom;
-				//echo $zaznam11[jmeno]." má hlasù: ".$kolik."<br>";
-				MySQL_Query("update uzivatele set volen=$kolik where cislo=$zaznam11[cislo]");
-			endwhile;		
-		endif;
-		
-		if(isset($stat)):
-		$den = Date("U");
-		MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('7',$den,'vsichni','srovnání síly','N/A','$zaznam1[jmeno]')");
+    $j=1;
+    while($j<12):
+        $vys2 = MySQL_Query("SELECT rasa,jed1_utok,jed2_utok,jed4_utok,jed1_obrana,jed2_obrana,jed4_obrana FROM rasy where rasa='$j'");	
+        $zaznam2 = MySQL_Fetch_Array($vys2);
+        $vys11 = MySQL_Query("select cislo,jed1,jed2,jed4,jed5,narod,zrizeni from uzivatele where rasa=$j");
+        while($zaznam11 = MySQL_Fetch_Array($vys11)):
+            $kdez = $zaznam11[zrizeni];
+            $kden = $zaznam11[narod];
 
-			$j=1;
-			while($j<12):
-				$vys2 = MySQL_Query("SELECT rasa,jed1_utok,jed2_utok,jed4_utok,jed1_obrana,jed2_obrana,jed4_obrana FROM rasy where rasa='$j'");	
-				$zaznam2 = MySQL_Fetch_Array($vys2);
-				$vys11 = MySQL_Query("select cislo,jed1,jed2,jed4,jed5,narod,zrizeni from uzivatele where rasa=$j");
-				while($zaznam11 = MySQL_Fetch_Array($vys11)):
-                                $kdez = $zaznam11[zrizeni];
-                                $kden = $zaznam11[narod];
+            $xcz =  MySQL_Query("select cislo,utok,obrana from zrizeni where cislo='$kdez'");
+            $xczy = MySQL_Fetch_Array($xcz);
+            $xcn =  MySQL_Query("select cislo,utok,obrana from narody where cislo='$kden'");
+            $xcny = MySQL_Fetch_Array($xcn);
 
-                                $xcz =  MySQL_Query("select cislo,utok,obrana from zrizeni where cislo='$kdez'");
-                                $xczy = MySQL_Fetch_Array($xcz);
-                                $xcn =  MySQL_Query("select cislo,utok,obrana from narody where cislo='$kden'");
-                                $xcny = MySQL_Fetch_Array($xcn);
+            $bonusut=$xcny[utok]/100;
+            $bonusut*=$xczy[utok]/100;
 
-		$bonusut=$xcny[utok]/100;
-		$bonusut*=$xczy[utok]/100;
+            $bonusob=$xcny[obrana]/100;
+            $bonusob*=$xczy[obrana]/100;
 
-		$bonusob=$xcny[obrana]/100;
-		$bonusob*=$xczy[obrana]/100;
-
-				  $u1=0;
-					$u1=$zaznam11["jed1"]*$zaznam2["jed1_utok"]*$bonusut;
-					$u1+=$zaznam11["jed2"]*$zaznam2["jed2_utok"]*$bonusut;
-					$u1+=$zaznam11["jed4"]*$zaznam2["jed4_utok"]*$bonusut;
-					//$u1+=$zaznam11["jed5"]*$zold_utok;
-					$u1+=$zaznam11["jed1"]*$zaznam2["jed1_obrana"]*$bonusob;
-					$u1+=$zaznam11["jed2"]*$zaznam2["jed2_obrana"]*$bonusob;
-					$u1+=$zaznam11["jed4"]*$zaznam2["jed4_obrana"]*$bonusob;
-					//$u1+=$zaznam11["jed5"]*$zold_obrana;
-					MySQL_Query("update uzivatele set sila='$u1' where cislo='$zaznam11[cislo]'");
-					//echo $u1;echo"<br>";
-				endwhile;
-				$j++;
-			endwhile;		
-		endif;
-		MySQL_Close($spojeni);
+            $u1=0;
+            $u1=$zaznam11["jed1"]*$zaznam2["jed1_utok"]*$bonusut;
+            $u1+=$zaznam11["jed2"]*$zaznam2["jed2_utok"]*$bonusut;
+            $u1+=$zaznam11["jed4"]*$zaznam2["jed4_utok"]*$bonusut;
+            //$u1+=$zaznam11["jed5"]*$zold_utok;
+            $u1+=$zaznam11["jed1"]*$zaznam2["jed1_obrana"]*$bonusob;
+            $u1+=$zaznam11["jed2"]*$zaznam2["jed2_obrana"]*$bonusob;
+            $u1+=$zaznam11["jed4"]*$zaznam2["jed4_obrana"]*$bonusob;
+            //$u1+=$zaznam11["jed5"]*$zold_obrana;
+            MySQL_Query("update uzivatele set sila='$u1' where cislo='$zaznam11[cislo]'");
+            //echo $u1;echo"<br>";
+        endwhile;
+        $j++;
+    endwhile;		
+endif;
+MySQL_Close($spojeni);
 ?>
 <h6>Hlasy</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
-Srovnání hlasù <input type=hidden name=hlasy value=1>
+Srovnï¿½nï¿½ hlasï¿½ <input type=hidden name=hlasy value=1>
 <input type=submit value="srovnej"></font>
 </form>
 
-<h6>Síla</h6>
+<h6>Sï¿½la</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin6'>
 <font class=text_bili>
-Srovnání síly <input type=hidden name=stat value=1>
+Srovnï¿½nï¿½ sï¿½ly <input type=hidden name=stat value=1>
 <input type=submit value="srovnej"></font>
 </form>
-

@@ -1,12 +1,12 @@
-<?
+<?php
 require"ad1234.php";
-mysql_query("SET NAMES cp1250");
+//mysql_query("SET NAMES cp1250");
 // if(!(($zaznam1["heslo"]==$logheslo)and($zaznam1["jmeno"]==$logjmeno)and($zaznam1["cislo"]==$logcislo)and($zaznam1["heslo2"]==$aheslo)))
 // {echo "<script languague='JavaScript'>location.href='neprihlas.htm'</script>"; exit;};
 
 $zmraz=$zaznam1[hra];
 
-// if( $zaznam1[admin]!=1 AND $zaznam1[admin]!=2 AND $zaznam1[admin]!=3 AND $zaznam1[admin]!=4){echo "<h1>Nejste admin proto nemáte pøístup k admin rozhraní.</h1>";exit;};
+// if( $zaznam1[admin]!=1 AND $zaznam1[admin]!=2 AND $zaznam1[admin]!=3 AND $zaznam1[admin]!=4){echo "<h1>Nejste admin proto nemï¿½te pï¿½ï¿½stup k admin rozhranï¿½.</h1>";exit;};
 
 if($page=="admin17"){
 
@@ -24,8 +24,8 @@ if($page=="admin17"){
 
 if($d_day<'2'){
 
-echo "<br /><br /><span class='text_cerveny'>Probíhá vìk. Restart nelze provést døíve než po 30 dnech.</span><br />
-<span class='text_cerveny'>Poslední restart pøed ".$d_day." dny! </span><br /><br />";exit;
+echo "<br /><br /><span class='text_cerveny'>Probï¿½hï¿½ vï¿½k. Restart nelze provï¿½st dï¿½ï¿½ve neï¿½ po 30 dnech.</span><br />
+<span class='text_cerveny'>Poslednï¿½ restart pï¿½ed ".$d_day." dny! </span><br /><br />";exit;
 
 		 }
 			}
@@ -38,7 +38,7 @@ MySQL_Query("update uzivatele set hra=0 where cislo = '$logcilo'");
 
 if($zmraz==1):
 	$cas = Date("h:i:s j.m.Y",$zaznam1[zmrazeni]);
-	echo "<center><h1>Tento login je zmrazen az do ".$cas.". Pokud je login zmrazen, tak s ním nelze nic dìlat, ale ani na nìj nejde útoèit.</h1></center>";
+	echo "<center><h1>Tento login je zmrazen az do ".$cas.". Pokud je login zmrazen, tak s nï¿½m nelze nic dï¿½lat, ale ani na nï¿½j nejde ï¿½toï¿½it.</h1></center>";
 	exit;
 endif;
 
@@ -46,15 +46,12 @@ $T=Date("U");
 MySQL_Query("update online set posl=$T where jmeno = '$logjmeno'");
 
 
-//deklarace žoldákù
+//deklarace ï¿½oldï¿½kï¿½
 
 $zold_utok=8;
 $zold_obrana=8;
 $zold_cena=100;
-$zold_nazev="Elitní bojovník";
+$zold_nazev="Elitnï¿½ bojovnï¿½k";
 $zold_mist=0;
 $max_sila=10000000;
-$zold_text="Tito nejlepší bojovníci bývalých majitelù jsou zocelení mìsíci tréninku. Bývalí majitelé je prodali, ale jim to až zas tak nevadí, bojují za toho kdo dá víc. A že bojují dobøe! Jsou považováni za nejlepší vojáky galaxie! Poradí s èímkoliv, berou výzbroj, výstroj i stroje nepøátel i svých majitelù! Zacházej s nimi opatrnì.";
-
-
-?>
+$zold_text="Tito nejlepï¿½ï¿½ bojovnï¿½ci bï¿½valï¿½ch majitelï¿½ jsou zocelenï¿½ mï¿½sï¿½ci trï¿½ninku. Bï¿½valï¿½ majitelï¿½ je prodali, ale jim to aï¿½ zas tak nevadï¿½, bojujï¿½ za toho kdo dï¿½ vï¿½c. A ï¿½e bojujï¿½ dobï¿½e! Jsou povaï¿½ovï¿½ni za nejlepï¿½ï¿½ vojï¿½ky galaxie! Poradï¿½ s ï¿½ï¿½mkoliv, berou vï¿½zbroj, vï¿½stroj i stroje nepï¿½ï¿½tel i svï¿½ch majitelï¿½! Zachï¿½zej s nimi opatrnï¿½.";

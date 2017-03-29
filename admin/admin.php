@@ -1,9 +1,9 @@
-<?
+<?php
 
 require "data_1.php";
-require"ad1234.php";
+require "ad1234.php";
 
-mysql_query("SET NAMES cp1250");
+//mysql_query("SET NAMES cp1250");
 	$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,admin FROM uzivatele where cislo = '$logcislo'");	
 	$zaznam1 = MySQL_Fetch_Array($vys1);	
 	$info=1;
@@ -11,7 +11,7 @@ mysql_query("SET NAMES cp1250");
 	$ip = $REMOTE_ADDR;
 
 	require("kontrola.php");
-if( /*($zaznam1[admin]!=1 or $zaznam1[admin]!=2 or $zaznam1[admin]!=3 or $zaznam1[admin]!=4) and*/ $zaznam1[jmeno]!='prx' and $zaznam1[jmeno]!='puchy2' and $zaznam1[jmeno]!='sutech' and $zaznam1[jmeno]!='Raynoer' and $zaznam1[jmeno]!='Rada' and $zaznam1[jmeno]!='BenO' and $zaznam1[jmeno]!='marse4' and $zaznam1[jmeno]!='ETNyx' and $zaznam1[jmeno]!='Rusty' and $zaznam1[jmeno]!='Anubis' and $zaznam1[jmeno]!='Pyrotechnik' and $zaznam1[jmeno]!='Martinus' and $zaznam1[jmeno]!='Big Lebowsky' and $zaznam1[jmeno]!='zipakn' and $zaznam1[jmeno] != 'Eleatee' AND $zaznam1[jmeno]!='Mario' AND $zaznam1[jmeno]!='Kr.Pa.' AND $zaznam1[jmeno]!='RoobyJ'){echo "<h1>Nejste admin proto nemáte pøístup do admin rozhraní.</h1>";exit;};
+if( /*($zaznam1[admin]!=1 or $zaznam1[admin]!=2 or $zaznam1[admin]!=3 or $zaznam1[admin]!=4) and*/ $zaznam1[jmeno]!='prx' and $zaznam1[jmeno]!='puchy2' and $zaznam1[jmeno]!='sutech' and $zaznam1[jmeno]!='Raynoer' and $zaznam1[jmeno]!='Rada' and $zaznam1[jmeno]!='BenO' and $zaznam1[jmeno]!='marse4' and $zaznam1[jmeno]!='ETNyx' and $zaznam1[jmeno]!='Rusty' and $zaznam1[jmeno]!='Anubis' and $zaznam1[jmeno]!='Pyrotechnik' and $zaznam1[jmeno]!='Martinus' and $zaznam1[jmeno]!='Big Lebowsky' and $zaznam1[jmeno]!='zipakn' and $zaznam1[jmeno] != 'Eleatee' AND $zaznam1[jmeno]!='Mario' AND $zaznam1[jmeno]!='Kr.Pa.' AND $zaznam1[jmeno]!='RoobyJ'){echo "<h1>Nejste admin proto nemï¿½te pï¿½ï¿½stup do admin rozhranï¿½.</h1>";exit;};
 
 
 
@@ -23,7 +23,7 @@ if( /*($zaznam1[admin]!=1 or $zaznam1[admin]!=2 or $zaznam1[admin]!=3 or $zaznam
 			MySQL_Query("update uzivatele set heslo2='$aheslo' where cislo = '$logcislo'");	
 			echo "<script languague='JavaScript'>location.href='admin/hlavni.php?page=admin1'</script>";		
 		else:
-			echo "<h1>špatné heslo</h1>";
+			echo "<h1>ï¿½patnï¿½ heslo</h1>";
 		endif;
 	endif;
 	$d=Date("U");
@@ -58,7 +58,7 @@ include"admin_prihl_zab.php";
 	 <td><input type="password" name="heslo3" value="<?echo $heslomoje3;?>" size=30></td>
 	</tr>	
 	<tr>
-	 <td colspan=2 align="center"><input type="submit" value="Proveï"><td>
+	 <td colspan=2 align="center"><input type="submit" value="Proveï¿½"><td>
 	</tr>
  </table>
 </form>

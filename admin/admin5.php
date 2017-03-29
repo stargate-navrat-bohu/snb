@@ -1,19 +1,17 @@
-<?
-mysql_query("SET NAMES cp1250");
+<?php
+//mysql_query("SET NAMES cp1250");
 echo Date("d.m.Y G:i","1182021569");
-	$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,koho FROM uzivatele where cislo = '$logcislo'");	
-	$zaznam1 = MySQL_Fetch_Array($vys1);	
-	
-	require("adkontrola.php");
+$vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,koho FROM uzivatele where cislo = '$logcislo'");	
+$zaznam1 = MySQL_Fetch_Array($vys1);	
 
-  if(isset($_POST["clean"]) AND $_POST["clean"]=="ano"){
+require("adkontrola.php");
 
+if(isset($_POST["clean"]) AND $_POST["clean"]=="ano"){
     $ted =  Date("U");
     $kdy = $ted - 345600;
     $sql = "UPDATE `uzivatele` SET `rasa` = '98', `koho` = 'Neplatne' WHERE (planety = 1 OR planety = 0) AND den < $kdy AND rasa != 98 AND zmrazeni = 0 AND admin = 0";
     $sql_proc = mysql_query($sql) or die("chyba");
-
-  }
+}
 	
 	if(isset($smaz)):
 		@$zk = MySQL_Query("SELECT * FROM forum where den = $smaz");
@@ -101,9 +99,9 @@ echo Date("d.m.Y G:i","1182021569");
 <font class=text_bili>
 
 <form method='post' action='hlavni.php?page=admin5'>
-  Vyhodí 5 dní neaktivní hraèe s 1 planetou
+  Vyhodï¿½ 5 dnï¿½ neaktivnï¿½ hraï¿½e s 1 planetou
   <input type='hidden' name='clean' value='ano'>
-  <input type='submit' value='Vyèisti rasy'>
+  <input type='submit' value='Vyï¿½isti rasy'>
 </form><br /><br /><br />
 
 <form name='form1' method='post' action='hlavni.php?page=admin5'>
@@ -132,14 +130,14 @@ endwhile;
 		$politika1 = MySQL_Query("SELECT * FROM politika where rasa = $rasa");
 		$politika = MySQL_Fetch_Array($politika1);			
 			
-		echo "<h6>Rasová armáda</h6>";
+		echo "<h6>Rasovï¿½ armï¿½da</h6>";
 		echo "<form action='hlavni.php?page=admin5' method='post'>";
 		echo "<TABLE ".$table." ".$border.">";
 		echo "<tr>";
-		echo "<th>název</th>";
-		echo "<th>útok/obrana</th>";
-		echo "<th>je v armádì</th>";
-		echo "<th>nový stav</th>";
+		echo "<th>nï¿½zev</th>";
+		echo "<th>ï¿½tok/obrana</th>";
+		echo "<th>je v armï¿½dï¿½</th>";
+		echo "<th>novï¿½ stav</th>";
 		echo "</tr>";
 		echo "<tr>";
 		echo "<td class=text_modry>".$ra["jed1_nazev"]."</td>";		
@@ -179,19 +177,19 @@ endwhile;
 		echo "<input type='hidden' name='jed3_puv' value='$rs[jed3]'>";
 		echo "<input type='hidden' name='jed4_puv' value='$rs[jed4]'>";
 		echo "<input type='hidden' name='jed5_puv' value='$rs[jed5]'>";				
-		echo "<input type='submit' value='zmìò'>";
+		echo "<input type='submit' value='zmï¿½ï¿½'>";
 		echo "</form>";
 		echo "<h6>Referendum</h6>";
-	echo "<h6><font class=text_modry>N</font>árodní referendum.</h6><font class='text_bili'>";
-	echo "Otázka zní: <font class=text_modry>".$ref[otazka]."</font><br>";
-	echo "Zatím odpovìdìlo: <font class=text_modry>";
+	echo "<h6><font class=text_modry>N</font>ï¿½rodnï¿½ referendum.</h6><font class='text_bili'>";
+	echo "Otï¿½zka znï¿½: <font class=text_modry>".$ref[otazka]."</font><br>";
+	echo "Zatï¿½m odpovï¿½dï¿½lo: <font class=text_modry>";
 	echo $poc1+$poc2+$poc3 . " / " . $hhh;
 	if ($hhh!=0) {echo " (". Round(($poc1+$poc2+$poc3)/$hhh*100) ."%)</font>";};
-	echo "<br>Pro <font class=text_modry>" .$ref[odpoved1]. "</font> zatím hlasovalo: <font class=text_modry>" .$poc1. " ";
+	echo "<br>Pro <font class=text_modry>" .$ref[odpoved1]. "</font> zatï¿½m hlasovalo: <font class=text_modry>" .$poc1. " ";
 	if (($poc1+$poc25+$poc3)!=0) echo " (". Round($poc1/($poc1+$poc2+$poc3)*100) ."%)<br>";
-	echo "</font>Pro <font class=text_modry>".$ref[odpoved2]."</font> zatím hlasovalo: <font class=text_modry>".$poc2." ";
+	echo "</font>Pro <font class=text_modry>".$ref[odpoved2]."</font> zatï¿½m hlasovalo: <font class=text_modry>".$poc2." ";
 	if (($poc1+$poc2+$poc3)!=0) echo " (". Round($poc2/($poc1+$poc2+$poc3)*100) ."%)<br>";
-	echo "</font>Pro <font class=text_modry>".$ref[odpoved3]."</font> zatím hlasovalo: <font class=text_modry>".$poc3." ";
+	echo "</font>Pro <font class=text_modry>".$ref[odpoved3]."</font> zatï¿½m hlasovalo: <font class=text_modry>".$poc3." ";
 	if (($poc1+$poc2+$poc3)!=0) echo " (". Round($poc3/($poc1+$poc2+$poc3)*100) ."%)";
 	echo "</font>";
 	if($zaznam55[refn]<"1"){
@@ -201,17 +199,17 @@ endwhile;
 	}else{
 	echo "<br>Vy jste hlasoval pro: <font class=text_modry>"; if($zaznam55[refn]=="1"){echo "".$ref[odpoved1]."";}elseif($zaznam55[refn]=="2"){echo "".$ref[odpoved2]."";}elseif($zaznam55[refn]=="3"){echo "".$ref[odpoved3]."";}echo "</font><br>";
 	}
-	echo "Výsledek minulého referenda: <font class=text_modry>".stripslashes($ref[vysledek])."</font></font>";
+	echo "Vï¿½sledek minulï¿½ho referenda: <font class=text_modry>".stripslashes($ref[vysledek])."</font></font>";
 		
 		echo "<h6>Fond</h6>";
 		echo "Ve fondu je: <font class=text_modry>".number_format($vu[fond],0,0," ")."</font><br>";
 
-		echo "<h6>Tabulka hlasù</h6>";
+		echo "<h6>Tabulka hlasï¿½</h6>";
 		echo "<table border='1'>";
 		echo "<tr>";
-		echo "<td>poøadí</td>";
-		echo "<td>jméno</td>";
-		echo "<td>hlasù</td>";
+		echo "<td>poï¿½adï¿½</td>";
+		echo "<td>jmï¿½no</td>";
+		echo "<td>hlasï¿½</td>";
 		echo "</tr>";
 
 		$vys1 = MySQL_Query("SELECT jmeno,volen,status,cislo FROM uzivatele where (rasa = $rasa and status!=5) ORDER BY volen DESC");
@@ -246,48 +244,48 @@ endwhile;
 ?>
 <form name='form' method='post' action='hlavni.php?page=admin5'>
 <?
-echo "<br><h6><font class=text_modry>Ch</font>ování rasy</h6>";
+echo "<br><h6><font class=text_modry>Ch</font>ovï¿½nï¿½ rasy</h6>";
 
 $s1=$s2=$s3=0;
 switch($politika[status]){
 		case 1:	$s1="checked";
-			$co="dobré";
-			$pm="+10% obrana,+10% spokojenost,+5%výzkum,+25% cena tìžební budovy";
+			$co="dobrï¿½";
+			$pm="+10% obrana,+10% spokojenost,+5%vï¿½zkum,+25% cena tï¿½ebnï¿½ budovy";
 			break;
 		case 2:	$s2="checked";
-			$co="neutrální";
-			$pm="nic dobrého ani zlého";
+			$co="neutrï¿½lnï¿½";
+			$pm="nic dobrï¿½ho ani zlï¿½ho";
 			break;
 		case 3:	$s3="checked";
-			$co="zlé";
-			$pm="+15% útok,-40% cena 3.jednotky,-15 spokojenost,-10% denní tìžby";
+			$co="zlï¿½";
+			$pm="+15% ï¿½tok,-40% cena 3.jednotky,-15 spokojenost,-10% dennï¿½ tï¿½by";
 			break;
 		}
 
-		echo "<font class=text_bili><input type=radio name=stat value=1 ".$s1."> Dobrý ";
-		echo "<input type=radio name=stat value=2 ".$s2."> Neutrál ";
-		echo "<input type=radio name=stat value=3 ".$s3."> Zlý ";
+		echo "<font class=text_bili><input type=radio name=stat value=1 ".$s1."> Dobrï¿½ ";
+		echo "<input type=radio name=stat value=2 ".$s2."> Neutrï¿½l ";
+		echo "<input type=radio name=stat value=3 ".$s3."> Zlï¿½ ";
 		echo "<input type=hidden name=rasa value='$rasa'>";;
-		echo "<br><input type=submit value='Zmìò'></font>";
+		echo "<br><input type=submit value='Zmï¿½ï¿½'></font>";
 /*
 ?>
 </form>
 
 <TABLE <? echo $table." ".$border; ?> align=center>
 <tr>
-<th colspan=2>Chování</th>
+<th colspan=2>Chovï¿½nï¿½</th>
 </tr>
 <tr>
-<td class=text_modry>Dobrý</td>
-<td>+10% obrana,+10% spokojenost,+5%výzkum,+25% cena tìžební budovy</td>
+<td class=text_modry>Dobrï¿½</td>
+<td>+10% obrana,+10% spokojenost,+5%vï¿½zkum,+25% cena tï¿½ebnï¿½ budovy</td>
 </tr>
 <tr>
-<td class=text_modry>Neutrál</td>
-<td>nic dobrého ani zlého</td>
+<td class=text_modry>Neutrï¿½l</td>
+<td>nic dobrï¿½ho ani zlï¿½ho</td>
 </tr>
 <tr>
-<td class=text_modry>Zlý</td>
-<td>+15% útok,-40% cena 3.jednotky,-15 spokojenost,-10% denní tìžby</td>
+<td class=text_modry>Zlï¿½</td>
+<td>+15% ï¿½tok,-40% cena 3.jednotky,-15 spokojenost,-10% dennï¿½ tï¿½by</td>
 </tr>
 </table>
 </center>

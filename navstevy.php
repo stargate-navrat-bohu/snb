@@ -1,5 +1,5 @@
 <?php
-mysql_query("SET NAMES cp1250");
+//mysql_query("SET NAMES cp1250");
 require "data_1.php";
 
 $kolikv=4;
@@ -29,23 +29,23 @@ $kolikv=4;
 		$sek-=$m*60;
 		$sek-=$s;
 		$a=$h-$chci;
-		if(a>0){$a-=24;};
+		if($a>0){$a-=24;};
 		$sek-=$a*3600;
 	 	$datum = Date("H:i:s j.m.Y",$sek);		
 	
 		$vys7 = MySQL_Query("SELECT cislo,posl FROM uzivatele where (posl-$sek)>0");
 		$dnes = mysql_num_rows($vys7);		
 	//noresize=noresize
-$vaseipst = $REMOTE_ADDR;
+$vaseipst = $_SERVER['REMOTE_ADDR'];
 
 ?>
 
 <span>Celkem hráčů:</span>&nbsp;
-<?echo $hhh;?></span>&nbsp;&nbsp;
+<?= $hhh;?></span>&nbsp;&nbsp;
 
 
 <span>On Line hráčů:</span>&nbsp;
-<?echo $o;?></span>&nbsp;&nbsp;
+<?= $o;?></span>&nbsp;&nbsp;
 
 <span>Dnes hráčů:</span>&nbsp;
-<span><?echo $dnes;?></span>
+<span><?= $dnes;?></span>

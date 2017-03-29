@@ -1,12 +1,12 @@
 <?php
 require"ad1234.php";
-mysql_query("SET NAMES cp1250");
+//mysql_query("SET NAMES cp1250");
 if(!(($zaznam1["heslo"]==$logheslo)and($zaznam1["jmeno"]==$logjmeno)and($zaznam1["cislo"]==$logcislo)and($zaznam1["heslo2"]==$aheslo)))
 {echo "<script languague='JavaScript'>location.href='neprihlas.htm'</script>"; exit;};
 
 $zmraz=$zaznam1[hra];
 
-if(/*($zaznam1[admin]!=1 or $zaznam1[admin]!=2 or $zaznam1[admin]!=3 or $zaznam1[admin]!=4) and */$zaznam1[jmeno]!='prx' and $zaznam1[jmeno]!='sutech' and $zaznam1[jmeno]!='Raynoer' and $zaznam1[jmeno]!='Rada' and $zaznam1[jmeno]!='BenO' and $zaznam1[jmeno]!='marse4' and $zaznam1[jmeno]!='ETNyx' and $zaznam1[jmeno]!='Rusty' and $zaznam1[jmeno]!='Anubis' and $zaznam1[jmeno]!='ACE1' and $zaznam1[jmeno]!='Pyrotechnik' and $zaznam1[jmeno]!='Martinus' and $zaznam1[jmeno]!='zipakn' AND $zaznam1[jmeno]!='Mario' AND $zaznam1[jmeno]!='Kr.Pa.'){echo "<h1>Nejste admin proto nemáte pøístup k admin rozhraní.</h1>";exit;};
+if(/*($zaznam1[admin]!=1 or $zaznam1[admin]!=2 or $zaznam1[admin]!=3 or $zaznam1[admin]!=4) and */$zaznam1[jmeno]!='prx' and $zaznam1[jmeno]!='sutech' and $zaznam1[jmeno]!='Raynoer' and $zaznam1[jmeno]!='Rada' and $zaznam1[jmeno]!='BenO' and $zaznam1[jmeno]!='marse4' and $zaznam1[jmeno]!='ETNyx' and $zaznam1[jmeno]!='Rusty' and $zaznam1[jmeno]!='Anubis' and $zaznam1[jmeno]!='ACE1' and $zaznam1[jmeno]!='Pyrotechnik' and $zaznam1[jmeno]!='Martinus' and $zaznam1[jmeno]!='zipakn' AND $zaznam1[jmeno]!='Mario' AND $zaznam1[jmeno]!='Kr.Pa.'){echo "<h1>Nejste admin proto nemÃ¡te pÅ™Ã­stup k admin rozhranÃ­.</h1>";exit;};
 
 if($page=="admin17"){
 
@@ -26,8 +26,8 @@ if($d_day<'15'){
 
 include"admin_menu.php";
 
-echo "<br /><br /><span class='text_cerveny'>Probíhá vìk. Restart nelze provést døíve ne po 30 dnech.</span><br />
-<span class='text_cerveny'>Poslední restart pøed ".$d_day." dny! </span><br /><br />";exit;
+echo "<br /><br /><span class='text_cerveny'>ProbÃ­hÃ¡ vÄ›k. Restart nelze provÃ©st dÅ™Ã­ve neÅ¾ po 30 dnech.</span><br />
+<span class='text_cerveny'>PoslednÃ­ restart pÅ™ed ".$d_day." dny! </span><br /><br />";exit;
 
 		 }
 			}
@@ -40,7 +40,7 @@ MySQL_Query("update uzivatele set hra=0 where cislo = '$logcilo'");
 
 if($zmraz==1):
 	$cas = Date("h:i:s j.m.Y",$zaznam1[zmrazeni]);
-	echo "<center><h1>Tento login je zmrazen az do ".$cas.". Pokud je login zmrazen, tak s ním nelze nic dìlat, ale ani na nìj nejde útoèit.</h1></center>";
+	echo "<center><h1>Tento login je zmrazen az do ".$cas.". Pokud je login zmrazen, tak s nÃ­m nelze nic dÄ›lat, ale ani na nÄ›j nejde ÃºtoÄit.</h1></center>";
 	exit;
 endif;
 
@@ -48,15 +48,15 @@ $T=Date("U");
 MySQL_Query("update online set posl=$T where jmeno = '$logjmeno'");
 
 
-//deklarace oldákù
+//deklarace Å¾oldÃ¡kÅ¯
 
 $zold_utok=8;
 $zold_obrana=8;
 $zold_cena=100;
-$zold_nazev="Elitní bojovník";
+$zold_nazev="ElitnÃ­ bojovnÃ­k";
 $zold_mist=0;
 $max_sila=10000000;
-$zold_text="Tito nejlepší bojovníci bıvalıch majitelù jsou zocelení mìsíci tréninku. Bıvalí majitelé je prodali, ale jim to a zas tak nevadí, bojují za toho kdo dá víc. A e bojují dobøe! Jsou povaováni za nejlepší vojáky galaxie! Poradí s èímkoliv, berou vızbroj, vıstroj i stroje nepøátel i svıch majitelù! Zacházej s nimi opatrnì.";
+$zold_text="Tito nejlepÅ¡Ã­ bojovnÃ­ci bÃ½valÃ½ch majitelÅ¯ jsou zocelenÃ­ mÄ›sÃ­ci trÃ©ninku. BÃ½valÃ­ majitelÃ© je prodali, ale jim to aÅ¾ zas tak nevadÃ­, bojujÃ­ za toho kdo dÃ¡ vÃ­c. A Å¾e bojujÃ­ dobÅ™e! Jsou povaÅ¾ovÃ¡ni za nejlepÅ¡Ã­ vojÃ¡ky galaxie! PoradÃ­ s ÄÃ­mkoliv, berou vÃ½zbroj, vÃ½stroj i stroje nepÅ™Ã¡tel i svÃ½ch majitelÅ¯! ZachÃ¡zej s nimi opatrnÄ›.";
 
 include"admin_menu.php";
 

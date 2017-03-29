@@ -1,23 +1,20 @@
-<?
-	
-
-	require("adkontrola.php");
-mysql_query("SET NAMES cp1250");
-	$vys1 = MySQL_Query("SELECT jmeno,rasa,heslo,cislo FROM uzivatele where cislo = '$logcislo'");	
-	$zaznam1 = MySQL_Fetch_Array($vys1);
-
+<?php
+require("adkontrola.php");
+//mysql_query("SET NAMES cp1250");
+$vys1 = MySQL_Query("SELECT jmeno,rasa,heslo,cislo FROM uzivatele where cislo = '$logcislo'");	
+$zaznam1 = MySQL_Fetch_Array($vys1);
 ?>
 
 
 <font class=text_bili>
 <form name='form' method='post' action='hlavni.php?page=admin1'>
 <input type='text' name="hracn" value="<?echo $hracn?>">
-<input type='submit' value="najdi hráèe">
+<input type='submit' value="najdi hrï¿½ï¿½e">
 </form>
 
 <form name='form' method='post' action='hlavni.php?page=admin1'>
 <input type='text' name="posta" value="<?echo $posta?>">
-<input type='submit' value="pošta   hráèe">
+<input type='submit' value="poï¿½ta   hrï¿½ï¿½e">
 </form>
 
 <form name='form' method='post' action='hlavni.php?page=admin1'>
@@ -36,16 +33,16 @@ mysql_query("SET NAMES cp1250");
 				$vys41 = MySQL_Query("SELECT * FROM rasy where rasa = '$prasa'");	
       	$zaznam41 = MySQL_Fetch_Array($vys41);
       MySQL_Query("UPDATE uzivatele SET rasa='$prasa', jed1=0, jed2=0, jed3=0, jed4=0, jed5=0, jed6=0, jed7=0, sila=0, penize=0 where jmeno='$hracn'"); /* presun do jine rasy - provedeni*/
-			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('4',$den,'$hracn','pøesun hráèe','$zaznam41[nazevrasy]','$zaznam1[jmeno]')");
+			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('4',$den,'$hracn','pï¿½esun hrï¿½ï¿½e','$zaznam41[nazevrasy]','$zaznam1[jmeno]')");
 			}
 
 		if(isset($smaz)):
 		//echo "aaaaaa $hracn";
 		  	$den = Date("U");
 			$jmeno="$zaznam1[jmeno]";
-			$rasa="Bohové";
-			$text="Hráè $hracn byl smazán";
-			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,admin) VALUES ('2','$den','$hracn','smazání hráèe','$zaznam1[jmeno]')");
+			$rasa="Bohovï¿½";
+			$text="Hrï¿½ï¿½ $hracn byl smazï¿½n";
+			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,admin) VALUES ('2','$den','$hracn','smazï¿½nï¿½ hrï¿½ï¿½e','$zaznam1[jmeno]')");
 			
 			$text=HTMLSpecialChars($text);
 			$text=NL2BR($text);
@@ -60,8 +57,8 @@ mysql_query("SET NAMES cp1250");
       $v1 = MySQL_Query("SELECT jmeno,cislo,koho,email FROM uzivatele where cislo = '$smaz'");	
 			$z1 = MySQL_Fetch_Array($v1);				
 			$email=$z1[email];echo $email;
-			$zprava="Toto je informaèní zpráva ze hry stargate (http://sg-nb.cz). Jelikož jste porušil pravidla hry, tak byl váš profil $hracn smazán.";
-			mail ($email,"Informaèní zpráva ze hry SG-NB",$zprava);
+			$zprava="Toto je informaï¿½nï¿½ zprï¿½va ze hry stargate (http://sg-nb.cz). Jelikoï¿½ jste poruï¿½il pravidla hry, tak byl vï¿½ profil $hracn smazï¿½n.";
+			mail ($email,"Informaï¿½nï¿½ zprï¿½va ze hry SG-NB",$zprava);
 			//exit;			
 			if($z1[koho]!=$hracn):
 				$kdo=$z1[koho];
@@ -111,7 +108,7 @@ mysql_query("SET NAMES cp1250");
 		    };	*/
 			// Odstraneni hlasovani v referendech - end
 
-			echo "<h1>Smazáno</h1><BR>".$text."";exit;
+			echo "<h1>Smazï¿½no</h1><BR>".$text."";exit;
 		endif;	
 
 
@@ -120,8 +117,8 @@ mysql_query("SET NAMES cp1250");
 		if(isset($smazp)):
 		  	$den = Date("U");
 			$jmeno="$zaznam1[jmeno]";
-			$rasa="Bohové";
-			$text="Hráèi $hracn byla jako trest smazána planeta $smazpj";
+			$rasa="Bohovï¿½";
+			$text="Hrï¿½ï¿½i $hracn byla jako trest smazï¿½na planeta $smazpj";
 			$text=HTMLSpecialChars($text);
 			$text=NL2BR($text);
 			$text=AddSlashes($text);
@@ -131,7 +128,7 @@ mysql_query("SET NAMES cp1250");
 				MySQL_Query ("INSERT INTO forum VALUES('0','$den','$jmeno','$rasa','$text','$kde','$stat','$titulek','$pohlavi','$stat_2','$rasa', '$logcislo')");
       
       MySQL_Query("delete FROM planety where cislo='$smazp'");
-			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('5','$den','$hracn','smazání planety','$smazpj','$zaznam1[jmeno]')");							
+			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('5','$den','$hracn','smazï¿½nï¿½ planety','$smazpj','$zaznam1[jmeno]')");							
 		endif;
 
 
@@ -153,7 +150,7 @@ mysql_query("SET NAMES cp1250");
 			while($hrac2 = MySQL_Fetch_Array($vys2)):
 				if($hrac2["jmeno"]==$hracn){$dobre=1;break;};		
 			endwhile;
-			if($dobre!=1){echo "<h1>Neexistující login</h1>";exit;};
+			if($dobre!=1){echo "<h1>Neexistujï¿½cï¿½ login</h1>";exit;};
 			$kontrola1 = MySQL_Query("SELECT cislo,jmeno FROM uzivatele where jmeno = '$hracn'");
 			do{
 				$dobre2=1;
@@ -162,7 +159,7 @@ mysql_query("SET NAMES cp1250");
 			}while($dobre2);
 			
 			echo "<form name='form' method='post' action='hlavni.php?page=admin1'>";
-			echo "<br><input type='submit' name=action value='smaž tohoto hráèe'>";
+			echo "<br><input type='submit' name=action value='smaï¿½ tohoto hrï¿½ï¿½e'>";
 			echo "<input type='hidden' name=hracn value='".$hracn."'>";
 			echo "<input type='hidden' name=smaz value='".$cislo."'></form>";
 
@@ -174,7 +171,7 @@ mysql_query("SET NAMES cp1250");
 ?>
 <tr>
 <td>
-<h6><font class=text_modry>P</font>øesun hráèe k jiné rase:</h6>
+<h6><font class=text_modry>P</font>ï¿½esun hrï¿½ï¿½e k jinï¿½ rase:</h6>
 <form name="form" method="post" action="hlavni.php?page=admin1&hracn=$hrac[jmeno]">
 <input type='hidden' name="hracn" value="<?echo $hracn?>">
 <input type='hidden' name="prasa" value="<?echo $hracn?>">
@@ -190,7 +187,7 @@ endwhile;
 ?>
 </select>
 
-<input type="submit" value="pøesuò">
+<input type="submit" value="pï¿½esuï¿½">
 </form>
 </td>
 <td>
@@ -229,19 +226,19 @@ switch($zaznam1["rasa"]){
 
 			$vyroba=$hrac[prijem];
 
-if($hrac[admin]==1){$funkce="administrátor";}
+if($hrac[admin]==1){$funkce="administrï¿½tor";}
 
 			
-			if($hrac[icq]==""){$icq="nezadáno";}
+			if($hrac[icq]==""){$icq="nezadï¿½no";}
 			elseif($hrac[zobrd]==0 or $hrac[zobrd]==2){$icq="vypnuto";}
 			else{$icq=$hrac[icq];}
 		
 			switch ($hrac["status"]){
 			case 1:
-				$status="vùdce";
+				$status="vï¿½dce";
 				break;
 			case 2:
-				$status="zástupce";
+				$status="zï¿½stupce";
 				break;
 			case 3:
 				$status="asistent";
@@ -250,7 +247,7 @@ if($hrac[admin]==1){$funkce="administrátor";}
 				$status="vyhnanec";
 				break;
 			case 0:
-				$status="obèan";
+				$status="obï¿½an";
 				break;
 			case 5:
 				$status="ministr";
@@ -261,13 +258,13 @@ if($hrac[admin]==1){$funkce="administrátor";}
 			$vys_ras = MySQL_Query("SELECT * FROM rasy where rasa = '$cislorasy'");
         	$zaznam_ras = MySQL_Fetch_Array($vys_ras);
 			
-			if($hrac[www]==""){$web="nezadáno";}
+			if($hrac[www]==""){$web="nezadï¿½no";}
 			 elseif($hrac[zobrd]==0 or $hrac[zobrd]==1){$web="vypnuto";}
   			 else{$web=$hrac[www];};		
-			if($hrac[pohlavi]=="1"){$hrac[pohlavi]="muž";}
-			 else{$hrac[pohlavi]="žena";};
+			if($hrac[pohlavi]=="1"){$hrac[pohlavi]="muï¿½";}
+			 else{$hrac[pohlavi]="ï¿½ena";};
 			if($hrac[destinace]=="1"){$hrac[destinace]="z domova";}
-			 elseif($hrac[destinace]=="2"){$hrac[destinace]="ze školy èi herny";}			
+			 elseif($hrac[destinace]=="2"){$hrac[destinace]="ze ï¿½koly ï¿½i herny";}			
 			 elseif($hrac[destinace]=="3"){$hrac[destinace]="oboje";};						 
 			$kdy_naposled=$hrac["posl"];
 			$kdy_naposled2 = Date("d.m.Y H:i:s",$kdy_naposled);
@@ -296,11 +293,11 @@ if($hrac[admin]==1){$funkce="administrátor";}
 <select name='jakaa'>
 
 <option value='".$hrac[admin]."' >".$funkce."
-<option value=1 >Hlavní administrátor 
+<option value=1 >Hlavnï¿½ administrï¿½tor 
 <option value=0 >Odebrat pravomoce
 
 </select>
-<input type='submit' value='Zmìnit' name=odebrat></form></td>"; //"Cizím administrátorùm nedávám Hlavního admina(dtb èislo 1) ale v databazi pøepsat na èíslo 3 (TZN omezene funkce)"
+<input type='submit' value='Zmï¿½nit' name=odebrat></form></td>"; //"Cizï¿½m administrï¿½torï¿½m nedï¿½vï¿½m Hlavnï¿½ho admina(dtb ï¿½islo 1) ale v databazi pï¿½epsat na ï¿½ï¿½slo 3 (TZN omezene funkce)"
 			
 			
     }
@@ -311,7 +308,7 @@ if($hrac[admin]==1){$funkce="administrátor";}
       }
 echo "</tr>";
 			echo "<tr>";		
-			echo "<th>Identifikaèní èíslo</th>";
+			echo "<th>Identifikaï¿½nï¿½ ï¿½ï¿½slo</th>";
 			echo "<td>".$hrac["cislo"]."</td>";
 			echo "</tr>";	
 
@@ -321,15 +318,15 @@ echo "</tr>";
 			echo "</tr>";
 
 			echo "<tr>";		
-			echo "<th>registrován</th>";
+			echo "<th>registrovï¿½n</th>";
 			echo "<td>".Date("d.m.Y H:i:s",$hrac["vek"])."</td>";
 			echo "</tr>";
 			echo "<tr>";		
-			echo "<th>vìk</th>";
-			echo "<td>".Floor((Date("U")-$hrac["vek"])/86400)." dní</td>";
+			echo "<th>vï¿½k</th>";
+			echo "<td>".Floor((Date("U")-$hrac["vek"])/86400)." dnï¿½</td>";
 			echo "</tr>";		
 			echo "<tr>";		
-			echo "<th>poslední pøihlášení</th>";
+			echo "<th>poslednï¿½ pï¿½ihlï¿½enï¿½</th>";
 			echo "<td>".$kdy_naposled2."</td>";
 			echo "</tr>";	
 			echo "<tr>";		
@@ -342,22 +339,22 @@ echo "</tr>";
 			echo "</tr>";
 			echo "<tr>";
 			echo "<th>populace</th>";
-			echo "<td>".number_format($hrac["populace"],0,0," ")." milionù</td>";
+			echo "<td>".number_format($hrac["populace"],0,0," ")." milionï¿½</td>";
 			echo "</tr>";
 			echo "<tr>";
-			echo "<th>pozemních jed.</th>";
+			echo "<th>pozemnï¿½ch jed.</th>";
 			echo "<td>".number_format($hrac["jed1"],0,0," ")."</td>";
 			echo "</tr>";
 			echo "<tr>";
-			echo "<th>univerzálních jed.</th>";
+			echo "<th>univerzï¿½lnï¿½ch jed.</th>";
 			echo "<td>".number_format($hrac["jed2"],0,0," ")."</td>";
 			echo "</tr>";
 			echo "<tr>";
-			echo "<th>orbitálních jed.</th>";
+			echo "<th>orbitï¿½lnï¿½ch jed.</th>";
 			echo "<td>".number_format($hrac["jed4"],0,0," ")."</td>";
 			echo "</tr>";
 			echo "<tr>";
-			echo "<th>pojebaná zkurvená jed.</th>";
+			echo "<th>pojebanï¿½ zkurvenï¿½ jed.</th>";
 			echo "<td>".number_format($hrac["jed7"],0,0," ")."</td>";
 			echo "</tr>";
 			echo "<tr>";
@@ -365,28 +362,28 @@ echo "</tr>";
 			echo "<td>".number_format($hrac["jed3"],0,0," ")."</td>";
 			echo "</tr>";
 			echo "<tr>";
-			echo "<th>žoldákù</th>";
+			echo "<th>ï¿½oldï¿½kï¿½</th>";
 			echo "<td>".number_format($hrac["jed5"],0,0," ")."</td>";
 			echo "</tr>";
 			echo "<tr>";
-			echo "<th>zlodìjù</th>";
+			echo "<th>zlodï¿½jï¿½</th>";
 			echo "<td>".number_format($hrac["jed6"],0,0," ")."</td>";
 			echo "</tr>";
 			echo "<tr>";
 			echo "<th>sila</th>";
-			echo "<td>".number_format($hrac["sila"],0,0," ")." tisíc</td>";
+			echo "<td>".number_format($hrac["sila"],0,0," ")." tisï¿½c</td>";
 			echo "</tr>";
 			echo "<tr>";
 			echo "<th>mocnost</th>";
 			echo "<td>".number_format(($hrac["populace"]*$hrac["sila"]*$hrac["planety"]*0.001),0,0," ")."</td>";		
 			echo "</tr>";
 			echo "<tr>";		
-			echo "<th>poèet planet</th>";
+			echo "<th>poï¿½et planet</th>";
 			echo "<td>".$hrac["planety"]."</td>";
 			echo "</tr>";
 			echo "<tr>";		
 			echo "<th>dnes dobyt</th>";
-			echo "<td>".$hrac["dobyt"]." krát</td>";
+			echo "<td>".$hrac["dobyt"]." krï¿½t</td>";
 			echo "</tr>";
 			echo "<tr>";		
 			echo "<th>ICQ#</th>";
@@ -401,7 +398,7 @@ echo "</tr>";
 			echo "<td>" . $hrac[destinace] . "</td>";
 			echo "</tr>";				
 			echo "<tr>";		
-			echo "<th>pohlaví</th>";
+			echo "<th>pohlavï¿½</th>";
 			echo "<td>" . $hrac[pohlavi] . "</td>";
 			echo "</tr>";
 			echo "</table>";
@@ -423,14 +420,14 @@ echo "</tr>";
 			$c10=$pm[c10];
 			$p0=$p1=$p2=$p3=$p4=$p5=0;
 
-			echo "hráèi se stejným heslem: <br>";
+			echo "hrï¿½ï¿½i se stejnï¿½m heslem: <br>";
 			$mmm = MySQL_Query("SELECT * FROM uzivatele where heslo = '$hrac[heslo]'");
 			while($a = MySQL_Fetch_Array($mmm)):
 				if($a[jmeno]!=$p){echo $a[jmeno].", ";$pp0[]=$a[jmeno];$p0++;};
 			endwhile;
 			echo "<br><br>";
 
-			echo "hráèi se stejnou adresou id: <br>";
+			echo "hrï¿½ï¿½i se stejnou adresou id: <br>";
 			$mmm = MySQL_Query("SELECT * FROM mul where id = '$id'");
 			while($a = MySQL_Fetch_Array($mmm)):
 				if($a[jmeno]!=$p){echo $a[jmeno].", ";$pp0[]=$a[jmeno];$p0++;};
@@ -439,7 +436,7 @@ echo "</tr>";
 			
 			echo "<br>";
   			if($pm[c1]!=0):
-			echo "hráèi se stejným 1. cookie: <br>";
+			echo "hrï¿½ï¿½i se stejnï¿½m 1. cookie: <br>";
 			$mc1 = MySQL_Query("SELECT * FROM mul where c1 = '$c1'");
 			while($a = MySQL_Fetch_Array($mc1)):
 				if($a[jmeno]!=$p){echo $a[jmeno].", ";$pp1[]=$a[jmeno];$p1++;};
@@ -447,7 +444,7 @@ echo "</tr>";
 			echo "<br>";
 			endif;
 			if($pm[c2]!=0):
-			echo "hráèi se stejným 2. cookie: <br>";
+			echo "hrï¿½ï¿½i se stejnï¿½m 2. cookie: <br>";
 			$mc1 = MySQL_Query("SELECT * FROM mul where c2 = $c2");
 			while($a = MySQL_Fetch_Array($mc1)):
 				if($a[jmeno]!=$p){echo $a[jmeno].", ";$pp2[]=$a[jmeno];$p2++;};
@@ -455,7 +452,7 @@ echo "</tr>";
 			echo "<br>";
 			endif;
 			if($pm[c3]!=0):
-			echo "hráèi se stejným 3. cookie: <br>";
+			echo "hrï¿½ï¿½i se stejnï¿½m 3. cookie: <br>";
 			$mc1 = MySQL_Query("SELECT * FROM mul where c3 = '$c3'");
 			while($a = MySQL_Fetch_Array($mc1)):
 				if($a[jmeno]!=$p){echo $a[jmeno].", ";$pp3[]=$a[jmeno];$p3++;};
@@ -463,7 +460,7 @@ echo "</tr>";
 			echo "<br>";
 			endif;
 			if($pm[c4]!=0):
-			echo "hráèi se stejným 4. cookie: <br>";
+			echo "hrï¿½ï¿½i se stejnï¿½m 4. cookie: <br>";
 			$mc1 = MySQL_Query("SELECT * FROM mul where c4 = '$c4'");
 			while($a = MySQL_Fetch_Array($mc1)):
 				if($a[jmeno]!=$p){echo $a[jmeno].", ";$pp4[]=$a[jmeno];$p4++;};
@@ -471,7 +468,7 @@ echo "</tr>";
 			echo "<br>";
 			endif;
 			if($pm[c5]!=0):
-			echo "hráèi se stejným 5. cookie: <br>";
+			echo "hrï¿½ï¿½i se stejnï¿½m 5. cookie: <br>";
 			$mc1 = MySQL_Query("SELECT * FROM mul where c5 = '$c5'");
 			while($a = MySQL_Fetch_Array($mc1)):
 				if($a[jmeno]!=$p){echo $a[jmeno].", ";$pp5[]=$a[jmeno];$p5++;};
@@ -499,13 +496,13 @@ echo "</tr>";
 			if($c8==0){$pc--;};
 			if($c9==0){$pc--;};
 			if($c10==0){$pc--;};
-			echo "poèet poèítaèù, z kterých hraje: ".$pc."<br>";
-			echo "poèet hráèù se stejným id: ".$p0."<br>";
-			echo "poèet hráèù se stejným 1. cookie: ".$p1."<br>";
-			echo "poèet hráèù se stejným 2. cookie: ".$p2."<br>";
-			echo "poèet hráèù se stejným 3. cookie: ".$p3."<br>";
-			echo "poèet hráèù se stejným 4. cookie: ".$p4."<br>";
-			echo "poèet hráèù se stejným 5. cookie: ".$p5."<br>";
+			echo "poï¿½et poï¿½ï¿½taï¿½ï¿½, z kterï¿½ch hraje: ".$pc."<br>";
+			echo "poï¿½et hrï¿½ï¿½ï¿½ se stejnï¿½m id: ".$p0."<br>";
+			echo "poï¿½et hrï¿½ï¿½ï¿½ se stejnï¿½m 1. cookie: ".$p1."<br>";
+			echo "poï¿½et hrï¿½ï¿½ï¿½ se stejnï¿½m 2. cookie: ".$p2."<br>";
+			echo "poï¿½et hrï¿½ï¿½ï¿½ se stejnï¿½m 3. cookie: ".$p3."<br>";
+			echo "poï¿½et hrï¿½ï¿½ï¿½ se stejnï¿½m 4. cookie: ".$p4."<br>";
+			echo "poï¿½et hrï¿½ï¿½ï¿½ se stejnï¿½m 5. cookie: ".$p5."<br>";
 			echo "<br>";
 		
 			$vys3 = MySQL_Query("SELECT * FROM planety where cislomaj='$cislo'");
@@ -513,16 +510,16 @@ echo "</tr>";
 			echo "<TABLE ".$table." ".$border.">";
 			echo "<tr>";
 			echo "<th>&nbsp;</th>";
-			echo "<th>název</th>";
+			echo "<th>nï¿½zev</th>";
 			echo "<th>typ</th>";
 			echo "<th>obyvatel</th>";
-			echo "<th>mìst</th>";
-			echo "<th>výroben</th>";
-			echo "<th>kasáren</th>";
+			echo "<th>mï¿½st</th>";
+			echo "<th>vï¿½roben</th>";
+			echo "<th>kasï¿½ren</th>";
 			echo "<th>obran</th>";
-			echo "<th>parkù</th>";
-			echo "<th>laboratoøí</th>";
-			echo "<th>hv. brána</th>";
+			echo "<th>parkï¿½</th>";
+			echo "<th>laboratoï¿½ï¿½</th>";
+			echo "<th>hv. brï¿½na</th>";
 			echo "</tr>";
 			while ($zaznam3 = MySQL_Fetch_Array($vys3)):
 				if($zaznam3["brana"]==1):
@@ -532,9 +529,9 @@ echo "</tr>";
 					$brany="ne";
 				endif;
 				$dom="";
-				if($zaznam3[status]==1){$dom="<i>(domovská)</i>";};
-				if($zaznam3[status]==2){$dom="<i>(centrální)</i>";};
-			    if($zaznam3[status]==3){$dom="<i>(dobývací)</i>";};
+				if($zaznam3[status]==1){$dom="<i>(domovskï¿½)</i>";};
+				if($zaznam3[status]==2){$dom="<i>(centrï¿½lnï¿½)</i>";};
+			    if($zaznam3[status]==3){$dom="<i>(dobï¿½vacï¿½)</i>";};
 				echo "<tr>";
 				echo "<form name='form' method='post' action='hlavni.php?page=admin1' >";
 				echo "<td>
@@ -564,7 +561,7 @@ echo "</tr>";
 
 	// Utoky - begin
 if(isset($hracn)) {
-	echo "<br><br><h6><font class=text_modry>V</font>aše (jeho ;-)) vojenské aktivity</h6>";
+	echo "<br><br><h6><font class=text_modry>V</font>aï¿½e (jeho ;-)) vojenskï¿½ aktivity</h6>";
 	echo "<TABLE ".$border." ".$table.">";
 
 	$utok_hrac=$hrac[jmeno];
@@ -577,11 +574,11 @@ if(isset($hracn)) {
     while ($zaznam4 = MySQL_Fetch_Array($vys4)):
 		$datum = Date("G:i:s j.m.Y",$zaznam4["den"]);
       	switch($zaznam4[typ]){
-            case 0: $typu="obsazovací";break;
-            case 1: $typu="pomocí zhn";break;
-            case 2: $typu="partyzánský";break;
-            case 3: $typu="univerzální";break;
-            case 4: $typu="orbitální";break;
+            case 0: $typu="obsazovacï¿½";break;
+            case 1: $typu="pomocï¿½ zhn";break;
+            case 2: $typu="partyzï¿½nskï¿½";break;
+            case 3: $typu="univerzï¿½lnï¿½";break;
+            case 4: $typu="orbitï¿½lnï¿½";break;
             }
       	if($zaznam4["utocnik"]==$utok_hrac or $zaznam4["obrance"]==$utok_hrac):
 				echo "<tr>";
@@ -592,41 +589,41 @@ if(isset($hracn)) {
        		if($zaznam4["utocnik"]==$utok_hrac):
 		  		$vys5 = MySQL_Query("SELECT * FROM rasy where rasa = '$zaznam4[orasa]'");
   				$zaznam5 = MySQL_Fetch_Array($vys5);
-          		$my="u";$on="o";$uts="poslali jsme na nìj";$obs="znièili jsme mu";
-  				echo "<td class='text_modry'>utoèili jsme na</td><td>".$zaznam4["obrance"]." (".$zaznam5["nazevrasy"].")<td>";
+          		$my="u";$on="o";$uts="poslali jsme na nï¿½j";$obs="zniï¿½ili jsme mu";
+  				echo "<td class='text_modry'>utoï¿½ili jsme na</td><td>".$zaznam4["obrance"]." (".$zaznam5["nazevrasy"].")<td>";
         	else:
 		  		$vys5 = MySQL_Query("SELECT * FROM rasy where rasa = '$zaznam4[urasa]'");
   				$zaznam5 = MySQL_Fetch_Array($vys5);
-		        $my="o";$on="u";$uts="poslal na nás";$obs="znièil nám";
-  				echo "<td class='text_modry'>utoèili na nás</td><td>".$zaznam4[utocnik]." (".$zaznam5["nazevrasy"].")<td>";
+		        $my="o";$on="u";$uts="poslal na nï¿½s";$obs="zniï¿½il nï¿½m";
+  				echo "<td class='text_modry'>utoï¿½ili na nï¿½s</td><td>".$zaznam4[utocnik]." (".$zaznam5["nazevrasy"].")<td>";
         	endif;
 				echo "</tr>";
 				echo "<tr>";
-				echo "<td class=text_modry>typ útoku</td><td>".$typu."<td>";
+				echo "<td class=text_modry>typ ï¿½toku</td><td>".$typu."<td>";
 				echo "</tr>";
 				echo "<tr>";
         	if($zaznam4[typ]==0):
-				echo "<td  class='text_modry'>naše ztráty</td><td>";
+				echo "<td  class='text_modry'>naï¿½e ztrï¿½ty</td><td>";
 				if($zaznam4[($my.'jed1')]>0){echo $zaznam4[($my.'jed1')]." * ".$zaznam2["jed1_nazev"];};
           		if($zaznam4[($my.'jed5')]>0){echo "&nbsp;&nbsp;".$zaznam4[($my.'jed5')]." * ".$zold_nazev;};
 	          	if($zaznam4[($my.'jed2')]>0){echo "&nbsp;&nbsp;".$zaznam4[($my.'jed2')]." * ".$zaznam2["jed2_nazev"];};
     	      	if($zaznam4[($my.'jed4')]>0){echo "&nbsp;&nbsp;".$zaznam4[($my.'jed4')]." * ".$zaznam2["jed4_nazev"];};
-        	  	if($zaznam4[($my.'jed1')]<1 and $zaznam4[($my.'jed2')]<1 and $zaznam4[($my.'jed4')]<1 and $zaznam4[($my.'jed5')]<1){echo "žádné";};
+        	  	if($zaznam4[($my.'jed1')]<1 and $zaznam4[($my.'jed2')]<1 and $zaznam4[($my.'jed4')]<1 and $zaznam4[($my.'jed5')]<1){echo "ï¿½ï¿½dnï¿½";};
 				echo "</td></tr>";
 				echo "<tr>";			
-				echo "<td  class='text_modry'>jeho ztráty</td><td>";
+				echo "<td  class='text_modry'>jeho ztrï¿½ty</td><td>";
 		        if($zaznam4[($on.'jed1')]>0){echo $zaznam4[($on.'jed1')]." * ".$zaznam5["jed1_nazev"];};
         		if($zaznam4[($on.'jed5')]>0){echo "&nbsp;&nbsp;".$zaznam4[($on.'jed5')]." * ".$zold_nazev;};
 		        if($zaznam4[($on.'jed2')]>0){echo "&nbsp;&nbsp;".$zaznam4[($on.'jed2')]." * ".$zaznam5["jed2_nazev"];};
         		if($zaznam4[($on.'jed4')]>0){echo "&nbsp;&nbsp;".$zaznam4[($on.'jed4')]." * ".$zaznam5["jed4_nazev"];};
-		        if($zaznam4[($on.'jed1')]<1 and $zaznam4[($on.'jed2')]<1 and $zaznam4[($on.'jed4')]<1 and $zaznam4[($on.'jed5')]<1){echo "žádné";};
+		        if($zaznam4[($on.'jed1')]<1 and $zaznam4[($on.'jed2')]<1 and $zaznam4[($on.'jed4')]<1 and $zaznam4[($on.'jed5')]<1){echo "ï¿½ï¿½dnï¿½";};
 				echo "</td>";
           		if($zaznam4["uspesnost"]==1):
 		            $vysledeku="ziskali jsme planetu ".$zaznam4["planety"];
         		    $vysledeko="ztratily jsme planetu ".$zaznam4["planety"];
 		        else:
         		    $vysledeku="nedobyli jsme planetu ".$zaznam4["planety"];
-		            $vysledeko="ubránili jsme planetu ".$zaznam4["planety"];
+		            $vysledeko="ubrï¿½nili jsme planetu ".$zaznam4["planety"];
         		endif;
 			elseif($zaznam4[typ]==1):
  				echo "<td class='text_modry'>".$uts."</td><td>".$zaznam4["ujed1"]." * ".$zaznam2["jed3_nazev"]."</td>";
@@ -634,97 +631,97 @@ if(isset($hracn)) {
 			    echo "<tr>";			
 			    echo "<td class='text_modry'>".$obs."</td><td>".$zaznam4["ucinek"]."</td>";
           		if($zaznam4["uspesnost"]==1):
-	        	    $vysledeku="prorazili jsme obranu na planetì ".$zaznam4["planety"];
-    		        $vysledeko="prorazili naší obranu na planetì ".$zaznam4["planety"];
+	        	    $vysledeku="prorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+    		        $vysledeko="prorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
 		        else:
-        		    $vysledeku="neprorazili jsme obranu na planetì ".$zaznam4["planety"];
-		            $vysledeko="neprorazili naší obranu na planetì ".$zaznam4["planety"];
+        		    $vysledeku="neprorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+		            $vysledeko="neprorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
         		endif;
 			elseif($zaznam4[typ]==2):
-				echo "<td  class='text_modry'>naše ztráty</td><td>";
+				echo "<td  class='text_modry'>naï¿½e ztrï¿½ty</td><td>";
 		        if($zaznam4[($my.'jed1')]>0){echo $zaznam4[($my.'jed1')]." * ".$zaznam2["jed1_nazev"];};
         		if($zaznam4[($my.'jed5')]>0){echo "&nbsp;&nbsp;".$zaznam4[($my.'jed5')]." * ".$zold_nazev;};
-		        if($zaznam4[($my.'jed1')]<1 and $zaznam4[($my.'jed5')]<1){echo "žádné";};
+		        if($zaznam4[($my.'jed1')]<1 and $zaznam4[($my.'jed5')]<1){echo "ï¿½ï¿½dnï¿½";};
 		  		echo "</td></tr>";
 				echo "</td></tr>";
 				echo "<tr>";			
-				echo "<td  class='text_modry'>jeho ztráty</td><td>";
+				echo "<td  class='text_modry'>jeho ztrï¿½ty</td><td>";
 		        if($zaznam4[($on.'jed1')]>0){echo $zaznam4[($on.'jed1')]." * ".$zaznam5["jed1_nazev"];};
         		if($zaznam4[($on.'jed5')]>0){echo "&nbsp;&nbsp;".$zaznam4[($on.'jed5')]." * ".$zold_nazev;};
-		        if($zaznam4[($on.'jed1')]<1 and $zaznam4[($on.'jed5')]<1){echo "žádné";};
+		        if($zaznam4[($on.'jed1')]<1 and $zaznam4[($on.'jed5')]<1){echo "ï¿½ï¿½dnï¿½";};
 				echo "</td></tr>";
 				echo "<tr>";			
-  				echo "<td  class='text_modry'>ztráty v infrastruktuøe</td><td>".$zaznam4[ucinek]."</td>";
+  				echo "<td  class='text_modry'>ztrï¿½ty v infrastruktuï¿½e</td><td>".$zaznam4[ucinek]."</td>";
 	  		    echo "</tr>";
     		    if($zaznam4["uspesnost"]==1):
-            		$vysledeku="prorazili jsme obranu na planetì ".$zaznam4["planety"];
-		            $vysledeko="prorazili naší obranu na planetì ".$zaznam4["planety"];
+            		$vysledeku="prorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+		            $vysledeko="prorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
         		else:
-		            $vysledeku="neprorazili jsme obranu na planetì ".$zaznam4["planety"];
-        		    $vysledeko="neprorazili naší obranu na planetì ".$zaznam4["planety"];
+		            $vysledeku="neprorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+        		    $vysledeko="neprorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
 		        endif;
 		  elseif($zaznam4[typ]==3):
-		    echo "<td  class='text_modry'>naše ztráty</td><td>";
+		    echo "<td  class='text_modry'>naï¿½e ztrï¿½ty</td><td>";
 		        if($zaznam4[($my.'jed2')]>0){echo $zaznam4[($my.'jed2')]." * ".$zaznam2["jed2_nazev"];};
         		if($zaznam4[($my.'jed5')]>0){echo "&nbsp;&nbsp;".$zaznam4[($my.'jed5')]." * ".$zold_nazev;};
-		        if($zaznam4[($my.'jed2')]<1 and $zaznam4[($my.'jed5')]<1){echo "žádné";};
+		        if($zaznam4[($my.'jed2')]<1 and $zaznam4[($my.'jed5')]<1){echo "ï¿½ï¿½dnï¿½";};
 		  		echo "</td></tr>";
 				echo "</td></tr>";
 				echo "<tr>";			
-				echo "<td  class='text_modry'>jeho ztráty</td><td>";
+				echo "<td  class='text_modry'>jeho ztrï¿½ty</td><td>";
 		        if($zaznam4[($on.'jed2')]>0){echo $zaznam4[($on.'jed2')]." * ".$zaznam5["jed2_nazev"];};
         		if($zaznam4[($on.'jed5')]>0){echo "&nbsp;&nbsp;".$zaznam4[($on.'jed5')]." * ".$zold_nazev;};
-		        if($zaznam4[($on.'jed2')]<1 and $zaznam4[($on.'jed5')]<1){echo "žádné";};
+		        if($zaznam4[($on.'jed2')]<1 and $zaznam4[($on.'jed5')]<1){echo "ï¿½ï¿½dnï¿½";};
 				echo "</td></tr>";
 				echo "<tr>";			
-  				echo "<td  class='text_modry'>ztráty v infrastruktuøe</td><td>".$zaznam4[ucinek]."</td>";
+  				echo "<td  class='text_modry'>ztrï¿½ty v infrastruktuï¿½e</td><td>".$zaznam4[ucinek]."</td>";
 	  		    echo "</tr>";
     		    if($zaznam4["uspesnost"]==1):
-            		$vysledeku="prorazili jsme obranu na planetì ".$zaznam4["planety"];
-		            $vysledeko="prorazili naší obranu na planetì ".$zaznam4["planety"];
+            		$vysledeku="prorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+		            $vysledeko="prorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
         		else:
-		            $vysledeku="neprorazili jsme obranu na planetì ".$zaznam4["planety"];
-        		    $vysledeko="neprorazili naší obranu na planetì ".$zaznam4["planety"];
+		            $vysledeku="neprorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+        		    $vysledeko="neprorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
 		        endif;
 		  elseif($zaznam4[typ]==4):
-		    echo "<td  class='text_modry'>naše ztráty</td><td>";
+		    echo "<td  class='text_modry'>naï¿½e ztrï¿½ty</td><td>";
 		        if($zaznam4[($my.'jed4')]>0){echo $zaznam4[($my.'jed4')]." * ".$zaznam2["jed4_nazev"];};
         		if($zaznam4[($my.'jed5')]>0){echo "&nbsp;&nbsp;".$zaznam4[($my.'jed5')]." * ".$zold_nazev;};
-		        if($zaznam4[($my.'jed4')]<1 and $zaznam4[($my.'jed5')]<1){echo "žádné";};
+		        if($zaznam4[($my.'jed4')]<1 and $zaznam4[($my.'jed5')]<1){echo "ï¿½ï¿½dnï¿½";};
 		  		echo "</td></tr>";
 				echo "</td></tr>";
 				echo "<tr>";			
-				echo "<td  class='text_modry'>jeho ztráty</td><td>";
+				echo "<td  class='text_modry'>jeho ztrï¿½ty</td><td>";
 		        if($zaznam4[($on.'jed2')]>0){echo $zaznam4[($on.'jed2')]." * ".$zaznam5["jed2_nazev"];};
         		if($zaznam4[($on.'jed4')]>0){echo $zaznam4[($on.'jed4')]." * ".$zaznam5["jed4_nazev"];};
-		        if($zaznam4[($on.'jed2')]<1 and $zaznam4[($on.'jed4')]<1){echo "žádné";};
+		        if($zaznam4[($on.'jed2')]<1 and $zaznam4[($on.'jed4')]<1){echo "ï¿½ï¿½dnï¿½";};
 				echo "</td></tr>";
 				echo "<tr>";			
-  				echo "<td  class='text_modry'>ztráty v infrastruktuøe</td><td>".$zaznam4[ucinek]."</td>";
+  				echo "<td  class='text_modry'>ztrï¿½ty v infrastruktuï¿½e</td><td>".$zaznam4[ucinek]."</td>";
 	  		    echo "</tr>";
     		    if($zaznam4["uspesnost"]==1):
-            		$vysledeku="prorazili jsme obranu na planetì ".$zaznam4["planety"];
-		            $vysledeko="prorazili naší obranu na planetì ".$zaznam4["planety"];
+            		$vysledeku="prorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+		            $vysledeko="prorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
         		else:
-		            $vysledeku="neprorazili jsme obranu na planetì ".$zaznam4["planety"];
-        		    $vysledeko="neprorazili naší obranu na planetì ".$zaznam4["planety"];
+		            $vysledeku="neprorazili jsme obranu na planetï¿½ ".$zaznam4["planety"];
+        		    $vysledeko="neprorazili naï¿½ï¿½ obranu na planetï¿½ ".$zaznam4["planety"];
 		        endif;
 		  elseif($zaznam4[typ]==5):
- 				echo "<td class='text_modry'>".$uts."</td><td>".$zaznam4["ujed6"]." * ".$zaznam2["jed6_nazev"]." z nich bylo zatèeno, odsouzeno a popraveno ".$zaznam4["zujed6"]. " zlodìjù</td>";
- 				//echo "<td  class='text_modry'>jeho ztráty</td><td>";
+ 				echo "<td class='text_modry'>".$uts."</td><td>".$zaznam4["ujed6"]." * ".$zaznam2["jed6_nazev"]." z nich bylo zatï¿½eno, odsouzeno a popraveno ".$zaznam4["zujed6"]. " zlodï¿½jï¿½</td>";
+ 				//echo "<td  class='text_modry'>jeho ztrï¿½ty</td><td>";
  				  echo "</tr>";
 			    echo "<tr>";			
 			    echo "<td class='text_modry'>".$oas."</td><td>".$zaznam4["ucinek"]."</td>";
           		if($zaznam4["uspesnost"]==1):
-	        	    $vysledeku="našim zlodìjùm se podaøilo vykrást zásoby naquadahu na planetì ".$zaznam4["planety"];
-    		        $vysledeko="na planetì ".$zaznam4["planety"]. " se neznámým zlodìjùm podaøilo ukrást zásoby naquadahu";
+	        	    $vysledeku="naï¿½im zlodï¿½jï¿½m se podaï¿½ilo vykrï¿½st zï¿½soby naquadahu na planetï¿½ ".$zaznam4["planety"];
+    		        $vysledeko="na planetï¿½ ".$zaznam4["planety"]. " se neznï¿½mï¿½m zlodï¿½jï¿½m podaï¿½ilo ukrï¿½st zï¿½soby naquadahu";
 		        else:
-        		    $vysledeku="naši zlodìji byli zatèeni, odsouzeni a popraveni na planetì ".$zaznam4["planety"]." ";
-		            $vysledeko="podaøilo se nám chytit a popravit cizí zlodìje na planetì ".$zaznam4["planety"];
+        		    $vysledeku="naï¿½i zlodï¿½ji byli zatï¿½eni, odsouzeni a popraveni na planetï¿½ ".$zaznam4["planety"]." ";
+		            $vysledeko="podaï¿½ilo se nï¿½m chytit a popravit cizï¿½ zlodï¿½je na planetï¿½ ".$zaznam4["planety"];
         		endif;
         	endif;
 			echo "<tr>";
-			echo "<td class='text_modry'>výsledek</td><td><font ";
+			echo "<td class='text_modry'>vï¿½sledek</td><td><font ";
 			if($zaznam4["utocnik"]==$logjmeno):
 		        echo "color='".$colortu."'>".$vysledeku;
 			else:
@@ -736,8 +733,8 @@ if(isset($hracn)) {
 	echo "</table><br>";
 	$y=$xm+5;
 	$z=$xm-5;
-	echo "<h6><a href=hlavni.php?page=admin1&xm=".$z."&cislo=".$cislo."&hracn=".$hracn." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Novìjších 5 útokù</a><br>";
-	echo "<a href=hlavni.php?page=admin1&xm=".$y."&cislo=".$cislo."&hracn=".$hracn." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Starších 5 útokù</a></h6>";
+	echo "<h6><a href=hlavni.php?page=admin1&xm=".$z."&cislo=".$cislo."&hracn=".$hracn." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Novï¿½jï¿½ï¿½ch 5 ï¿½tokï¿½</a><br>";
+	echo "<a href=hlavni.php?page=admin1&xm=".$y."&cislo=".$cislo."&hracn=".$hracn." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Starï¿½ï¿½ch 5 ï¿½tokï¿½</a></h6>";
 	echo "</td></tr></table>";
 }	
 	// Utoky - end
@@ -745,20 +742,20 @@ if(isset($hracn)) {
 
 
 	if(isset($posta)){
-      if ($posta==""){echo "<h1>Musíte zadat jméno hráèe!</h1>";exit;}
+      if ($posta==""){echo "<h1>Musï¿½te zadat jmï¿½no hrï¿½ï¿½e!</h1>";exit;}
     	if(empty($xm) or $xm<0){$xm=0;};
 			$pla2 = mysql_Query("SELECT * FROM posta where (odesilatel='$posta' or adresat='$posta') order by odeslano_kdy desc LIMIT $xm,10");
 
 	$y=$xm+10;
 	$z=$xm-10;
-	echo "<h6><a href=hlavni.php?page=admin1&xm=".$z."&cislo=".$cislo."&posta=".$posta." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Novìjších 10 zpráv</a><br>";
-	echo "<a href=hlavni.php?page=admin1&xm=".$y."&cislo=".$cislo."&posta=".$posta." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Starších 10 zpráv</a></h6>";
+	echo "<h6><a href=hlavni.php?page=admin1&xm=".$z."&cislo=".$cislo."&posta=".$posta." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Novï¿½jï¿½ï¿½ch 10 zprï¿½v</a><br>";
+	echo "<a href=hlavni.php?page=admin1&xm=".$y."&cislo=".$cislo."&posta=".$posta." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Starï¿½ï¿½ch 10 zprï¿½v</a></h6>";
 
  			echo "<TABLE ".$table." ".$border." align=center>";
 			echo "<tr>";
-			echo "<th>èas</th>";
-			echo "<th>odesílatel</th>";
-			echo "<th>adresát</th>";
+			echo "<th>ï¿½as</th>";
+			echo "<th>odesï¿½latel</th>";
+			echo "<th>adresï¿½t</th>";
 			echo "<th>text</th>";
 			echo "</tr>";
 
@@ -775,8 +772,8 @@ if(isset($hracn)) {
 
 	$y=$xm+10;
 	$z=$xm-10;
-	echo "<h6><a href=hlavni.php?page=admin1&xm=".$z."&cislo=".$cislo."&posta=".$posta." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Novìjších 10 zpráv</a><br>";
-	echo "<a href=hlavni.php?page=admin1&xm=".$y."&cislo=".$cislo."&posta=".$posta." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Starších 10 zpráv</a></h6>";
+	echo "<h6><a href=hlavni.php?page=admin1&xm=".$z."&cislo=".$cislo."&posta=".$posta." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Novï¿½jï¿½ï¿½ch 10 zprï¿½v</a><br>";
+	echo "<a href=hlavni.php?page=admin1&xm=".$y."&cislo=".$cislo."&posta=".$posta." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Starï¿½ï¿½ch 10 zprï¿½v</a></h6>";
 
 
 }
@@ -785,7 +782,7 @@ if(isset($hracn)) {
 //*****najdi planetu start********
 
 	if(isset($planetan)){
-      if ($planetan==""){echo "<h1>Musíte zadat název planety!</h1>";exit;}
+      if ($planetan==""){echo "<h1>Musï¿½te zadat nï¿½zev planety!</h1>";exit;}
 			$pla2 = mysql_Query("SELECT * FROM planety where nazev='$planetan'");
       $planeta2 = mysql_Fetch_Array($pla2);
 echo "<br>";
@@ -793,7 +790,7 @@ echo "<br>";
 echo "<br>";
  			echo "<TABLE ".$table." ".$border." align=center>";
 			echo "<tr>";
-			echo "<th class=text_modry colspan = 3>Název planety : ".$planeta2["nazev"]."</th>";
+			echo "<th class=text_modry colspan = 3>Nï¿½zev planety : ".$planeta2["nazev"]."</th>";
 			echo "</tr>";
 
 			echo "<form name='form' method='post' action='hlavni.php?page=admin1&planetan=$planetan'>";
@@ -816,23 +813,23 @@ echo "<br>";
     		 	 echo "</select></td></tr>";
 
 			echo "<tr>";
-			echo "<th>Poèet obyvatel</th>";
+			echo "<th>Poï¿½et obyvatel</th>";
 			$liidi=number_format($planeta2[lidi],0,0," ");
 			echo "<td><input type='text' size=22 name=lidi value='$planeta2[lidi]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Mìst</th>";
+			echo "<th>Mï¿½st</th>";
 			echo "<td><input type='text' size=22 name=mest value='$planeta2[mesta]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Výroben</th>";
+			echo "<th>Vï¿½roben</th>";
 			echo "<td><input type='text' size=22 name=vyr value='$planeta2[vyrobna]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Kasáren</th>";
+			echo "<th>Kasï¿½ren</th>";
 			echo "<td><input type='text' size=22 name=kas value='$planeta2[kasarna]'></td>";
 			echo "</tr>";
 
@@ -847,23 +844,23 @@ echo "<br>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Parkù</th>";
+			echo "<th>Parkï¿½</th>";
 			echo "<td><input type='text' size=22 name=park value='$planeta2[par]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Datum posledního obsazení</th>";
+			echo "<th>Datum poslednï¿½ho obsazenï¿½</th>";
 			$obsaz=Date("d.m.Y H:i:s",$planeta2[cas]);
 			echo "<td>$obsaz</td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Laboratoøí</th>";
+			echo "<th>Laboratoï¿½ï¿½</th>";
 			echo "<td><input type='text' size=22 name=lab value='$planeta2[laborator]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Brána</th>";
+			echo "<th>Brï¿½na</th>";
 			if($planeta2[brana]==1){$bra="ano";};
 			if($planeta2[brana]==0){$bra="ne";};
 			echo "<td><select name='brana'>";
@@ -882,15 +879,15 @@ echo "<br>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Pøesunuto lidí</th>";
+			echo "<th>Pï¿½esunuto lidï¿½</th>";
 			echo "<td><input type='text' size=22 name=presun value='$planeta2[presun]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Poslední pøedání<br>(jen u CP)</th>";
+			echo "<th>Poslednï¿½ pï¿½edï¿½nï¿½<br>(jen u CP)</th>";
 			$pred=$planeta2[poslpredani]-86400;
       if($planeta2[status]==2){$presunuta=Date("d.m.Y H:i:s",$pred);}
-      if($planeta2[status]!=2){$presunuta="není to CP";}
+      if($planeta2[status]!=2){$presunuta="nenï¿½ to CP";}
 			echo "<td>$presunuta</td>";
 			echo "</tr>";
 
@@ -900,34 +897,34 @@ echo "<br>";
 			echo "<td><select name='status'>";
       echo "<option value=0";
       if ($planeta2[status]==0){echo " selected";}
-       echo ">normální</option>";
+       echo ">normï¿½lnï¿½</option>";
       echo "<option value=1";
       if ($planeta2[status]==1){echo " selected";}
-       echo ">domovská</option>";
+       echo ">domovskï¿½</option>";
       echo "<option value=2";
       if ($planeta2[status]==2){echo " selected";}
-       echo ">centrální</option>";
+       echo ">centrï¿½lnï¿½</option>";
       echo "<option value=3";
       if ($planeta2[status]==3){echo " selected";}
-       echo ">pøíbìhová</option>";
+       echo ">pï¿½ï¿½bï¿½hovï¿½</option>";
   	 	 echo "</select></td></tr>";
 
-			echo "<th>Pøejmenování</th><td><select name='prejm'>";
+			echo "<th>Pï¿½ejmenovï¿½nï¿½</th><td><select name='prejm'>";
       echo "<option value=0";
       if ($planeta2[prejmen]==0){echo " selected";}
-       echo ">nebyla pøejmenována</option>";
+       echo ">nebyla pï¿½ejmenovï¿½na</option>";
       echo "<option value=1";
       if ($planeta2[prejmen]==1){echo " selected";}
-       echo ">byla pøejmenována</option>";
+       echo ">byla pï¿½ejmenovï¿½na</option>";
   	 	 echo "</select></td></tr>";
 
 			echo "</table>";
-      echo "<input type='submit' name=action value='zmìòit detaily planety $planeta2[nazev]'>";
+      echo "<input type='submit' name=action value='zmï¿½ï¿½it detaily planety $planeta2[nazev]'>";
 			echo "<input type='hidden' name=cislopl value='".$planeta2[cislo]."'></form><br><br>";
 
 			echo "<form name='form' method='post' action='hlavni.php?page=admin1'>";
-      echo "Pøesunout tuto planetu hráèi <input type='text' name=planetapresun>";
-			echo "<input type='submit' name=action value='pøesuò'>";
+      echo "Pï¿½esunout tuto planetu hrï¿½ï¿½i <input type='text' name=planetapresun>";
+			echo "<input type='submit' name=action value='pï¿½esuï¿½'>";
 			
 			echo "<input type='hidden' name=planetan value='".$planetan."'>";
 			echo "<input type='hidden' name=puvmaj value='".$planeta2[majitel]."'>";
@@ -940,12 +937,12 @@ $pl11 = MySQL_Query("SELECT cislo FROM uzivatele where jmeno = '$planetapresun'"
 $zpl11 = MySQL_Fetch_Array($pl11);
 $cislomajp=$zpl11[cislo];
 if(MySQL_Query("update planety set cislomaj = '$cislomajp' where nazev='$planetanv'")){
-$titulek="Pøesun CP";
-$text ="CP $planetanv pøenuta k hráèi  $planetapresun";
+$titulek="Pï¿½esun CP";
+$text ="CP $planetanv pï¿½enuta k hrï¿½ï¿½i  $planetapresun";
 
      	$den = Date("U");
 			$jmeno="$zaznam1[jmeno]";
-			$rasa="Bohové";	
+			$rasa="Bohovï¿½";	
 			$text=HTMLSpecialChars($text);
 			$text=NL2BR($text);
 			$text=AddSlashes($text);
@@ -954,7 +951,7 @@ $text ="CP $planetanv pøenuta k hráèi  $planetapresun";
 
 MySQL_Query ("INSERT INTO forum VALUES('0','$den','$jmeno','$rasa','$text','$kde','$stat','$titulek','$pohlavi','$stat_2','$rasa', '$logcislo')");
       
-echo "<h1>Pøesunuto</h1><BR>".$text."";exit;}
+echo "<h1>Pï¿½esunuto</h1><BR>".$text."";exit;}
 endif;
 
 
@@ -963,7 +960,7 @@ endif;
 //*****najdi planetu start2********
 
 	if(isset($planetanv)){
-      if ($planetanv==""){echo "<h1>Musíte zadat název planety!</h1>";exit;}
+      if ($planetanv==""){echo "<h1>Musï¿½te zadat nï¿½zev planety!</h1>";exit;}
 			$pla2 = mysql_Query("SELECT * FROM planety where nazev='$planetanv' and status='2'");
       $planeta2 = mysql_Fetch_Array($pla2);
 echo "<br>";
@@ -971,7 +968,7 @@ echo "<br>";
 echo "<br>";
  			echo "<TABLE ".$table." ".$border." align=center>";
 			echo "<tr>";
-			echo "<th class=text_modry colspan = 3>Název planety : ".$planeta2["nazev"]."</th>";
+			echo "<th class=text_modry colspan = 3>Nï¿½zev planety : ".$planeta2["nazev"]."</th>";
 			echo "</tr>";
 
 			echo "<form name='form' method='post' action='hlavni.php?page=admin1&planetanv=$planetanv'>";
@@ -994,23 +991,23 @@ echo "<br>";
     		 	 echo "</select></td></tr>";
 
 			echo "<tr>";
-			echo "<th>Poèet obyvatel</th>";
+			echo "<th>Poï¿½et obyvatel</th>";
 			$liidi=number_format($planeta2[lidi],0,0," ");
 			echo "<td><input type='text' size=22 name=lidi value='$planeta2[lidi]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Mìst</th>";
+			echo "<th>Mï¿½st</th>";
 			echo "<td><input type='text' size=22 name=mest value='$planeta2[mesta]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Výroben</th>";
+			echo "<th>Vï¿½roben</th>";
 			echo "<td><input type='text' size=22 name=vyr value='$planeta2[vyrobna]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Kasáren</th>";
+			echo "<th>Kasï¿½ren</th>";
 			echo "<td><input type='text' size=22 name=kas value='$planeta2[kasarna]'></td>";
 			echo "</tr>";
 
@@ -1025,23 +1022,23 @@ echo "<br>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Parkù</th>";
+			echo "<th>Parkï¿½</th>";
 			echo "<td><input type='text' size=22 name=park value='$planeta2[par]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Datum posledního obsazení</th>";
+			echo "<th>Datum poslednï¿½ho obsazenï¿½</th>";
 			$obsaz=Date("d.m.Y H:i:s",$planeta2[cas]);
 			echo "<td>$obsaz</td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Laboratoøí</th>";
+			echo "<th>Laboratoï¿½ï¿½</th>";
 			echo "<td><input type='text' size=22 name=lab value='$planeta2[laborator]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Brána</th>";
+			echo "<th>Brï¿½na</th>";
 			if($planeta2[brana]==1){$bra="ano";};
 			if($planeta2[brana]==0){$bra="ne";};
 			echo "<td><select name='brana'>";
@@ -1060,15 +1057,15 @@ echo "<br>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Pøesunuto lidí</th>";
+			echo "<th>Pï¿½esunuto lidï¿½</th>";
 			echo "<td><input type='text' size=22 name=presun value='$planeta2[presun]'></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-			echo "<th>Poslední pøedání<br>(jen u CP)</th>";
+			echo "<th>Poslednï¿½ pï¿½edï¿½nï¿½<br>(jen u CP)</th>";
 			$pred=$planeta2[poslpredani]-86400;
       if($planeta2[status]==2){$presunuta=Date("d.m.Y H:i:s",$pred);}
-      if($planeta2[status]!=2){$presunuta="není to CP";}
+      if($planeta2[status]!=2){$presunuta="nenï¿½ to CP";}
 			echo "<td>$presunuta</td>";
 			echo "</tr>";
 
@@ -1078,34 +1075,34 @@ echo "<br>";
 			echo "<td><select name='status'>";
       echo "<option value=0";
       if ($planeta2[status]==0){echo " selected";}
-       echo ">normální</option>";
+       echo ">normï¿½lnï¿½</option>";
       echo "<option value=1";
       if ($planeta2[status]==1){echo " selected";}
-       echo ">domovská</option>";
+       echo ">domovskï¿½</option>";
       echo "<option value=2";
       if ($planeta2[status]==2){echo " selected";}
-       echo ">centrální</option>";
+       echo ">centrï¿½lnï¿½</option>";
       echo "<option value=3";
       if ($planeta2[status]==3){echo " selected";}
-       echo ">pøíbìhová</option>";
+       echo ">pï¿½ï¿½bï¿½hovï¿½</option>";
   	 	 echo "</select></td></tr>";
 
-			echo "<th>Pøejmenování</th><td><select name='prejm'>";
+			echo "<th>Pï¿½ejmenovï¿½nï¿½</th><td><select name='prejm'>";
       echo "<option value=0";
       if ($planeta2[prejmen]==0){echo " selected";}
-       echo ">nebyla pøejmenována</option>";
+       echo ">nebyla pï¿½ejmenovï¿½na</option>";
       echo "<option value=1";
       if ($planeta2[prejmen]==1){echo " selected";}
-       echo ">byla pøejmenována</option>";
+       echo ">byla pï¿½ejmenovï¿½na</option>";
   	 	 echo "</select></td></tr>";
 
 			echo "</table>";
-      echo "<input type='submit' name=action value='zmìòit detaily planety $planeta2[nazev]'>";
+      echo "<input type='submit' name=action value='zmï¿½ï¿½it detaily planety $planeta2[nazev]'>";
 			echo "<input type='hidden' name=cislopl value='".$planeta2[cislo]."'></form><br><br>";
 
 			echo "<form name='form' method='post' action='hlavni.php?page=admin1'>";
-      echo "Pøesunout tuto planetu hráèi <input type='text' name=planetapresun>";
-			echo "<input type='submit' name=action value='pøesuò'>";
+      echo "Pï¿½esunout tuto planetu hrï¿½ï¿½i <input type='text' name=planetapresun>";
+			echo "<input type='submit' name=action value='pï¿½esuï¿½'>";
 			echo "<input type='hidden' name=planetaCP value='CP'>";
 			echo "<input type='hidden' name=planetanv value='".$planetanv."'>";
 			echo "<input type='hidden' name=puvmaj value='".$planeta2[majitel]."'>";

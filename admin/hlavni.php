@@ -1,41 +1,33 @@
-
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-
-
   <head>
-    <title>Stargate - Návrat bohù</title>
+    <title>Stargate - NÃ¡vrat bohÅ¯</title>
     <meta http-equiv="content-language" content="cs">
     <meta http-equiv="imagetoolbar" content="no">
-    
-    <meta name="description" content="Stargate,Hvìzdná brána,Stargate ,Sg-nb,serial Hvìzdná brána,Online hra,Textová hra.">
-    <meta name='keywords' content='Stargate,Hvìzdná brána,Stargate ,Sg-nb,serial Hvìzdná brána,Online hra,Textová hra,hra,webová hra,zábava.' lang='cs' />
-    <meta name="author" content="Máca10">
+    <meta name="description" content="Stargate,Hvï¿½zdnï¿½ brï¿½na,Stargate ,Sg-nb,serial Hvï¿½zdnï¿½ brï¿½na,Online hra,Textovï¿½ hra.">
+    <meta name='keywords' content='Stargate,Hvï¿½zdnï¿½ brï¿½na,Stargate ,Sg-nb,serial Hvï¿½zdnï¿½ brï¿½na,Online hra,Textovï¿½ hra,hra,webovï¿½ hra,zï¿½bava.' lang='cs' />
+    <meta name="author" content="Mï¿½ca10">
     <meta http-equiv="content-type" content="text/html; charset=windows-1250">
     <link rel="stylesheet" type="text/css" href="default.css">
   </head>
   <body>
   <div style="color: red; font-size: 14px;">
-  
-      <? 
+<?php
 require "../data_1.php";
 mysql_query("SET NAMES cp1250");
 $vys1 = MySQL_Query("SELECT cislo,heslo,jmeno,heslo2,admin FROM uzivatele where cislo = $logcislo");
-		$zaznam1 = MySQL_Fetch_Array($vys1);
+$zaznam1 = MySQL_Fetch_Array($vys1);
 if($zaznam1[admin]==0){
 if(!$logjmeno){$logjmeno=$_SERVER["REMOTE_ADDR"];}
 echo "Neopravneny pristup!<br />";  
 echo "&nbsp;" . $logjmeno;
-echo ", nejsi admin, tak nemáš pøístup do admin sekce. Nemáš tu co dìlat  a tímto bude tvá IP adresa zablokována? ";
+echo ", nejsi admin, tak nemÃ¡Å¡ pÅ™Ã­stup do admin sekce. NemÃ¡Å¡ tu co dÄ›lat a tÃ­mto bude tvÃ© IP adresa zablokovÃ¡na?";
 exit;
 }	
 
 ?>
 </div>
     <div align="center">
-
-
       <div class="sirka">
 	<div class="lista_top">
 
@@ -43,17 +35,14 @@ exit;
 	<div class="lista_top_mezera"></div>
 	<div class="menu_top">
 	    <div class="menu_top_button1">
-
-		<??>
-
-	    </div>
+            <!-- ... -->
+        </div>
 	    <div class="menu_top_button2" align="right">
-		<span class="men_butt"><a href="../hlavni.php?page=info" >Odhlásit z admin</a></span>
+		<span class="men_butt"><a href="../hlavni.php?page=info" >Odhlï¿½sit z admin</a></span>
 	    </div>
 	</div>
 	<div class="logo">
-
-		<?
+		<?php
 		$soubor_pocet="0";
 		$slozka = dir("../images/logo");
 		while($soubor=$slozka->read()) {
@@ -64,137 +53,107 @@ exit;
 		$slozka->close();
 		echo "<img src='../images/logo/$soubor_vyber.jpg' border='0' style='margin: 0xp; padding: 0px;'>";
 		?> 
-
         </div>
 	<div class="lista_logo"></div>
 	<div class="menu">
 	    <div class="menu_nadpis"></div>     
-<? 
+<?php
 
-if($zaznam1[admin]==1){    
-
-	echo ' 
-
-	    <div class="menu_button"><a href="hlavni.php?page=cp" >Správa CP</a></span></div>
+if($zaznam1[admin]==1){
+	echo '
+	    <div class="menu_button"><a href="hlavni.php?page=cp" >Sprï¿½va CP</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=kontr_ra" >Kontrola RA</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uživatelù</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=silv_sms" >Silver pøez SMS</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=gold">Gold hráèi</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uï¿½ivatelï¿½</a></div>
+	    <div class="menu_button"><a href="hlavni.php?page=silv_sms" >Silver pï¿½ez SMS</a></div>
+	    <div class="menu_button"><a href="hlavni.php?page=gold">Gold hrï¿½ï¿½i</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin17" >Restart</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=aukro" >Odmìny za aukro</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=vytv_for" >Vytvoøit forum</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=ucet">RTG-úèet</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uživatelé</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=aukro" >Odmï¿½ny za aukro</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=vytv_for" >Vytvoï¿½it forum</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=ucet">RTG-ï¿½ï¿½et</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uï¿½ivatelï¿½</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin6" >Kontrolor</a></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin5" >Rasy</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin4" >Naq</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin7" >Mazák</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin7" >Mazï¿½k</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin8" >Stopky</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin12" >Bany</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin14" >Statusy</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin15" >Banka</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin16" >Nová rasa</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin20">Systém nových hráèù</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin11" >Úprava statistik</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin10" >Èiny vedení</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fóra</a></span></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin16" >Novï¿½ rasa</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin20">Systï¿½m novï¿½ch hrï¿½ï¿½ï¿½</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin11" >ï¿½prava statistik</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin10" >ï¿½iny vedenï¿½</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fï¿½ra</a></span></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin9" >Antimulti</a></span></div> 
-            <div class="menu_button"><a href="hlavni.php?page=admin-vyzkum" >Výzkum</a></span></div> 
+            <div class="menu_button"><a href="hlavni.php?page=admin-vyzkum" >Vï¿½zkum</a></span></div> 
 
 	    ';
 
 }
 
-
-
-if($zaznam1[admin]==2){    
-
-	echo ' 
-
-	    <div class="menu_button"><a href="hlavni.php?page=cp" >Správa CP</a></span></div>
+if($zaznam1[admin]==2){
+	echo '
+	    <div class="menu_button"><a href="hlavni.php?page=cp" >Sprï¿½va CP</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=kontr_ra" >Kontrola RA</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uživatelù</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=vytv_for" >Vytvoøit forum</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uživatelé</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uï¿½ivatelï¿½</a></div>
+	    <div class="menu_button"><a href="hlavni.php?page=vytv_for" >Vytvoï¿½it forum</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uï¿½ivatelï¿½</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin6" >Kontrolor</a></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin5" >Rasy</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin4" >Naq</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin12" >Bany</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin14" >Statusy</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin15" >Banka</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin16" >Nová rasa</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin11" >Úprava statistik</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin10" >Èiny vedení</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fóra</a></span></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin16" >Novï¿½ rasa</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin11" >ï¿½prava statistik</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin10" >ï¿½iny vedenï¿½</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fï¿½ra</a></span></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin9" >Antimulti</a></span></div> 
-            <div class="menu_button"><a href="hlavni.php?page=admin-vyzkum" >Výzkum</a></span></div> 
-
+            <div class="menu_button"><a href="hlavni.php?page=admin-vyzkum" >Vï¿½zkum</a></span></div>
 	    ';
-
 }
 
 if($zaznam1[admin]==3){    
-
-	echo ' 
-
-	    <div class="menu_button"><a href="hlavni.php?page=cp" >Správa CP</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uživatelù</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uživatelé</a></span></div>
+	echo '
+	    <div class="menu_button"><a href="hlavni.php?page=cp" >Sprï¿½va CP</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uï¿½ivatelï¿½</a></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uï¿½ivatelï¿½</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin6" >Kontrolor</a></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin5" >Rasy</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin4" >Naq</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin16" >Nová rasa</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin10" >Èiny vedení</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fóra</a></span></span></div> 
-
+	    <div class="menu_button"><a href="hlavni.php?page=admin16" >Novï¿½ rasa</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin10" >ï¿½iny vedenï¿½</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fï¿½ra</a></span></span></div>
 	    ';
-
 }
 
-
 if($zaznam1[admin]==4){    
-
-	echo ' 
-
+	echo '
 	    <div class="menu_button"><a href="hlavni.php?page=kontr_ra" >Kontrola RA</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uživatelù</a></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uživatelé</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=kontr_uz" >Kontrola uï¿½ivatelï¿½</a></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin1" >Uï¿½ivatelï¿½</a></span></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin6" >Kontrolor</a></div>
 	    <div class="menu_button"><a href="hlavni.php?page=admin5" >Rasy</a></span></div>
-	   
-      <!--<div class="menu_button"><a href="hlavni.php?page=admin4" >Naq</a></span></div>-->
-	   
-      <div class="menu_button"><a href="hlavni.php?page=admin15" >Banka</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin10" >Èiny vedení</a></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fóra</a></span></span></div>
-	    <div class="menu_button"><a href="hlavni.php?page=admin9" >Antimulti</a></span></div> 
-
+        <!--<div class="menu_button"><a href="hlavni.php?page=admin4" >Naq</a></span></div>-->
+        <div class="menu_button"><a href="hlavni.php?page=admin15" >Banka</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin10" >ï¿½iny vedenï¿½</a></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin2" >Fï¿½ra</a></span></span></div>
+	    <div class="menu_button"><a href="hlavni.php?page=admin9" >Antimulti</a></span></div>
 	    ';
-
 }
 
 ?>
 
-            <div class="menu_button"></span></div>
-            <div class="menu_button"><a href="../hlavni.php?page=info" >Odhlásit z admin sekce</a></span></div>
-
-
-
-
-
+        <div class="menu_button"></span></div>
+        <div class="menu_button"><a href="../hlavni.php?page=info" >Odhlï¿½sit z admin sekce</a></span></div>
 	    <div class="menu_paticka"></div>
-
 	    <div class="info"></div>
 	    <div class="reklama_telo"> </div>
 	    <div class="menu_paticka"></div>
-
 	    <div class="reklama"></div>
 	    <div class="reklama_telo"></div>
 	    <div class="menu_paticka"></div>
-        </div>
-
-
-
+    </div>
 
 	<div class="telo">
 	    <div class="telo_telo">
@@ -204,7 +163,7 @@ if($zaznam1[admin]==4){
       			$page = $_GET["page"];
       			if(file_exists("./$page.php")){
       			  include("./$page.php");}
-     			else{ echo "<div align=\"center\" style=\"padding: 100px\">Stránka $page.php je zatím prázdná</div>";} 
+     			else{ echo "<div align=\"center\" style=\"padding: 100px\">Strï¿½nka $page.php je zatï¿½m prï¿½zdnï¿½</div>";} 
       			?>
 
 		</div>
