@@ -1,0 +1,9 @@
+<?php
+Header("Content-Type:image/png");
+$obr=ImageCreate(100,100);
+$bila=ImageColorAllocate($obr,255,255,255);
+$cerna=ImageColorAllocate($obr,0,0,0);
+ImageLine($obr,0,0,99,99,$bila);
+ImagePng($obr);
+ImageDestroy($obr);
+?>

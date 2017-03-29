@@ -1,0 +1,14 @@
+<div class="help_fond">
+<h2><font color="#FFFFFF">Fond</font></h2>
+<font color="#BEBEBE">Do fondu se pøispívá na horší èasy, na válku na výzkum. Vedení nastaví minimální pøíspìvek do fondu a hráèi si pak nastaví procento odvádìní ze svého pøíjmu. Mùže se i poslat jednorázový pøíspìvek vìtší jak 500 NAQ. Je možno nastavit aby se vždy když je zmìnìn minimální pøíspìvek zmìnilo hráèovo nastavení na tento minimánlí pøíspìvek.
+</font>
+
+<h2><font color="#FFFFFF">Výzkum</font></h2>
+<font color="#BEBEBE">Na výzkum se pøispívá kvùli rùzným zlepšení. Vedení nastaví minimální pøíspìvek na výzkum a hráèi si pak nastaví procento odvádìní ze svého pøíjmu. Je možno nastavit aby se vždy když je zmìnìn minimální pøíspìvek zmìnilo hráèovo nastavení na tento minimánlí pøíspìvek.
+</font>
+
+<h2><font color="#FFFFFF">Obchod</font></h2>
+<font color="#BEBEBE">V obchodu lze prodávat a nakupovat jednotky (cenu ze kterou prodáváte musí být v rozmezí 50% - 150% výrobní ceny), lze také prodávat nezamìstnané a kupovat nezamìstnané. Vždy jednou za 3 minuty se náhodnì vygenuruje nabídka ke koupi hv. brány. Všechny nabídky se musípøevést do vesmírných skladù to trvá 5-60minut, to znamená že vaše nabídka se objeví ostatním až za tuto dobu. Ale pozor, vašim jednotkám se mùže stát nehoda.Dále je možnost obchodovat s planetama musíte mít ale více jak 25 planet aby jste mohly prodávat jinak mùžete jen kupovat. Nemùžete kupovat sám od sebe, cokoliv.
+</font>
+
+</div>

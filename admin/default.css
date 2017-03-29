@@ -1,0 +1,423 @@
+body {
+margin: 0px;
+margin-top: 5px;
+background-color: black;
+font-size: 11px;
+font-family: Tahoma;
+font-weight: bold;
+color: #707070;
+}
+
+a {
+color: #0099FF;
+text-decoration: none;
+}
+
+a:hover {
+color: #FFFFFF;
+text-decoration: none;
+}
+
+
+#hledani{	font-size: 13px;	font-family: "verdana ce", verdana, sans-serif;	border: 1px solid #005F9B; background-color: #6C9AFF; }
+#hledani td, th{ padding: 3px; padding-left: 5px; padding-right: 5px }
+#hledani th{ background-image: url('engine/button.gif'); color: black; font-size: 12px; border-bottom: 1px solid #005F9B; }
+#hledani td{ text-align: center; }
+
+.input, .select { border: 1px #828282 solid; color: black; background-image: url('engine/2/input.gif'); font-family : "verdana ce", verdana, sans-serif; font-size: 11px; text-align: left; padding: 2px }
+.button { border: 1px #828282 solid; color: black; background-image: url('engine/2/button.gif'); font-family : "verdana ce", verdana, sans-serif; font-size: 10px; text-align: center; padding-bottom: 1px; padding-top: 1px;}
+.textarea { border: 1px #828282 solid; color: black; background: url('engine/2/textarea.gif');  background-position: left top; background-attachment: scroll; font-family : "verdana ce", verdana, sans-serif; font-size: 11px; font-decoration: none; text-align: left; padding: 2px; }
+.select { background-color: #c0c0c0; }
+
+#f_tab { font-size: 12px; padding: 4px; }
+#f_tab_write { font-size: 12px; padding: 4px; color: rgb(248,41,41) }
+#f_tab .admin { color: #01BAFF; }
+#f_tab .vudce { color: #FFFF00; }
+#f_tab .zastupce { color: white; }
+#f_tab .radce { color: #FF6600; }
+#f_tab .novacek { color: #2DF96B; }
+#f_tab .vyhnanec { color: #555555; }
+#f_tab .obcan { color: #626CC6; }
+#f_tab .golds { color: #DDE59B; }
+#f_tab .silvers { color: #626CC6; }
+
+#f_nadpis { font-size: 24px; margin-bottom: 10px; }
+
+#f_form {  width: 600px; margin-bottom: 20px }
+#f_form .nadpis { font-size: 13px; font-family: "verdana ce", verdana, sans-serif; text-align: right; }
+#f_refresh { position: absolute; right: 5px; top: 5px; }
+
+
+td {
+color: #ffffff;
+font-family: Tahoma;
+font-size: 11px;
+font-weight: bold;
+}
+
+tr {
+color: #ffffff;
+font-family: Tahoma;
+font-size: 11px;
+font-weight: bold;
+}
+
+th {
+color: #0099FF;
+font-family: Tahoma;
+font-size: 11px;
+font-weight: bold;
+}
+
+h6 {
+font-size: 11px;
+color:#ffffff; 
+font-family: Tahoma;
+font-weight: bold;
+}
+
+input{color: #0099FF;
+	 background-color: #000000;
+	 border: 1 solid #ffffff;
+	 }
+
+#staranka {
+position: relative;
+width: 860px;
+height: auto;
+text-align: center;
+}
+
+.sirka {
+width: 860px
+}
+
+.lista_top {
+position: relative;
+width: 860px;
+height: auto;
+text-align: center;
+}
+
+.lista_top_mezera {
+position: relative;
+width: 860px;
+height: 15px;
+}
+
+.menu_top {
+position: relative;
+width: 860px;
+height: 33px;
+top: 2px;
+background-image: url('../images/pozadi/menu_top.jpg');
+}
+
+.menu_top_button1 {
+position: relative;
+width: 590px;
+height: 15px;
+top: 9px;
+left: 35px;
+text-align: left;
+}
+
+.menu_top_button2 {
+position: relative;
+width: 120px;
+height: 20px;
+left: 350px;
+top: -6px;
+}
+
+.logo {
+position: relative;
+width: 860px;
+height: 148px;
+background-image: url('../images/pozadi/telo.jpg');
+}
+
+.lista_logo {
+position: relative;
+width: 860px;
+height: 12px;
+background-image: url('../images/pozadi/lista_logo.jpg');
+}
+
+.menu {
+position: relative;
+float: left;
+width: 149px;
+height: auto;
+}
+
+.menu_nadpis {
+position: relative;
+width: 149px;
+height: 26px;
+background-image: url('../images/pozadi/menu_nadpis.jpg');
+}
+
+.menu_button {
+position: relative;
+width: 149px;
+height: 17px;
+background-image: url('../images/pozadi/menu_button.jpg');
+}
+
+
+.menu_paticka {
+position: ralative;
+width: 149px;
+height: 12px;
+background-image: url('../images/pozadi/menu_paticka.jpg');
+background-repeat: no-repeat;
+}
+
+.info {
+position: relative;
+width: 149px;
+height: 23px;
+background-image: url('../images/pozadi/info.jpg');
+}
+
+.reklama {
+position: relative;
+width: 149px;
+height: 22px;
+background-image: url('../images/pozadi/reklama.jpg');
+}
+
+.reklama_telo {
+position: relative;
+width: 149px;
+height: auto;
+background-image: url('../images/pozadi/reklama_telo.jpg');
+}
+
+.telo {
+position: relative;
+float: left;
+top: -2px;
+width: 711px;
+height: auto;
+}
+
+.telo_telo {
+position: relative;
+float: center;
+width: 711px;
+height: auto;
+background-image: url('../images/pozadi/telo.jpg');
+}
+
+.telo_text {
+position: relative;
+text-align: center;
+left: 4px;
+width: 694px;
+z-index: 1;
+height: auto;
+}
+
+.telo_text a {
+color: #0099FF;
+}
+
+.telo_text a:hover {
+color: #FFFFFF;
+}
+
+.telo_paticka {
+position: relative;
+text-align: left;
+width: 711px;
+margin-top: -25px;
+height: 80px;
+background-image: url('../images/pozadi/telo_paticka.jpg');
+background-position: center bottom;
+background-repeat: no-repeat;
+}
+
+.men_butt {
+font-size: 11px;
+font-family: Tahoma;
+color: #707070;
+font-variant: small-caps;
+font-weight: bold;
+}
+
+.men_butt a {
+color: #707070;
+}
+
+.men_butt a:hover {
+color: #CFD942;
+}
+
+.text {
+font-size: 11px;
+font-family: Tahoma;
+color: #707070;
+font-weight: bold;
+}
+
+.text_bili {
+font-size: 11px;
+color:#ffffff; 
+font-family: Tahoma;
+font-weight: bold;
+}
+
+.nadpis {
+font-size: 14px;
+color:#0099FF; 
+font-family: Tahoma;
+font-weight: bold;
+}
+
+.text_modry {
+font-size: 11px;
+color:#0099FF; 
+font-family: Tahoma;
+font-weight: bold;
+}
+
+.text_cerveny {
+font-size: 11px;
+color:#DC3C3C; 
+font-family: Tahoma;
+font-weight: bold;
+}
+
+.text_cerveny a {
+color:#DC3C3C; 
+}
+
+.text_cerveny a:hover {
+color:#FFFFFF; 
+}
+
+.text_zeleny {
+font-size: 11px;
+color:#0B5F0C; 
+font-family: Tahoma;
+font-weight: bold;
+}
+
+.text_zluty {
+font-size: 11px;
+color:#FFFF00; 
+font-family: Tahoma;
+font-weight: bold;
+}
+
+.text_odkazy {
+font-size: 12px;
+color:#0099FF; 
+font-family: Tahoma;
+font-weight: bold;
+font-variant: small-caps;
+}
+
+submit {
+	border: 1px #7f7f7f solid;
+	color: #0099ff;
+	font-family : "verdana ce", verdana, sans-serif;
+	font-size: 11px;
+	text-align: center;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	background-color: #000000;
+}
+
+input, text, file, textarea {
+	border: 1px #7f7f7f solid;
+	color: #0099ff;
+	font-family : "verdana ce", verdana, sans-serif;
+	font-size: 11px;
+	text-align: left;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	background-color: #000000;
+}
+
+select {
+	border: 1px #7f7f7f solid;
+	color: #0099ff;
+	font-family : "verdana ce", verdana, sans-serif;
+	font-size: 11px;
+	text-align: left;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	background-color: #222222;
+}
+
+
+
+
+.table {
+  margin-top: 10px;
+  text-align: center;
+  border: 1px #828282 solid;
+  background-color: #494949;
+  font-size: 11px;
+  color: white;
+}
+
+.table .vrsek td, .table .vrsek th {
+  padding: 5px;
+  color: black;
+  font-size: 11px;
+}
+
+.table .vrsek {
+  background-image: url('engine/2/menu.gif');
+}
+
+.table .spodek td, .table .spodek th  {
+  border-bottom: 1px #606060 solid;
+  padding: 3px;
+}
+
+#help {
+  float: right;
+  margin-top: -20px;
+}
+
+.pri_jmeno { margin-bottom: 2px; }
+
+h1, h2, h3, h4 { 
+  font-weight: bold;
+  color: white;
+  font-family: Tahoma;
+  text-align: center;
+}
+
+.help_rasy {
+	height: 150px;
+	text-align: left;
+	margin-right: 15px;
+}
+.help_rasy img {
+	margin-left: 15px;
+	margin-right: 10px;
+	float: left;
+}
+.help_jednotky, .help_planety, .help_stavby, .help_vlada, .help_fond{
+	text-align: left;
+	margin: 10px;
+}
+.help_jednotky table {
+	width: 400px;
+}
+.help_planety b {
+	font-style: oblique;
+}
+.help_planety img {
+	border: 0px;
+}
+
+.help_vlada table {
+	width: 550px;
+}

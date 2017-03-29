@@ -1,0 +1,12 @@
+<?php
+		@$spojeni = MySQL_Connect("sql2.web4u.cz","sgate","ikbp9273");
+		if(!$spojeni):
+		  echo "Nepodaøilo se pøipojit";
+		  break;
+		endif;
+		MySQL_Select_DB("sgate");
+
+$vys4 = MySQL_Query("SELECT * FROM utok where (utocnik='$logjmeno' or obrance='$logjmeno') ORDER BY den DESC LIMIT $xm,5");
+while ($zaznam4 = MySQL_Fetch_Array($vys4)):
+
+?>

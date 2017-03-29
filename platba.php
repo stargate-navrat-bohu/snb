@@ -1,0 +1,1 @@
+Vše se zde dozvíte na zaèatku nového vìku. (10.3 2006 )
