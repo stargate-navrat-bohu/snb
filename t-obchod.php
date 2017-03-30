@@ -1,38 +1,42 @@
-<?
-mysql_query("SET NAMES cp1250");
+<?php
+//mysql_query("SET NAMES cp1250");
 Header ("Cache control: no-cache");
 ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<?php
+require "data_1.php";
 
-<?
-		require "data_1.php";
+$vys1 = MySQL_Query("SELECT * FROM uzivatele where cislo=$logcislo");
+$zaznam1 = MySQL_Fetch_Array($vys1);
 
-
-
-	$vys1 = MySQL_Query("SELECT * FROM uzivatele where cislo=$logcislo");
-	$zaznam1 = MySQL_Fetch_Array($vys1);
-
-	$styl="styl".$zaznam1[skin];
-	if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or 	$zaznam1[skin]==4){$styl="styl1";};
+$styl="styl".$zaznam1[skin];
+if($zaznam1['skin']==1 or $zaznam1['skin']==2 or $zaznam1['skin']==3 or 	$zaznam1['skin']==4){
+    $styl="styl1";
+}
 ?>
 <style type="text/css">
-@import url(<?echo $styl?>.css);
+@import url(<?php echo $styl?>.css);
 td{text-align:center;}
 alink{color:white;};
 </style>
 <script language="JavaScript" src="a.php" >
 </script>
-<?	if((Date("U")-$zaznam1[vek])<86400){echo "<h1>Nemůžete obchodovat. Nejste tu ještě ani 24 hodin a tak nejste zapsán v obchodním rejstříku.</h1>";exit;};?>
+<?php
+if((Date("U")-$zaznam1['vek'])<86400){
+    echo "<h1>NemĹŻĹľete obchodovat. Nejste tu jeĹˇtÄ› ani 24 hodin a tak nejste zapsĂˇn v obchodnĂ­m rejstĹ™Ă­ku.</h1>";
+    exit;
+}
+?>
 <script language="JavaScript">
 function zmena(){
-document.formw0.co.value=1;
-document.formw1.co.value=1;
-document.formw2.co.value=1;
-alert(document.formw0.co.value);
-alert(document.formw1.co.value);
-alert(document.formw2.co.value);
+    document.formw0.co.value=1;
+    document.formw1.co.value=1;
+    document.formw2.co.value=1;
+    alert(document.formw0.co.value);
+    alert(document.formw1.co.value);
+    alert(document.formw2.co.value);
 }
 </script>
 </head>
@@ -41,25 +45,24 @@ alert(document.formw2.co.value);
 <center><h6>
 <a href="obchod.php?co=1" target="hlavni" id=a onMouseOver=Rozsvitit('a') onMouseOut=Zhasnout('a')>Prodej jednotek</a>
 &nbsp;&nbsp;
-<a href="obchod.php?co=2" target="hlavni" id=b onMouseOver=Rozsvitit('b') onMouseOut=Zhasnout('b')>Prodej nezaměstnaných</a>
+<a href="obchod.php?co=2" target="hlavni" id=b onMouseOver=Rozsvitit('b') onMouseOut=Zhasnout('b')>Prodej nezamÄ›stnanĂ˝ch</a>
 &nbsp;&nbsp;
-<a href="obchod.php?co=3" target="hlavni" id=c onMouseOver=Rozsvitit('c') onMouseOut=Zhasnout('c')>Koupě jednotek</a>
+<a href="obchod.php?co=3" target="hlavni" id=c onMouseOver=Rozsvitit('c') onMouseOut=Zhasnout('c')>KoupÄ› jednotek</a>
 &nbsp;&nbsp;
-<a href="obchod.php?co=4" target="hlavni" id=d onMouseOver=Rozsvitit('d') onMouseOut=Zhasnout('d')>Ostatní koupě</a>
+<a href="obchod.php?co=4" target="hlavni" id=d onMouseOver=Rozsvitit('d') onMouseOut=Zhasnout('d')>OstatnĂ­ koupÄ›</a>
 </h6></center>
-<?
-
-	$trasa=$zaznam1[rasa];
+<?php
+	$trasa=$zaznam1['rasa'];
 
 	require("kontrola.php");
 
 	$politika1 = MySQL_Query("SELECT * FROM politika where rasa = $trasa");
 	$politika = MySQL_Fetch_Array($politika1);
 
-	$narod1 = MySQL_Query("SELECT * FROM narody where cislo=$zaznam1[narod]");
+	$narod1 = MySQL_Query("SELECT * FROM narody where cislo=".$zaznam1['narod']);
 	$narod = MySQL_Fetch_Array($narod1);
 
-	$zrizeni1 = MySQL_Query("SELECT * FROM zrizeni where cislo=$zaznam1[zrizeni]");
+	$zrizeni1 = MySQL_Query("SELECT * FROM zrizeni where cislo=".$zaznam1['zrizeni']);
 	$zriz = MySQL_Fetch_Array($zrizeni1);
 
 	$vys2 = MySQL_Query("SELECT * FROM rasy where rasa = '$trasa'");
@@ -75,8 +78,8 @@ alert(document.formw2.co.value);
 		$cj3*=1;
 		$cj4*=1;
 		do{
-			if($j1<0 or $j2<0 or $j3<0 or $j4<0){echo "<h1>Čísla musí být větší jak nula</h1>";break;};
-			if($j1>$zaznam1[jed1] or $j2>$zaznam1[jed2] or $j3>$zaznam1[jed3] or $j4>$zaznam1[jed4]){echo "<h1>Tolik jednotek nemáte</h1>";break;};
+			if($j1<0 or $j2<0 or $j3<0 or $j4<0){echo "<h1>ÄŚĂ­sla musĂ­ bĂ˝t vÄ›tĹˇĂ­ jak nula</h1>";break;};
+			if($j1>$zaznam1['jed1'] or $j2>$zaznam1['jed2'] or $j3>$zaznam1['jed3'] or $j4>$zaznam1['jed4']){echo "<h1>Tolik jednotek nemĂˇte</h1>";break;};
 
 			$den=Date("U");
 			$minut=rand(15,30);
@@ -85,60 +88,57 @@ alert(document.formw2.co.value);
 			
 			$cena=$j1*$cj1+$j2*$cj2+$j3*$cj3+$j4*$cj4;
 			echo "<font class=info>";
-			$ocena=($j1*$zaznam2[jed1_cena]*$politika[cenaj]/100)+($j2*$zaznam2[jed2_cena]*$politika[cenaj]/100)+($j4*$zaznam2[jed4_cena]*$politika[cenaj]/100)+($j3*$zaznam2[jed3_cena]*$politika[cenaj]/100*$politika[cena3j]/100);
-			if(($cena/$ocena)<=0.5){echo "<h1>Zvolená celková cena nesmí být menší jak 50% výrobní ceny</h1>";break;};
-			if(($cena/$ocena)>=1.5){echo "<h1>Zvolená celková cena nesmí být větší jak 150% výrobní ceny</h1>";break;};
-			$zjed1=$zaznam1[jed1]-$j1;
-			$zjed2=$zaznam1[jed2]-$j2;
-			$zjed3=$zaznam1[jed3]-$j3;
-			$zjed4=$zaznam1[jed4]-$j4;
-
-			/*$vys1 = MySQL_Query("SELECT jed1,jed2,jed3,jed4,jed5 FROM uzivatele where cislo=$logcislo");
-			$zaznam1 = MySQL_Fetch_Array($vys1);			*/
+			$ocena=($j1*$zaznam2['jed1_cena']*$politika['cenaj']/100)+($j2*$zaznam2['jed2_cena']*$politika['cenaj']/100)+($j4*$zaznam2['jed4_cena']*$politika['cenaj']/100)+($j3*$zaznam2['jed3_cena']*$politika['cenaj']/100*$politika['cena3j']/100);
+			if(($cena/$ocena)<=0.5){echo "<h1>ZvolenĂˇ celkovĂˇ cena nesmĂ­ bĂ˝t menĹˇĂ­ jak 50% vĂ˝robnĂ­ ceny</h1>";break;};
+			if(($cena/$ocena)>=1.5){echo "<h1>ZvolenĂˇ celkovĂˇ cena nesmĂ­ bĂ˝t vÄ›tĹˇĂ­ jak 150% vĂ˝robnĂ­ ceny</h1>";break;};
+			$zjed1=$zaznam1['jed1']-$j1;
+			$zjed2=$zaznam1['jed2']-$j2;
+			$zjed3=$zaznam1['jed3']-$j3;
+			$zjed4=$zaznam1['jed4']-$j4;
 			
 			$utok=$zjed1*$zaznam2["jed1_utok"];
 			$utok+=$zjed2*$zaznam2["jed2_utok"];
 			$utok+=$zjed4*$zaznam2["jed4_utok"];
 			$utok+=$zaznam1["jed5"]*$zold_utok;
-			$utok*=$politika[utok]/100;
-			$utok*=$narod[utok]/100;
-			$utok*=$zriz[utok]/100;
+			$utok*=$politika['utok']/100;
+			$utok*=$narod['utok']/100;
+			$utok*=$zriz['utok']/100;
 			$obrana=$zjed1*$zaznam2["jed1_obrana"];
 			$obrana+=$zjed2*$zaznam2["jed2_obrana"];
 			$obrana+=$zjed4*$zaznam2["jed4_obrana"];
 			$obrana+=$zaznam1["jed5"]*$zold_obrana;
-			$obrana*=$politika[obrana]/100;
-			$obrana*=$narod[obrana]/100;
-			$obrana*=$zriz[obrana]/100;
+			$obrana*=$politika['obrana']/100;
+			$obrana*=$narod['obrana']/100;
+			$obrana*=$zriz['obrana']/100;
 			$sila=$utok+$obrana;
-			//echo "<h6>ssssss$sila";
-			MySQL_Query("update uzivatele set jed1=$zjed1,jed2=$zjed2,jed3=$zjed3,jed4=$zjed4,sila=$sila where cislo=$logcislo");						
-			//echo $zjed4;
+
+			MySQL_Query("update uzivatele set jed1=$zjed1,jed2=$zjed2,jed3=$zjed3,jed4=$zjed4,sila=$sila where cislo=$logcislo");
+
 			$nahoda=rand(1,5);
-			//echo "$nahoda<br>";				
+
 			if($nahoda==5):
 				echo "<centrum><h1>";			
 				$nahoda2=rand(1,10);
 				switch($nahoda2){
-					case 1:	echo "Přírodní katastrofa, do naše transportníh lodě potkali pás asteroidů, nikdo nepřežil.";
+					case 1:	echo "Pďż˝ďż˝rodnďż˝ katastrofa, do naďż˝e transportnďż˝h lodďż˝ potkali pďż˝s asteroidďż˝, nikdo nepďż˝eďż˝il.";
 							$kat=0;break;
-					case 2:	echo "Přírodní katastrofa, do naše transportníh lodě potkali houf asteroidů, ztráty 75%.";
+					case 2:	echo "Pďż˝ďż˝rodnďż˝ katastrofa, do naďż˝e transportnďż˝h lodďż˝ potkali houf asteroidďż˝, ztrďż˝ty 75%.";
 							$kat=0.25;break;
-					case 3:	echo "Přírodní katastrofa, do naše transportníh lodě potkali pár asteroidů, ztráty 50%.";
+					case 3:	echo "Pďż˝ďż˝rodnďż˝ katastrofa, do naďż˝e transportnďż˝h lodďż˝ potkali pďż˝r asteroidďż˝, ztrďż˝ty 50%.";
 							$kat=0.50;break;
-					case 4:	echo "Naše přepravní lodě byly přepadeny armádou pirátů, plno našich lidí povraždily, zbytek se buď k nim přidal nebo je prodali do otroctví.";
+					case 4:	echo "Naďż˝e pďż˝epravnďż˝ lodďż˝ byly pďż˝epadeny armďż˝dou pirďż˝tďż˝, plno naďż˝ich lidďż˝ povraďż˝dily, zbytek se buďż˝ k nim pďż˝idal nebo je prodali do otroctvďż˝.";
 							$kat=0;break;
-					case 5:	echo "Naše přepravní lodě byly přepadeny bandou pirátů, ubránily se, ale ztráty na životech a na zbožích byly velké - 75%";
+					case 5:	echo "Naďż˝e pďż˝epravnďż˝ lodďż˝ byly pďż˝epadeny bandou pirďż˝tďż˝, ubrďż˝nily se, ale ztrďż˝ty na ďż˝ivotech a na zboďż˝ďż˝ch byly velkďż˝ - 75%";
 							$kat=0.25;break;
-					case 6:	echo "Naše přepravní lodě byly přepadeny skupinou pirátů, ubránily se, ale ztráty byly nezanedbatelné - 50%";
+					case 6:	echo "Naďż˝e pďż˝epravnďż˝ lodďż˝ byly pďż˝epadeny skupinou pirďż˝tďż˝, ubrďż˝nily se, ale ztrďż˝ty byly nezanedbatelnďż˝ - 50%";
 							$kat=0.5;break;
-					case 7:	echo "Chyba organického původu, naši piloti jsou přečerpaní a tak se občas spletou, narazili do sebe a vytvořili havárku - 25% ztráty na zboží a životech";
+					case 7:	echo "Chyba organickďż˝ho pďż˝vodu, naďż˝i piloti jsou pďż˝eďż˝erpanďż˝ a tak se obďż˝as spletou, narazili do sebe a vytvoďż˝ili havďż˝rku - 25% ztrďż˝ty na zboďż˝ďż˝ a ďż˝ivotech";
 							$kat=0.75;break;
-					case 8:	echo "Stala se strašná věc, nespokojené frakce s nynější vládou sabotovaly 75% našich lodí. Byly to profesionální sabotáže a nikdo na poškozených lodích nepřežil";
+					case 8:	echo "Stala se straďż˝nďż˝ vďż˝c, nespokojenďż˝ frakce s nynďż˝jďż˝ďż˝ vlďż˝dou sabotovaly 75% naďż˝ich lodďż˝. Byly to profesionďż˝lnďż˝ sabotďż˝e a nikdo na poďż˝kozenďż˝ch lodďż˝ch nepďż˝eďż˝il";
 							$kat=0.25;break;
-					case 9:	echo "Ztratily jsme s našimi loděmi spojení, nikdo neví co se stalo. Možná špatný průlet hyperprostorem, černá díra, opotřebované lodě ...";
+					case 9:	echo "Ztratily jsme s naďż˝imi lodďż˝mi spojenďż˝, nikdo nevďż˝ co se stalo. Moďż˝nďż˝ ďż˝patnďż˝ prďż˝let hyperprostorem, ďż˝ernďż˝ dďż˝ra, opotďż˝ebovanďż˝ lodďż˝ ...";
 							$kat=0;break;
-					case 10:echo "Hnusný zločin, někdo prodal naše lidi, změnil souřadnice hyperprostoru do souhvězdí pirátů. Naši neměli šanci";
+					case 10:echo "Hnusnďż˝ zloďż˝in, nďż˝kdo prodal naďż˝e lidi, zmďż˝nil souďż˝adnice hyperprostoru do souhvďż˝zdďż˝ pirďż˝tďż˝. Naďż˝i nemďż˝li ďż˝anci";
 							$kat=0;break;
 				};
 				echo "</h1></centrum>";
@@ -156,18 +156,24 @@ alert(document.formw2.co.value);
 		$zpet2 = MySQL_Query("SELECT * FROM obchod where den = $smazn");
 		$zpet = MySQL_Fetch_Array($zpet2);
 
-		$sila=$zpet[jed1]*$zaznam2[jed1_utok]+$zpet[jed1]*$zaznam2[jed1_obrana];
-		$sila+=$zpet[jed2]*$zaznam2[jed2_utok]+$zpet[jed2]*$zaznam2[jed2_obrana];
-		$sila+=$zpet[jed4]*$zaznam2[jed4_utok]+$zpet[jed4]*$zaznam2[jed4_obrana];
-		$sila+=$zaznam1[sila];
+		$sila=$zpet['jed1']*$zaznam2['jed1_utok']+$zpet['jed1']*$zaznam2['jed1_obrana'];
+		$sila+=$zpet['jed2']*$zaznam2['jed2_utok']+$zpet['jed2']*$zaznam2['jed2_obrana'];
+		$sila+=$zpet['jed4']*$zaznam2['jed4_utok']+$zpet['jed4']*$zaznam2['jed4_obrana'];
+		$sila+=$zaznam1['sila'];
 		
-		if($sila>$max_sila){echo "<h1>Jednotky se nemůžou vrátit, měl byste moc velkou sílu.</h1>";break;}
-		if($zpet[navrhovatel]!=$zaznam1[jmeno]){echo "<h1>Tyto jednotky nejsou vaše.</h1>";break;}
+		if($sila>$max_sila){
+            echo "<h1>Jednotky se nemĹŻĹľou vrĂˇtit, mÄ›l byste moc velkou sĂ­lu.</h1>";
+            //break;//XXX ondrejd ???
+        }
+		if($zpet['navrhovatel']!=$zaznam1['jmeno']){
+            echo "<h1>Tyto jednotky nejsou vaĹˇe.</h1>";
+            //break;//XXX ondrejd ???
+        }
 
-		$zjed1=$zaznam1[jed1]+$zpet[jed1];
-		$zjed2=$zaznam1[jed2]+$zpet[jed2];
-		$zjed3=$zaznam1[jed3]+$zpet[jed3];
-		$zjed4=$zaznam1[jed4]+$zpet[jed4];
+		$zjed1=$zaznam1['jed1']+$zpet['jed1'];
+		$zjed2=$zaznam1['jed2']+$zpet['jed2'];
+		$zjed3=$zaznam1['jed3']+$zpet['jed3'];
+		$zjed4=$zaznam1['jed4']+$zpet['jed4'];
 		MySQL_Query("update uzivatele set jed1=$zjed1,jed2=$zjed2,jed3=$zjed3,jed4=$zjed4,sila=$sila where cislo=$logcislo");
 		MySQL_Query("DELETE FROM obchod WHERE den = $smazn");
 	endif;
@@ -177,7 +183,7 @@ alert(document.formw2.co.value);
 		$zpet2 = MySQL_Query("SELECT * FROM obchod where den = $vrat");
 		$zpet = MySQL_Fetch_Array($zpet2);
 
-		$cena=$zpet[cj1]*0.75;
+		$cena=$zpet['cj1']*0.75;
 		$cena=Round($cena);
 
 		MySQL_Query("update obchod set cj1=$cena where den = $vrat");
@@ -191,8 +197,8 @@ alert(document.formw2.co.value);
 		$vysak2 = MySQL_Query("SELECT * FROM obchod where den = $kup");
 		$zaz = MySQL_Fetch_Array($vysak2);
 
-		$cj1=$zaz[cj1];
-		$jrasa=$zaz[rasa];
+		$cj1=$zaz['cj1'];
+		$jrasa=$zaz['rasa'];
 
 		$politika22 = MySQL_Query("SELECT rasa,koupe,prodej FROM politika where rasa = $jrasa");
 		$politika2 = MySQL_Fetch_Array($politika22);
@@ -203,29 +209,29 @@ alert(document.formw2.co.value);
 		$kcena=$koliklid*$cj1;
     	$pcena=$koliklid*$cj1;
 
-		if($j1>$zaz[jed1]){echo "<h1>Tolik lidí v nabídce není</h1>";break;};
-		if($j1<0){echo "<h1>Čísla musí být větší než nula</h1>";break;};
-		if(($pl[lidi]+($j1*1000))>($pl[mesta]*10000000)){echo"<h1>Tolik lidí se na cílovou planetu nevejde</h1>";break;};
-		if($kcena>$zaznam1[penize]){echo "<h1>Tolik naquadahu nemáte.</h1>";break;};
+		if($j1>$zaz['jed1']){echo "<h1>Tolik lidďż˝ v nabďż˝dce nenďż˝</h1>";break;};
+		if($j1<0){echo "<h1>ďż˝ďż˝sla musďż˝ bďż˝t vďż˝tďż˝ďż˝ neďż˝ nula</h1>";break;};
+		if(($pl['lidi']+($j1*1000))>($pl['mesta']*10000000)){echo"<h1>Tolik lidďż˝ se na cďż˝lovou planetu nevejde</h1>";break;};
+		if($kcena>$zaznam1['penize']){echo "<h1>Tolik naquadahu nemďż˝te.</h1>";break;};
 
 		$on=$zaz[navrhovatel];
 		$prodejce = MySQL_Query("SELECT * FROM uzivatele where jmeno = '$on'");
 		$prod = MySQL_Fetch_Array($prodejce);
 
-		$posta=$prod[posta]+1;
-		$pocena=$pcena*($politika2[koupe]/100);
-		$text="Koupil Vámi nabízené obyvatele celkem za ".$pocena."kg naquadahu";
+		$posta=$prod['posta']+1;
+		$pocena=$pcena*($politika2['koupe']/100);
+		$text="Koupil Vďż˝mi nabďż˝zenďż˝ obyvatele celkem za ".$pocena."kg naquadahu";
 		MySQL_Query("INSERT INTO posta (den,odesilatel,adresat,rasa,text) VALUES ($prijm,'$logjmeno','$on','$trasa','$text')");
 
-		$p1=$zaznam1[penize]-($kcena*$politika[prodej]/100);
-		$p2=$prod[penize]+($pcena*$politika2[koupe]/100);
+		$p1=$zaznam1['penize']-($kcena*$politika['prodej']/100);
+		$p2=$prod['penize']+($pcena*$politika2['koupe']/100);
 
-		$je1=$pl[lidi]+($j1*1000);
+		$je1=$pl['lidi']+($j1*1000);
 		MySQL_Query("update planety set lidi=$je1 where cislo=$kaml");
 		MySQL_Query("update uzivatele set penize=$p2, posta=$posta where jmeno = '$on'");
 		MySQL_Query("update uzivatele set penize=$p1 where cislo = $logcislo");
 
-		$j1=$zaz[jed1]-$j1;
+		$j1=$zaz['jed1']-$j1;
 		if($j1>0):
 			MySQL_Query("update obchod set jed1=$j1 where den = $kup");
 		else:
@@ -244,40 +250,38 @@ alert(document.formw2.co.value);
 
 		$vysak2 = MySQL_Query("SELECT * FROM obchod where den = $prijm");
 		$zaz = MySQL_Fetch_Array($vysak2);
-		$jrasa=$zaz[rasa];
+		$jrasa=$zaz['rasa'];
 		$ras2 = MySQL_Query("SELECT * FROM rasy where rasa = $jrasa");
 		$rasa2 = MySQL_Fetch_Array($ras2);
 
 		$politika22 = MySQL_Query("SELECT rasa,koupe,prodej FROM politika where rasa = $jrasa");
 		$politika2 = MySQL_Fetch_Array($politika22);
 
-		$cj1=$zaz[cj1];
-		$cj2=$zaz[cj2];
-		$cj3=$zaz[cj3];
-		$cj4=$zaz[cj4];
+		$cj1=$zaz['cj1'];
+		$cj2=$zaz['cj2'];
+		$cj3=$zaz['cj3'];
+		$cj4=$zaz['cj4'];
 
-		$cj1=($cj1/$rasa2[jed1_cena])*$zaznam2[jed1_cena];
+		$cj1=($cj1/$rasa2['jed1_cena'])*$zaznam2['jed1_cena'];
 		$cj1=Round($cj1);
-		$cj2=($cj2/$rasa2[jed2_cena])*$zaznam2[jed2_cena];
+		$cj2=($cj2/$rasa2['jed2_cena'])*$zaznam2['jed2_cena'];
 		$cj2=Round($cj2);
-		$cj3=($cj3/$rasa2[jed3_cena])*$zaznam2[jed3_cena];
+		$cj3=($cj3/$rasa2['jed3_cena'])*$zaznam2['jed3_cena'];
 		$cj3=Round($cj3);
-		$cj4=($cj4/$rasa2[jed4_cena])*$zaznam2[jed4_cena];
+		$cj4=($cj4/$rasa2['jed4_cena'])*$zaznam2['jed4_cena'];
 		$cj4=Round($cj4);
 
-		//echo $cj3;
-
-		$sj1=$j1*$rasa2[jed1_obrana]+$j1*$rasa2[jed1_utok];
-		$tsj1=$j1*$zaznam2[jed1_obrana]+$j1*$zaznam2[jed1_utok];
-		$sj2=$j2*$rasa2[jed2_obrana]+$j2*$rasa2[jed2_utok];
-		$tsj2=$j2*$zaznam2[jed2_obrana]+$j2*$zaznam2[jed2_utok];
-		$sj4=$j4*$rasa2[jed4_obrana]+$j4*$rasa2[jed4_utok];
-		$tsj4=$j4*$zaznam2[jed4_obrana]+$j4*$zaznam2[jed4_utok];
+		$sj1=$j1*$rasa2['jed1_obrana']+$j1*$rasa2['jed1_utok'];
+		$tsj1=$j1*$zaznam2['jed1_obrana']+$j1*$zaznam2['jed1_utok'];
+		$sj2=$j2*$rasa2['jed2_obrana']+$j2*$rasa2['jed2_utok'];
+		$tsj2=$j2*$zaznam2['jed2_obrana']+$j2*$zaznam2['jed2_utok'];
+		$sj4=$j4*$rasa2['jed4_obrana']+$j4*$rasa2['jed4_utok'];
+		$tsj4=$j4*$zaznam2['jed4_obrana']+$j4*$zaznam2['jed4_utok'];
 
 		$tsc=$tsj1+$tsj2+$tsj4;
-		$tsc+=$zaznam1[sila];
+		$tsc+=$zaznam1['sila'];
 
-		if($tsc>50000000){echo "<h1>Nesmíte mít sílu větší jak 50 mil.</h1>";break;};
+		if($tsc>50000000){echo "<h1>Nesmďż˝te mďż˝t sďż˝lu vďż˝tďż˝ďż˝ jak 50 mil.</h1>";break;};
 		
 		$mj2=$mj1=$mj4=$pj4=$pj2=$pj1=0;
 			
@@ -285,15 +289,14 @@ alert(document.formw2.co.value);
 			$pomer1=$tsj1/$sj1;
 			$pj1=ceil($pomer1*$j1);
 			$pomer11=$sj1/$tsj1;			
-			$mj1=ceil($pomer11*$zaz[jed1]);
+			$mj1=ceil($pomer11*$zaz['jed1']);
 		endif;
 		if($pj1==0 and $j1>0){$pj1=1;};
 		if($sj2>0):
 			$pomer2=$tsj2/$sj2;
 			$pj2=ceil($pomer2*$j2);
-			//echo $pomer2.", ".$j2.", ".$pj2;
 			$pomer21=$sj2/$tsj2;
-			$mj2=Ceil($pomer21*$zaz[jed2]);
+			$mj2=Ceil($pomer21*$zaz['jed2']);
 		endif;
 		if($pj2==0 and $j2>0){$pj2=1;};
 		if($sj4>0):
@@ -301,31 +304,31 @@ alert(document.formw2.co.value);
 			$pj4=ceil($pomer4*$j4);
 			//echo $pomer2.", ".$j4.", ".$pj4;
 			$pomer41=$sj4/$tsj4;
-			$mj4=ceil($pomer41*$zaz[jed4]);
+			$mj4=ceil($pomer41*$zaz['jed4']);
 		endif;
 		if($pj2==0 and $j2>0){$pj2=1;};
-		$mj3=$zaz[jed3];
+		$mj3=$zaz['jed3'];
 		$pj3=$j3;
 		$kcena=$j1*$cj1+$j2*$cj2+$j3*$cj3+$j4*$cj4;
-    	$pcena=$zaz[cj1]*$pj1+$zaz[cj2]*$pj2+$zaz[cj3]*$pj3+$zaz[cj4]*$pj4;
+    	$pcena=$zaz['cj1']*$pj1+$zaz['cj2']*$pj2+$zaz['cj3']*$pj3+$zaz['cj4']*$pj4;
 		$pcena*=0.8;
 		//echo "<font class=info>";
 		//echo "$kcena<br>";
 		//echo "$pcena<br>";		
 
-		if(($j1>$mj1) or ($j2>$mj2) or ($j3>$mj3) or ($j4>$mj4)){echo "<h1>Tolik jednotek v nabídce není</h1>";break;};
-		if($j1<0 or $j2<0 or $j3<0 or $j4<0){echo "<h1>Čísla musí být větší než nula</h1>";break;};
-		if($kcena>$zaznam1[penize]){echo "<h1>Tolik naquadahu nemáte.</h1>";break;};
+		if(($j1>$mj1) or ($j2>$mj2) or ($j3>$mj3) or ($j4>$mj4)){echo "<h1>Tolik jednotek v nabďż˝dce nenďż˝</h1>";break;};
+		if($j1<0 or $j2<0 or $j3<0 or $j4<0){echo "<h1>ďż˝ďż˝sla musďż˝ bďż˝t vďż˝tďż˝ďż˝ neďż˝ nula</h1>";break;};
+		if($kcena>$zaznam1['penize']){echo "<h1>Tolik naquadahu nemďż˝te.</h1>";break;};
 
 		$on=$zaz[navrhovatel];
 		$prodejce = MySQL_Query("SELECT * FROM uzivatele where jmeno = '$on'");
 		$prod = MySQL_Fetch_Array($prodejce);
 
-		$posta=$prod[posta]+1;
-		$pocena=$pcena*($politika2[koupe]/100);
-		$trasa2=Addslashes($zaznam2[nazevrasy]);
-		$jrasa2=Addslashes($rasa2[nazevrasy]);		
-		$text="Koupil Vámi nabízené jednotky celkem za ".$pocena." kg naquadahu";
+		$posta=$prod['posta']+1;
+		$pocena=$pcena*($politika2['koupe']/100);
+		$trasa2=Addslashes($zaznam2['nazevrasy']);
+		$jrasa2=Addslashes($rasa2['nazevrasy']);		
+		$text="Koupil Vďż˝mi nabďż˝zenďż˝ jednotky celkem za ".$pocena." kg naquadahu";
 		//echo "<h6>$trasa2";
 		//echo "<h6>$jrasa2";
 		$denp=Date("U");
@@ -333,21 +336,21 @@ alert(document.formw2.co.value);
 //		MySQL_Query("INSERT INTO posta (den,odesilatel,adresat,rasa,text,stav,rasa2) VALUES ('2064344789','bla','bla','bla','bla',1,'bla')");		
 //										den odesilatel adresat rasa text stav rasa2 
 
-		$p1=$zaznam1[penize]-($kcena*$politika[prodej]/100);
-		$p2=$prod[penize]+($pcena*$politika2[koupe]/100);
+		$p1=$zaznam1['penize']-($kcena*$politika['prodej']/100);
+		$p2=$prod['penize']+($pcena*$politika2['koupe']/100);
 
-		$j1=$zaznam1[jed1]+$j1;
-		$j2=$zaznam1[jed2]+$j2;
-		$j3=$zaznam1[jed3]+$j3;
-		$j4=$zaznam1[jed4]+$j4;
+		$j1=$zaznam1['jed1']+$j1;
+		$j2=$zaznam1['jed2']+$j2;
+		$j3=$zaznam1['jed3']+$j3;
+		$j4=$zaznam1['jed4']+$j4;
 
 		MySQL_Query("update uzivatele set jed1=$j1,jed2=$j2,jed3=$j3,jed4=$j4,penize=$p1 where cislo=$logcislo");
 		MySQL_Query("update uzivatele set penize=$p2, posta=$posta where jmeno = '$on'");
 
-		$pj1=$zaz[jed1]-$pj1;
-		$pj2=$zaz[jed2]-$pj2;
-		$pj3=$zaz[jed3]-$pj3;
-		$pj4=$zaz[jed4]-$pj4;
+		$pj1=$zaz['jed1']-$pj1;
+		$pj2=$zaz['jed2']-$pj2;
+		$pj3=$zaz['jed3']-$pj3;
+		$pj4=$zaz['jed4']-$pj4;
 
 		if(($pj1>0) or ($pj2>0) or ($pj3>0) or ($pj4>0)):
 			MySQL_Query("update obchod set jed1=$pj1,jed2=$pj2,jed3=$pj3,jed4=$pj4 where den = $prijm");
@@ -365,20 +368,20 @@ alert(document.formw2.co.value);
 			if(!$odkud){echo "<h1>Planeta ".$odkudlj." neexistuje</h1>";break;};
 
 			$od = MySQL_Fetch_Array($odkud);
-			$odkudlj=$od[nazev];
+			$odkudlj=$od['nazev'];
 
-			if($lidipr<0){echo "<h1>Musíte zadávat kladá čísla</h1>";break;};
-			if($lidice<0){echo "<h1>Musíte zadávat kladá čísla</h1>";break;};			
-			if($od[majitel]!=$logjmeno){echo "<h1>Planeta ".$odkudl." není Vaše</h1>";break;};
-			if($lidipr>99999){echo "<h1>Najednou můžete prodat maximálně 99 milionů lidí</h1>";break;};
+			if($lidipr<0){echo "<h1>Musďż˝te zadďż˝vat kladďż˝ ďż˝ďż˝sla</h1>";break;};
+			if($lidice<0){echo "<h1>Musďż˝te zadďż˝vat kladďż˝ ďż˝ďż˝sla</h1>";break;};			
+			if($od[majitel]!=$logjmeno){echo "<h1>Planeta ".$odkudl." nenďż˝ Vaďż˝e</h1>";break;};
+			if($lidipr>99999){echo "<h1>Najednou mďż˝ďż˝ete prodat maximďż˝lnďż˝ 99 milionďż˝ lidďż˝</h1>";break;};
 			$kolik=$lidipr*1000;
 
-			$nez=$od["lidi"]-$od["vyrobna"]*$zaznam2[vyr_lidi];
-			$nez-=$od["sdi"]*$zaznam2[sdi_lidi];
+			$nez=$od["lidi"]-$od["vyrobna"]*$zaznam2['vyr_lidi'];
+			$nez-=$od["sdi"]*$zaznam2['sdi_lidi'];
 			$nez-=$od["laborator"];
 
 			if($kolik<=$nez):
-				$zbylo=$od[lidi]-$kolik;
+				$zbylo=$od['lidi']-$kolik;
 				$den=Date("U");
 
 				$minut=rand(15,30);
@@ -388,7 +391,7 @@ alert(document.formw2.co.value);
 				MySQL_Query("update planety set lidi=$zbylo where cislo = $odkudl");
 				MySQL_Query("INSERT INTO obchod (den,navrhovatel,jed1,cj1,typ) VALUES ($den,'$logjmeno',$lidipr,$lidice,1)");
 			else:
-				echo "<h1>Tolik nezaměstnaných lídí na planetě ".$odkudlj." neni.</h1>";
+				echo "<h1>Tolik nezamďż˝stnanďż˝ch lďż˝dďż˝ na planetďż˝ ".$odkudlj." neni.</h1>";
 			endif;
 		}while(false);
 	endif;
@@ -400,18 +403,18 @@ alert(document.formw2.co.value);
 		$pl = MySQL_Query("SELECT cislo,nazev,brana,cislomaj FROM planety where cislo=$kamb");
 		$planeta = MySQL_Fetch_Array($pl);
 
-		if($brana[vyr]>$zaznam1[penize]){echo "<h1>Nemáte dost peněz</h1>";break;};
-		if($logcislo!=$planeta[cislomaj]){echo "<h1>Planeta ".$paneta[nazev]." není vaše.</h1>";break;};
-		if(0<$planeta[brana]){echo "<h1>Na planetě ".$paneta[nazev]." už hvězdná brána je.</h1>";break;};
-		if(1>$brana[jed1]){echo "<h1>Bohužel v nabídce už žádná brána neni, někdo vás předběhl.</h1>";break;};
+		if($brana['vyr']>$zaznam1['penize']){echo "<h1>Nemďż˝te dost penďż˝z</h1>";break;};
+		if($logcislo!=$planeta['cislomaj']){echo "<h1>Planeta ".$paneta['nazev']." nenďż˝ vaďż˝e.</h1>";break;};
+		if(0<$planeta['brana']){echo "<h1>Na planetďż˝ ".$paneta['nazev']." uďż˝ hvďż˝zdnďż˝ brďż˝na je.</h1>";break;};
+		if(1>$brana['jed1']){echo "<h1>Bohuďż˝el v nabďż˝dce uďż˝ ďż˝ďż˝dnďż˝ brďż˝na neni, nďż˝kdo vďż˝s pďż˝edbďż˝hl.</h1>";break;};
 
-    		$prachy=$zaznam1[penize]-$brana[vyr];
-    		$branak=$zaznam1[bran]+1;
+    		$prachy=$zaznam1['penize']-$brana['vyr'];
+    		$branak=$zaznam1['bran']+1;
 
 		MySQL_Query("update planety set brana=1 where cislo=$kamb");
 		MySQL_Query("update uzivatele set penize=$prachy,bran=$branak where cislo=$logcislo");
   
-    		$jed1=$brana[jed1]-1;
+    		$jed1=$brana['jed1']-1;
     		if($jed1>0):
   			MySQL_Query("update obchod set jed1=$jed1 where (navrhovatel='' and typ=2)");
     		else:
@@ -425,22 +428,22 @@ alert(document.formw2.co.value);
 		$br = MySQL_Query("SELECT den,typ,jed1,cj1 FROM obchod where (typ=3 and navrhovatel='')");
 		$brana = MySQL_Fetch_Array($br);
 
-		$celkem=$brana[cj1]*$zoldaku;
+		$celkem=$brana['cj1']*$zoldaku;
 
-		$sila=$zoldaku*($zold_utok*$politika[utok]/100*$zriz[utok]/100*$narod[utok]/100);
-		$sila+=$zoldaku*($zold_obrana*$politika[obrana]/100*$zriz[obrana]/100*$narod[obrana]/100);
+		$sila=$zoldaku*($zold_utok*$politika['utok']/100*$zriz['utok']/100*$narod['utok']/100);
+		$sila+=$zoldaku*($zold_obrana*$politika['obrana']/100*$zriz['obrana']/100*$narod['obrana']/100);
 
-		if($zoldaku<0){echo "<h1>Číslo musí být větší jak dvě</h1>";break;};
-		if($celkem>$zaznam1[penize]){echo "<h1>Nemáte dost peněz</h1>";break;};
-		if($sila+$zaznam1[sila]>$max_sila){echo "<h1>Měl byste větší sílu jak ".$max_sila."</h1>";break;};
-		if($zoldaku>$brana[jed1]){echo "<h1>Bohužel v nabídce tolik žoldáků není.</h1>";break;};
+		if($zoldaku<0){echo "<h1>ďż˝ďż˝slo musďż˝ bďż˝t vďż˝tďż˝ďż˝ jak dvďż˝</h1>";break;};
+		if($celkem>$zaznam1['penize']){echo "<h1>Nemďż˝te dost penďż˝z</h1>";break;};
+		if($sila+$zaznam1['sila']>$max_sila){echo "<h1>Mďż˝l byste vďż˝tďż˝ďż˝ sďż˝lu jak ".$max_sila."</h1>";break;};
+		if($zoldaku>$brana['jed1']){echo "<h1>Bohuďż˝el v nabďż˝dce tolik ďż˝oldďż˝kďż˝ nenďż˝.</h1>";break;};
 
-    		$prachy=$zaznam1[penize]-$celkem;
-		$jed5=$zaznam1[jed5]+$zoldaku;
+    		$prachy=$zaznam1['penize']-$celkem;
+		$jed5=$zaznam1['jed5']+$zoldaku;
 
 		MySQL_Query("update uzivatele set penize=$prachy,jed5=$jed5 where cislo=$logcislo");
   
-    		$jed1=$brana[jed1]-$zoldaku;
+    		$jed1=$brana['jed1']-$zoldaku;
     		if($jed1>0):
   			MySQL_Query("update obchod set jed1=$jed1 where (navrhovatel='' and typ=3)");
     		else:
@@ -456,7 +459,7 @@ alert(document.formw2.co.value);
 
 	echo "<center>";
 
-	echo "<h6>Máte dohromady naquadahu: ".number_format($zaznam1[penize],2,"."," ")."</h6>";
+	echo "<h6>Mďż˝te dohromady naquadahu: ".number_format($zaznam1['penize'],2,"."," ")."</h6>";
 //-------------------------------------------------prodej jednotek----------------------------
 if($co==1 or empty($co)):
 	echo "<h6><font class=kapital>P</font>rodej jednotek</h6>";
@@ -464,56 +467,56 @@ if($co==1 or empty($co)):
 	echo "<input type='hidden' name='co' value='1'>";
 	echo "<TABLE ".$table." ".$border." align=center>";
 	echo "<tr>";
-	echo "<th>název</th>";
-	echo "<th>máte</th>";
-	echo "<th>výrobní cena</th>";
+	echo "<th>nďż˝zev</th>";
+	echo "<th>mďż˝te</th>";
+	echo "<th>vďż˝robnďż˝ cena</th>";
 	echo "<th>prodat jednotek</th>";
-	echo "<th>cena jedné</th>";
+	echo "<th>cena jednďż˝</th>";
 	echo "</tr>";
 	echo "<tr>";
-	echo "<td class=pole>".$zaznam2[jed1_nazev]."</td>";
-	echo "<td>".$zaznam1[jed1]."</td>";
-	echo "<td>".($zaznam2[jed1_cena]*$politika[cenaj]/100)."</td>";
+	echo "<td class=pole>".$zaznam2['jed1_nazev']."</td>";
+	echo "<td>".$zaznam1['jed1']."</td>";
+	echo "<td>".($zaznam2['jed1_cena']*$politika['cenaj']/100)."</td>";
 	echo "<td><input type='text' name='j1' size=6></td>";
 	echo "<td><input type='text' name='cj1' size=3></td>";
 	echo "</tr>";
 	echo "<tr>";
-	echo "<td class=pole>".$zaznam2[jed2_nazev]."</td>";
-	echo "<td>".$zaznam1[jed2]."</td>";
-	echo "<td>".($zaznam2[jed2_cena]*$politika[cenaj]/100)."</td>";
+	echo "<td class=pole>".$zaznam2['jed2_nazev']."</td>";
+	echo "<td>".$zaznam1['jed2']."</td>";
+	echo "<td>".($zaznam2['jed2_cena']*$politika['cenaj']/100)."</td>";
 	echo "<td><input type='text' name='j2' size=6></td>";
 	echo "<td><input type='text' name='cj2' size=3></td>";
 	echo "</tr>";
 	echo "<tr>";
-	echo "<td class=pole>".$zaznam2[jed4_nazev]."</td>";
-	echo "<td>".$zaznam1[jed4]."</td>";
-	echo "<td>".($zaznam2[jed4_cena]*$politika[cenaj]/100)."</td>";
+	echo "<td class=pole>".$zaznam2['jed4_nazev']."</td>";
+	echo "<td>".$zaznam1['jed4']."</td>";
+	echo "<td>".($zaznam2['jed4_cena']*$politika['cenaj']/100)."</td>";
 	echo "<td><input type='text' name='j4' size=6></td>";
 	echo "<td><input type='text' name='cj4' size=3></td>";
 	echo "</tr>";
 	echo "<tr>";
-	echo "<td class=pole>".$zaznam2[jed3_nazev]."</td>";
-	echo "<td>".$zaznam1[jed3]."</td>";
-	echo "<td>".($zaznam2[jed3_cena]*$politika[cenaj]/100*$politika[cena3j]/100)."</td>";
+	echo "<td class=pole>".$zaznam2['jed3_nazev']."</td>";
+	echo "<td>".$zaznam1['jed3']."</td>";
+	echo "<td>".($zaznam2['jed3_cena']*$politika['cenaj']/100*$politika['cena3j']/100)."</td>";
 	echo "<td><input type='text' name='j3' size=6></td>";
 	echo "<td><input type='text' name='cj3' size=3></td>";
 	echo "</tr>";
 	echo "</table>";
-	echo "<br><input type='submit' value='   nábídnout jednotky   '></form>";
+	echo "<br><input type='submit' value='   nďż˝bďż˝dnout jednotky   '></form>";
 
 	$obch = MySQL_Query("SELECT * FROM obchod where (navrhovatel='$logjmeno' and typ=0) order by den desc ");
-	echo "<br><h6><font class=kapital>V</font>ámi nabízené jednotky</h6>";
-	echo "<center><font class=info>Po nabídnutí Vámi se jednotky převážejí do vesmírného skladu. To trvá 15-30 minut.</font></center><br>";
+	echo "<br><h6><font class=kapital>V</font>ďż˝mi nabďż˝zenďż˝ jednotky</h6>";
+	echo "<center><font class=info>Po nabďż˝dnutďż˝ Vďż˝mi se jednotky pďż˝evďż˝ejďż˝ do vesmďż˝rnďż˝ho skladu. To trvďż˝ 15-30 minut.</font></center><br>";
 
 	echo "<TABLE ".$table." ".$border." align=center>";
 	echo "<tr>";
-	echo "<th>den nabídnutí</th>";
+	echo "<th>den nabďż˝dnutďż˝</th>";
 	echo "<th>status</th>";
-	echo "<th>".$zaznam2[jed1_nazev]."</th>";
-	echo "<th>".$zaznam2[jed2_nazev]."</th>";
-	echo "<th>".$zaznam2[jed4_nazev]."</th>";
-	echo "<th>".$zaznam2[jed3_nazev]."</th>";
-	echo "<th>Celková cena</th>";
+	echo "<th>".$zaznam2['jed1_nazev']."</th>";
+	echo "<th>".$zaznam2['jed2_nazev']."</th>";
+	echo "<th>".$zaznam2['jed4_nazev']."</th>";
+	echo "<th>".$zaznam2['jed3_nazev']."</th>";
+	echo "<th>Celkovďż˝ cena</th>";
 	echo "<th>&nbsp;</th>";
 	echo "</tr>";
 		
@@ -521,7 +524,7 @@ if($co==1 or empty($co)):
 	//echo "<h6><br>";
 	//echo $ted."<br>";
 	while($obchod = MySQL_Fetch_Array($obch)):
-			$den=$obchod[den];
+			$den=$obchod['den'];
 	//echo $den."<br>";
 			$datum = Date("j.m.Y",$den);
 			
@@ -529,42 +532,42 @@ if($co==1 or empty($co)):
 			echo "<td class=pole>".$datum."</td>";
 
 			if($den>$ted):
-				echo "<td><font color='red'>&nbsp;&nbsp;přesun&nbsp;&nbsp;</td>";
+				echo "<td><font color='red'>&nbsp;&nbsp;pďż˝esun&nbsp;&nbsp;</td>";
 			else:
-				echo "<td><font color='green'>&nbsp;&nbsp;nabízeno&nbsp;&nbsp;</font></td>";	
+				echo "<td><font color='green'>&nbsp;&nbsp;nabďż˝zeno&nbsp;&nbsp;</font></td>";	
 			endif;
 			
 
-			if($obchod[jed1]>0):
-				echo "<td>".$obchod[jed1]." krát po ".$obchod[cj1]."kg</td>";
-				$celkem+=$obchod[jed1]*$obchod[cj1];
+			if($obchod['jed1']>0):
+				echo "<td>".$obchod['jed1']." krďż˝t po ".$obchod['cj1']."kg</td>";
+				$celkem+=$obchod['jed1']*$obchod['cj1'];
 			else:
-				echo "<td>Nenabízíte</td>";
+				echo "<td>Nenabďż˝zďż˝te</td>";
 			endif;
 
-			if($obchod[jed2]>0):
-				echo "<td>".$obchod[jed2]." krát po ".$obchod[cj2]."kg</td>";
-				$celkem+=$obchod[jed2]*$obchod[cj2];
+			if($obchod['jed2']>0):
+				echo "<td>".$obchod['jed2']." krďż˝t po ".$obchod['cj2']."kg</td>";
+				$celkem+=$obchod['jed2']*$obchod['cj2'];
 			else:
-				echo "<td>Nenabízíte</td>";
+				echo "<td>Nenabďż˝zďż˝te</td>";
 			endif;
 
-			if($obchod[jed4]>0):
-				echo "<td>".$obchod[jed4]." krát po ".$obchod[cj4]."kg</td>";
-				$celkem+=$obchod[jed4]*$obchod[cj4];
+			if($obchod['jed4']>0):
+				echo "<td>".$obchod['jed4']." krďż˝t po ".$obchod['cj4']."kg</td>";
+				$celkem+=$obchod['jed4']*$obchod['cj4'];
 			else:
-				echo "<td>Nenabízíte</td>";
+				echo "<td>Nenabďż˝zďż˝te</td>";
 			endif;
 
-			if($obchod[jed3]>0):
-				echo "<td>".$obchod[jed3]." krát po ".$obchod[cj3]."kg</td>";
-				$celkem+=$obchod[jed3]*$obchod[cj3];
+			if($obchod['jed3']>0):
+				echo "<td>".$obchod['jed3']." krďż˝t po ".$obchod['cj3']."kg</td>";
+				$celkem+=$obchod['jed3']*$obchod['cj3'];
 			else:
-				echo "<td>Nenabízíte</td>";
+				echo "<td>Nenabďż˝zďż˝te</td>";
 			endif;
 			
 			echo "<td>".$celkem." kg </td>";
-			echo "<td><input type='submit' value='zruš nabídku'>
+			echo "<td><input type='submit' value='zruďż˝ nabďż˝dku'>
 				<input type='hidden' name='smazn' value=".$den.">
 				<input type='hidden' name='co' value='1'>
 			      </td>";
@@ -573,67 +576,67 @@ if($co==1 or empty($co)):
 	endwhile;
 endif;
 
-//-------------------------------------------------prodej nezaměstnaných----------------------------------
+//-------------------------------------------------prodej nezamďż˝stnanďż˝ch----------------------------------
 if($co==2):
 
 	if($politika[status]==3):
-		echo "<h6><font class=kapital>P</font>rodej nezaměstnaných</h6>";
+		echo "<h6><font class=kapital>P</font>rodej nezamďż˝stnanďż˝ch</h6>";
 
 		$pla = MySQL_Query("SELECT * FROM planety where cislomaj=$logcislo order by nazev desc");
 
 		echo "<form name='form' method='post' action='obchod.php' ><input type='hidden' name='co' value='2'>";
 		echo "<table>";
 		echo "<tr>";
-		echo "<td>Z jaké planety prodat</td>";
+		echo "<td>Z jakďż˝ planety prodat</td>";
 		echo "<td><select name='odkudl'>";
 		while ($zaznam3 = MySQL_Fetch_Array($pla)):
 			echo "<option value=".$zaznam3["cislo"].">".$zaznam3["nazev"];
 		endwhile;
     		echo "</select>";
 		echo "</td></tr><tr>";
-		echo "<td>Kolik tisíc nez. prodat</td>";
+		echo "<td>Kolik tisďż˝c nez. prodat</td>";
 		echo "<td><input type='text' name='lidipr' size=8></td>";
 		echo "</tr><tr>";
-		echo "<td>Tisíc nezaměstnaných za</td>"; 
+		echo "<td>Tisďż˝c nezamďż˝stnanďż˝ch za</td>"; 
 		echo "<td><input type='text' name='lidice' size=8></td>";
 		echo "</tr><tr>";
 		echo "<td colspan=2><input type='submit' value='prodat'></form></td>";
 		echo "</tr></table>";		
 
-		echo "<h6><font class=kapital>S</font>eznam Vašich nabídek lidí</h6>";
+		echo "<h6><font class=kapital>S</font>eznam Vaďż˝ich nabďż˝dek lidďż˝</h6>";
 
-echo "<center><font class=info>Po nabídnutí Vámi se nezaměstnaní převážejí do vesmírného skladu. To trvá 15-30 minut.</font></center><br>";
+echo "<center><font class=info>Po nabďż˝dnutďż˝ Vďż˝mi se nezamďż˝stnanďż˝ pďż˝evďż˝ejďż˝ do vesmďż˝rnďż˝ho skladu. To trvďż˝ 15-30 minut.</font></center><br>";
 	
 		$obch = MySQL_Query("SELECT * FROM obchod where (navrhovatel='$logjmeno' and typ=1) order by den desc ");
 
 		echo "<TABLE ".$table." ".$border." align=center>";
 		echo "<tr>";
-		echo "<th>den nabídnutí</th>";
+		echo "<th>den nabďż˝dnutďż˝</th>";
 		echo "<th>status</th>";
-		echo "<th>kolik lidí (v tisících)</th>";
-		echo "<th>cena za tisíc lidí</th>";
-		echo "<th>Celková cena</th>";
+		echo "<th>kolik lidďż˝ (v tisďż˝cďż˝ch)</th>";
+		echo "<th>cena za tisďż˝c lidďż˝</th>";
+		echo "<th>Celkovďż˝ cena</th>";
 		echo "<th>&nbsp;</th>";
 		echo "</tr>";
 
 		$ted=Date("U");
 		while($obchod = MySQL_Fetch_Array($obch)):
-			$den=$obchod[den];
+			$den=$obchod['den'];
 			$datum = Date("j.m.Y",$den);
 			echo "<tr><form name='form' method='post' action='obchod.php' >";
 			echo "<td>".$datum."</td>";
 
 			if($den>$ted):
-				echo "<td><font color='red'>&nbsp;&nbsp;přesun&nbsp;&nbsp;</td>";
+				echo "<td><font color='red'>&nbsp;&nbsp;pďż˝esun&nbsp;&nbsp;</td>";
 			else:
-				echo "<td><font color='green'>&nbsp;&nbsp;nabízeno&nbsp;&nbsp;</font></td>";	
+				echo "<td><font color='green'>&nbsp;&nbsp;nabďż˝zeno&nbsp;&nbsp;</font></td>";	
 			endif;
 
-			echo "<td>".$obchod[jed1]."</td>";
-			echo "<td>".$obchod[cj1]."</td>";			
-			echo "<td>".($obchod[jed1]*$obchod[cj1])."</td>";
+			echo "<td>".$obchod['jed1']."</td>";
+			echo "<td>".$obchod['cj1']."</td>";			
+			echo "<td>".($obchod['jed1']*$obchod['cj1'])."</td>";
 			echo "<td>
-				<input type='submit' value='zlevnit o čtvrtinu'>
+				<input type='submit' value='zlevnit o ďż˝tvrtinu'>
 				<input type='hidden' name='vrat' value=".$den.">
 				<input type='hidden' name='co' value='2'>
 			      </td>";
@@ -648,39 +651,39 @@ echo "<center><font class=info>Po nabídnutí Vámi se nezaměstnaní převážejí do ve
 
 		echo "<TABLE ".$table." ".$border." align=center>";
 		echo "<tr>";
-		echo "<th>název planet</th>";
-		echo "<th>počet měst</th>";
-		echo "<th>celkem lidí (v tis.)</th>";
-		echo "<th>z toho nezaměstnaných (v tis.)</th>";
+		echo "<th>nďż˝zev planet</th>";
+		echo "<th>poďż˝et mďż˝st</th>";
+		echo "<th>celkem lidďż˝ (v tis.)</th>";
+		echo "<th>z toho nezamďż˝stnanďż˝ch (v tis.)</th>";
 		echo "</tr>";
 
 		while($planety1 = MySQL_Fetch_Array($pla)):
-			$nez=$planety1["lidi"]-$planety1["vyrobna"]*$zaznam2[vyr_lidi];
-			$nez-=$planety1["sdi"]*$zaznam2[sdi_lidi];
-			$nez-=$planety1["laborator"]*$zaznam2[lab_lidi];
+			$nez=$planety1["lidi"]-$planety1["vyrobna"]*$zaznam2['vyr_lidi'];
+			$nez-=$planety1["sdi"]*$zaznam2['sdi_lidi'];
+			$nez-=$planety1["laborator"]*$zaznam2['lab_lidi'];
 			$nez=Floor($nez/1000);
 			$lidi=Floor($planety1["lidi"]/1000);
 			echo "<tr>";
-			echo "<td class=pole>".$planety1[nazev]."</td>";
-			echo "<td>".$planety1[mesta]."</td>";
+			echo "<td class=pole>".$planety1['nazev']."</td>";
+			echo "<td>".$planety1['mesta']."</td>";
 			echo "<td>".number_format($lidi,0,0," ")."</td>";
 			echo "<td>".number_format($nez,0,0," ")."</td>";
 			echo "</tr>";
 		endwhile;
 
 	else:
-		echo "<h1>Jen rasy se statusem zlý můžou prodávat lidi.</h1>";
+		echo "<h1>Jen rasy se statusem zlďż˝ mďż˝ďż˝ou prodďż˝vat lidi.</h1>";
 	endif;
 endif;
 
-//-------------------------------------------------koupě jednotek----------------------------------
+//-------------------------------------------------koupďż˝ jednotek----------------------------------
 if($co==3):
-	echo "<h6><font class=kapital>K</font>oupě žoldáků</h6>";
+	echo "<h6><font class=kapital>K</font>oupďż˝ ďż˝oldďż˝kďż˝</h6>";
 		$br = MySQL_Query("SELECT den,typ,jed1,cj1 FROM obchod where (typ=3 and navrhovatel='')");
 		$brana = MySQL_Fetch_Array($br);
-		$cena=$brana[cj1];
-		$cas=$brana[den];
-		$kolik=$brana[jed1];
+		$cena=$brana['cj1'];
+		$cas=$brana['den'];
+		$kolik=$brana['jed1'];
 		$ted=Date("U");
 		$zmena=3;
 		$sek=($zmena*60)-($ted-$cas);
@@ -693,7 +696,7 @@ if($co==3):
 			default: $sekslovy="sekund";		
 		}
 
-		echo "<font class=info align=center>Zde je možno koupit žoldáky, toto je neutrální nabídka. Nabídka se mění každé ".$zmena." minuty. Příští změna za <font class=pole>".$sek."</font> ".$sekslovy."</font>";
+		echo "<font class=info align=center>Zde je moďż˝no koupit ďż˝oldďż˝ky, toto je neutrďż˝lnďż˝ nabďż˝dka. Nabďż˝dka se mďż˝nďż˝ kaďż˝dďż˝ ".$zmena." minuty. Pďż˝ďż˝tďż˝ zmďż˝na za <font class=pole>".$sek."</font> ".$sekslovy."</font>";
 
 		if($ted>($cas+60*$zmena)):
 			$bran=10000;
@@ -708,35 +711,35 @@ if($co==3):
 
 		if($kolik>0):
 			switch ($kolik){
-				case 1: $pred="je nabízena";$slovo="brána";break;
+				case 1: $pred="je nabďż˝zena";$slovo="brďż˝na";break;
 				case 2:
 				case 3:
-				case 4: $pred="jsou nabízeny";$slovo="brány";break;
-				default: $pred="je nabízeno";$slovo="bran";		
+				case 4: $pred="jsou nabďż˝zeny";$slovo="brďż˝ny";break;
+				default: $pred="je nabďż˝zeno";$slovo="bran";		
 			}
 
 			if($sila<50000000):
-				$mjed=Floor($zaznam1[penize]/$cena);
+				$mjed=Floor($zaznam1['penize']/$cena);
 				if($mjed>$kolik){$mjed=$kolik;};
 
-				if($zold_mist==0):$zold_lidi="nezabírají";
+				if($zold_mist==0):$zold_lidi="nezabďż˝rajďż˝";
 				else:$zold_lidi=$zold_mist;
 				endif;
   				echo "<form name='form' method='post' action='obchod.php' ><input type='hidden' name='co' value='3'>";
 	echo "<TABLE ".$table." ".$border." align=center width=100%>";
 				echo "<tr>";
-				echo "<th>název</th>";
-				echo "<th>útok/obrana</th>";
-				echo "<th>míst v kasárnách</th>";
+				echo "<th>nďż˝zev</th>";
+				echo "<th>ďż˝tok/obrana</th>";
+				echo "<th>mďż˝st v kasďż˝rnďż˝ch</th>";
 				echo "<th>cena</th>";
-				echo "<th>je nabízeno</th>";
-				echo "<th>můžete</th>";
+				echo "<th>je nabďż˝zeno</th>";
+				echo "<th>mďż˝ďż˝ete</th>";
 				echo "<th>chcete</th>";
 				echo "<th>&nbsp;</th>";
 				echo "</tr>";
 				echo "<tr>";
 				echo "<td class=pole>".$zold_nazev."</td>";
-				echo "<td>".($zold_utok*$politika[utok]/100*$zriz[utok]/100*$narod[utok]/100)."/".($zold_obrana*$politika[obrana]/100*$zriz[obrana]/100*$narod[obrana]/100)."</td>";
+				echo "<td>".($zold_utok*$politika['utok']/100*$zriz['utok']/100*$narod['utok']/100)."/".($zold_obrana*$politika['obrana']/100*$zriz['obrana']/100*$narod['obrana']/100)."</td>";
 				echo "<td>".$zold_lidi."</td>";
 				echo "<td>".$cena."</td>";
 				echo "<td>".$kolik."</td>";
@@ -747,52 +750,52 @@ if($co==3):
 
 	 			echo "</table></form>";
   			else:
-			  	echo "<br><br><center><font class=info><b>Máte už maximální sílu</b></font></center>";	
+			  	echo "<br><br><center><font class=info><b>Mďż˝te uďż˝ maximďż˝lnďż˝ sďż˝lu</b></font></center>";	
 	  		endif;
 		else:
-			echo "<br><br><center><font class=info><b>Žádní žoldáci nejsou nyní na prodej.</b></font></center>";	
+			echo "<br><br><center><font class=info><b>ďż˝ďż˝dnďż˝ ďż˝oldďż˝ci nejsou nynďż˝ na prodej.</b></font></center>";	
 		endif;
 
 
-	echo "<h6><font class=kapital>K</font>oupě jednotek</h6>";
+	echo "<h6><font class=kapital>K</font>oupďż˝ jednotek</h6>";
 	$den=Date("U");
 	if(empty($xr) or $xr<0){$xr=1;};
 	$obch = MySQL_Query("SELECT * FROM obchod where (navrhovatel!='$logjmeno' and typ=0 and den<$den) order by den desc limit $xr,30");
 
 	echo "<TABLE ".$table." ".$border." align=center width=100%>";
 	echo "<tr>";
-	echo "<th>čas nabídnutí</th>";
-	echo "<th>".$zaznam2[jed1_nazev]."</th>";
-	echo "<th>".$zaznam2[jed2_nazev]."</th>";
-	echo "<th>".$zaznam2[jed4_nazev]."</th>";
-	echo "<th>".$zaznam2[jed3_nazev]."</th>";
+	echo "<th>ďż˝as nabďż˝dnutďż˝</th>";
+	echo "<th>".$zaznam2['jed1_nazev']."</th>";
+	echo "<th>".$zaznam2['jed2_nazev']."</th>";
+	echo "<th>".$zaznam2['jed4_nazev']."</th>";
+	echo "<th>".$zaznam2['jed3_nazev']."</th>";
 	echo "<th>&nbsp;</th>";
 	echo "</tr>";
 
 	while($obchod = MySQL_Fetch_Array($obch)):
-			$den=$obchod[den];
+			$den=$obchod['den'];
 			$datum = Date("G:i j.m.Y",$den);
 
-				$urasa=$obchod[rasa];		
+				$urasa=$obchod['rasa'];		
 				$rasa2 = MySQL_Query("SELECT * FROM rasy where rasa = $urasa");
 				$rasa = MySQL_Fetch_Array($rasa2);
 	
-				$pj1=$j1=$obchod[jed1];
-				$pj2=$j2=$obchod[jed2];
-				$j3=$obchod[jed3];
-				$pj4=$j4=$obchod[jed4];
-				$cj1=$obchod[cj1];
-				$cj2=$obchod[cj2];
-				$cj3=$obchod[cj3];
-				$cj4=$obchod[cj4];
+				$pj1=$j1=$obchod['jed1'];
+				$pj2=$j2=$obchod['jed2'];
+				$j3=$obchod['jed3'];
+				$pj4=$j4=$obchod['jed4'];
+				$cj1=$obchod['cj1'];
+				$cj2=$obchod['cj2'];
+				$cj3=$obchod['cj3'];
+				$cj4=$obchod['cj4'];
 echo "<font class=info>";
 				if($urasa!=$trasa):
-					$sj1=$j1*$rasa[jed1_obrana]+$j1*$rasa[jed1_utok];
-					$tsj1=$j1*$zaznam2[jed1_obrana]+$j1*$zaznam2[jed1_utok];
-					$sj2=$j2*$rasa[jed2_obrana]+$j2*$rasa[jed2_utok];
-					$tsj2=$j2*$zaznam2[jed2_obrana]+$j2*$zaznam2[jed2_utok];
-					$sj4=$j4*$rasa[jed4_obrana]+$j4*$rasa[jed4_utok];
-					$tsj4=$j4*$zaznam2[jed4_obrana]+$j4*$zaznam2[jed4_utok];
+					$sj1=$j1*$rasa['jed1_obrana']+$j1*$rasa['jed1_utok'];
+					$tsj1=$j1*$zaznam2['jed1_obrana']+$j1*$zaznam2['jed1_utok'];
+					$sj2=$j2*$rasa['jed2_obrana']+$j2*$rasa['jed2_utok'];
+					$tsj2=$j2*$zaznam2['jed2_obrana']+$j2*$zaznam2['jed2_utok'];
+					$sj4=$j4*$rasa['jed4_obrana']+$j4*$rasa['jed4_utok'];
+					$tsj4=$j4*$zaznam2['jed4_obrana']+$j4*$zaznam2['jed4_utok'];
 					if($sj1>0 and $tsj1>0):
 						$pomer1=$sj1/$tsj1;
 						$pj1=Round($pomer1*$j1);
@@ -808,45 +811,45 @@ echo "<font class=info>";
 						$pj4=Round($pomer4*$j4);
       					//echo $pj4."<br>";
 					endif;
-					$cj1=($cj1/$rasa[jed1_cena])*$zaznam2[jed1_cena];
+					$cj1=($cj1/$rasa['jed1_cena'])*$zaznam2['jed1_cena'];
 					$cj1=Round($cj1);
-					$cj2=($cj2/$rasa[jed2_cena])*$zaznam2[jed2_cena];
+					$cj2=($cj2/$rasa['jed2_cena'])*$zaznam2['jed2_cena'];
 					$cj2=Round($cj2);
-					$cj3=($cj3/$rasa[jed3_cena])*$zaznam2[jed3_cena];
+					$cj3=($cj3/$rasa['jed3_cena'])*$zaznam2['jed3_cena'];
 					$cj3=Round($cj3);
-					$cj4=($cj4/$rasa[jed4_cena])*$zaznam2[jed4_cena];
+					$cj4=($cj4/$rasa['jed4_cena'])*$zaznam2['jed4_cena'];
 					$cj4=Round($cj4);
 				endif;
 
 			echo "<tr><form name='form' method='post' action='obchod.php' >";
 			echo "<td class=pole>".$datum."</td>";
 			
-			if($obchod[jed1]>0):
-				echo "<td><input type='text' name='j1' size=5 value=$pj1> krát po ".$cj1."kg</td>";
-				$celkem+=$obchod[jed1]*$obchod[cj1];
+			if($obchod['jed1']>0):
+				echo "<td><input type='text' name='j1' size=5 value=$pj1> krďż˝t po ".$cj1."kg</td>";
+				$celkem+=$obchod['jed1']*$obchod['cj1'];
 			else:
-				echo "<td>Nenabízí</td>";
+				echo "<td>Nenabďż˝zďż˝</td>";
 			endif;
 
-			if($obchod[jed2]>0):
-				echo "<td><input type='text' name='j2' size=5 value=$pj2> krát po ".$cj2."kg</td>";
-				$celkem+=$obchod[jed2]*$obchod[cj2];
+			if($obchod['jed2']>0):
+				echo "<td><input type='text' name='j2' size=5 value=$pj2> krďż˝t po ".$cj2."kg</td>";
+				$celkem+=$obchod['jed2']*$obchod['cj2'];
 			else:
-				echo "<td>Nenabízí</td>";
+				echo "<td>Nenabďż˝zďż˝</td>";
 			endif;
 
-			if($obchod[jed4]>0):
-				echo "<td><input type='text' name='j4' size=5 value=$pj4> krát po ".$cj4."kg</td>";
-				$celkem+=$obchod[jed4]*$obchod[cj4];
+			if($obchod['jed4']>0):
+				echo "<td><input type='text' name='j4' size=5 value=$pj4> krďż˝t po ".$cj4."kg</td>";
+				$celkem+=$obchod['jed4']*$obchod['cj4'];
 			else:
-				echo "<td>Nenabízí</td>";
+				echo "<td>Nenabďż˝zďż˝</td>";
 			endif;
 
-			if($obchod[jed3]>0):
-				echo "<td><input type='text' name='j3' size=5 value=$j3> krát po ".$cj3."kg</td>";
-				$celkem+=$obchod[jed3]*$obchod[cj3];
+			if($obchod['jed3']>0):
+				echo "<td><input type='text' name='j3' size=5 value=$j3> krďż˝t po ".$cj3."kg</td>";
+				$celkem+=$obchod['jed3']*$obchod['cj3'];
 			else:
-				echo "<td>Nenabízí</td>";
+				echo "<td>Nenabďż˝zďż˝</td>";
 			endif;
 
 			echo "<td>
@@ -859,18 +862,18 @@ echo "<font class=info>";
 	echo "</table></center>";	
 	$y=$xr+20;
 	$z=$xr-20;
-	echo "<h6><a href=obchod.php?xr=".$z."&co=3 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>předchozích 20 nabídek</a><br>";
-	echo "<a href=obchod.php?xr=".$y."&co=3 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>dalších 20 nabídek</a></h6>";	
+	echo "<h6><a href=obchod.php?xr=".$z."&co=3 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>pďż˝edchozďż˝ch 20 nabďż˝dek</a><br>";
+	echo "<a href=obchod.php?xr=".$y."&co=3 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>dalďż˝ďż˝ch 20 nabďż˝dek</a></h6>";	
 endif;
 
-//-------------------------------------------------ostatní koupě----------------------------------------------------
+//-------------------------------------------------ostatnďż˝ koupďż˝----------------------------------------------------
 if($co==4):
-		echo "<h6><font class=kapital>K</font>oupě hvězdné brány</h6>";
+		echo "<h6><font class=kapital>K</font>oupďż˝ hvďż˝zdnďż˝ brďż˝ny</h6>";
 		$br = MySQL_Query("SELECT den,typ,jed1,vyr FROM obchod where (typ=2 and navrhovatel='')");
 		$brana = MySQL_Fetch_Array($br);
-		$cena=$brana[vyr];
-		$cas=$brana[den];
-		$kolik=$brana[jed1];
+		$cena=$brana['vyr'];
+		$cas=$brana['den'];
+		$kolik=$brana['jed1'];
 		$ted=Date("U");
 		$zmena=0.3;
 		$sek=($zmena*60)-($ted-$cas);
@@ -883,10 +886,10 @@ if($co==4):
 			default: $sekslovy="sekund";		
 		}
 
-		echo "<font class=info align=center>Zde je možno koupit hv. bránu, toto je neutrální nabídka. Nabídka se mění každé ".$zmena." minuty. Příští změna za <font class=pole>".$sek."</font> ".$sekslovy."</font>";
+		echo "<font class=info align=center>Zde je moďż˝no koupit hv. brďż˝nu, toto je neutrďż˝lnďż˝ nabďż˝dka. Nabďż˝dka se mďż˝nďż˝ kaďż˝dďż˝ ".$zmena." minuty. Pďż˝ďż˝tďż˝ zmďż˝na za <font class=pole>".$sek."</font> ".$sekslovy."</font>";
 
 		if($ted>($cas+60*$zmena)):
-			$bran=$zaznam1[bran]+($zaznam1[bran]/2)+1;
+			$bran=$zaznam1['bran']+($zaznam1['bran']/2)+1;
 			$bran=Round($bran);
 			$katar=rand(1,$bran);
 			$kolik=rand(1,$bran);
@@ -898,17 +901,17 @@ if($co==4):
 
 		if($kolik>0):
 			switch ($kolik){
-				case 1: $pred="je nabízena";$slovo="brána";break;
+				case 1: $pred="je nabďż˝zena";$slovo="brďż˝na";break;
 				case 2:
 				case 3:
-				case 4: $pred="jsou nabízeny";$slovo="brány";break;
-				default: $pred="je nabízeno";$slovo="bran";		
+				case 4: $pred="jsou nabďż˝zeny";$slovo="brďż˝ny";break;
+				default: $pred="je nabďż˝zeno";$slovo="bran";		
 			}
 
 			$pla = MySQL_Query("SELECT * FROM planety where (cislomaj=$logcislo and brana=0) order by nazev desc");
 			$hbran = mysql_num_rows($pla);
 			
-			if($hbran!=$zaznam1[planety]):
+			if($hbran!=$zaznam1['planety']):
 	  			echo "<form name='form' method='post' action='obchod.php' ><input type='hidden' name='co' value='4'>";
 			  	echo "<table>";
   				echo "<tr>";
@@ -919,14 +922,14 @@ if($co==4):
   				endwhile;
 		   		echo "</select>";
 			  	echo "</td></tr><tr>";
-  				echo "<td>Hvězdná brána stojí</td>";
+  				echo "<td>Hvďż˝zdnďż˝ brďż˝na stojďż˝</td>";
 
 	  			echo "<td>".number_format($cena,0,0," ")." kg</td>";
 			  	echo "</tr><tr>";
   				echo "<td colspan=2>Za tuto cenu ".$pred." ".$kolik." ".$slovo."</td>";
 		  		echo "</tr><tr>";
-	  			if($cena>$zaznam1[penize]):
-			  		echo "<td colspan=2>Vy na ní bohužel nemáte.</form></td>";			
+	  			if($cena>$zaznam1['penize']):
+			  		echo "<td colspan=2>Vy na nďż˝ bohuďż˝el nemďż˝te.</form></td>";			
   				else:
 		  			echo "<td colspan=2>
 	  				<input type='hidden' name='co' value='4'>
@@ -937,26 +940,26 @@ if($co==4):
 			  	endif;
   				echo "</tr></table>";
 	  		else:
-			  	echo "<br><br><center><font class=info><b>Všechny Vaše planety mají hvězdnou bránu.</b></font></center>";	
+			  	echo "<br><br><center><font class=info><b>Vďż˝echny Vaďż˝e planety majďż˝ hvďż˝zdnou brďż˝nu.</b></font></center>";	
   			endif;
 		else:
-			echo "<br><br><center><font class=info><b>žádná brána není ihned k odběru.</b></font></center>";	
+			echo "<br><br><center><font class=info><b>ďż˝ďż˝dnďż˝ brďż˝na nenďż˝ ihned k odbďż˝ru.</b></font></center>";	
 		endif;
 		
 //*************************
-		echo "<h6><font class=kapital>K</font>oupě nezaměstnaných</h6>";
+		echo "<h6><font class=kapital>K</font>oupďż˝ nezamďż˝stnanďż˝ch</h6>";
 
 		$den=Date("U");
 
-		$nej=MySQL_Query("SELECT den,typ,jed1,cj1,navrhovatel FROM obchod where (typ=1 and navrhovatel!='$zaznam1[jmeno]' and den<$den) order by cj1");
+		$nej=MySQL_Query("SELECT den,typ,jed1,cj1,navrhovatel FROM obchod where (typ=1 and navrhovatel!='".$zaznam1['jmeno']."' and den<$den) order by cj1");
 		@$nejl = MySQL_Fetch_Array($nej);
 
 		if($nejl):
 			//$nejl = MySQL_Fetch_Array($nej);
-			$den=$nejl[den];
-			$koliklid=$nejl[jed1];
-			$nejlev=$nejl[cj1];
-			$mamna=Floor($zaznam1[penize]/$nejl[cj1]);
+			$den=$nejl['den'];
+			$koliklid=$nejl['jed1'];
+			$nejlev=$nejl['cj1'];
+			$mamna=Floor($zaznam1['penize']/$nejl['cj1']);
 
 			$pla = MySQL_Query("SELECT * FROM planety where cislomaj=$logcislo order by nazev desc");
 
@@ -970,13 +973,13 @@ if($co==4):
 			endwhile;
 	    		echo "</select>";
 			echo "</td></tr><tr>";
-			echo "<td>Kolik tisíc nez. koupit</td>";
+			echo "<td>Kolik tisďż˝c nez. koupit</td>";
 			echo "<td><input type='text' name='koliklid' size=8 value=".$koliklid."></td>";
 			echo "</tr><tr>";
-			echo "<td>Tisíc nezaměstnaných je za</td>"; 
+			echo "<td>Tisďż˝c nezamďż˝stnanďż˝ch je za</td>"; 
 			echo "<td>".$nejlev." kg</td>";
 			echo "</tr><tr>";
-			echo "<td>Za tuto cenu máte na</td>"; 
+			echo "<td>Za tuto cenu mďż˝te na</td>"; 
 			echo "<td>".$mamna." tis. nez.</td>";
 			echo "</tr><tr>";
 			echo "<td colspan=2>
@@ -993,25 +996,25 @@ if($co==4):
 
 			echo "<TABLE ".$table." ".$border." align=center>";
 			echo "<tr>";
-			echo "<th>název planety</th>";
-			echo "<th>počet měst</th>";
-			echo "<th>celkem lidí (v tis.)</th>";
-			echo "<th>míst pro lidi (v tis.)</th>";
+			echo "<th>nďż˝zev planety</th>";
+			echo "<th>poďż˝et mďż˝st</th>";
+			echo "<th>celkem lidďż˝ (v tis.)</th>";
+			echo "<th>mďż˝st pro lidi (v tis.)</th>";
 			echo "</tr><h6>";
 
 			while($planety1 = MySQL_Fetch_Array($pla)):
 				$lidi=Floor($planety1["lidi"]/1000);
-				$zbylo=$planety1[mesta]*10000;
+				$zbylo=$planety1['mesta']*10000;
 				$zbylo-=$lidi;
 				echo "<tr>";
-				echo "<td class=pole>".$planety1[nazev]."</td>";
-				echo "<td>".$planety1[mesta]."</td>";
+				echo "<td class=pole>".$planety1['nazev']."</td>";
+				echo "<td>".$planety1['mesta']."</td>";
 				echo "<td>".number_format($lidi,0,0," ")."</td>";
 				echo "<td>".number_format($zbylo,0,0," ")."</td>";
 				echo "</tr>";
 			endwhile;
 		else:
-			echo "<center><font class=info><b>Nikdo nezaměstnané nenabízí.</b></font></center>";		
+			echo "<center><font class=info><b>Nikdo nezamďż˝stnanďż˝ nenabďż˝zďż˝.</b></font></center>";		
 		endif;
 
 endif;

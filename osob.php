@@ -1,43 +1,42 @@
-<?
+<?php
 Header ("Cache control: no-cache");
 ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-<?
-mysql_query("SET NAMES cp1250");
-			require 'data_1.php';	
+<?php
+//mysql_query("SET NAMES cp1250");
+require 'data_1.php';	
 	
-		$vys1 = MySQL_Query("SELECT * FROM uzivatele where cislo=$logcislo");
-		$zaznam1 = MySQL_Fetch_Array($vys1);
-		$info=1;
-		$adre=$zaznam1["img"];
+$vys1 = MySQL_Query("SELECT * FROM uzivatele where cislo=$logcislo");
+$zaznam1 = MySQL_Fetch_Array($vys1);
+$info=1;
+$adre=$zaznam1["img"];
 if($smi){
-MySQL_Query("UPDATE uzivatele SET smiles='$smile' WHERE jmeno='".$logjmeno."'");
+    MySQL_Query("UPDATE uzivatele SET smiles='$smile' WHERE jmeno='".$logjmeno."'");
 }
 
-		$sm=$zaznam1[smiles];
-		require("kontrola.php");
+$sm=$zaznam1[smiles];
+require("kontrola.php");
 
-		$styl="styl".$zaznam1[skin];
-		if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or $zaznam1[skin]==4){$styl="styl1";};
+$styl="styl".$zaznam1[skin];
+if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or $zaznam1[skin]==4){
+    $styl="styl1";
+}
 ?>
 <style type="text/css">
-@import url(<?echo $styl?>.css);
+@import url(<?php echo $styl?>.css);
 </style>
 </head>
 <body>
-<?
+<?php
 //upload obrazku
-if(isset($picture))
-{
+if(isset($picture)) {
 	$chyba=0;
 	
 	//kontrola velikosti
-	if($picture_size>"5120")
-	{
-		echo "<h1>Maximální velikost obrázku je 5kB!</h1>";
+	if($picture_size>"5120") {
+		echo "<h1>MaximÃ¡lnÃ­ velikost obrÃ¡zku je 5kB!</h1>";
 		$chyba=1;
 	}
 	
@@ -48,33 +47,29 @@ if(isset($picture))
 		$pripona=".jpeg";
 	elseif($picture_type=="image/pjpeg")
 		$pripona=".jpg";
-	else
-	{
-		echo "<h1>Nepodporovanı formát souboru</h1>";
+	else {
+		echo "<h1>NepodporovanÃ½ formÃ¡t souboru</h1>";
 		$chyba=1;
 	}
 	//vlastni upload
-	if($chyba == "0")
-	{
+	if($chyba == "0") {
 		if($adre!="0.jpg"){
-		$adres="obrazky/$adre";
-		@unlink($adres);
+            $adres="obrazky/$adre";
+            @unlink($adres);
 		}
 		$obrazek="".$logcislo."".$pripona."";
 		$adresa="obrazky/$obrazek";
 		move_uploaded_file($picture, $adresa);
 		mysql_query("update uzivatele set img='".$obrazek."' where jmeno='".$logjmeno."'");
-		echo "<font class=pozor>Obrázek byl úspìšnì nahrán<br></font>";
+		echo "<font class=pozor>ObrÃ¡zek byl ÃºspÄ›Å¡nÄ› nahrÃ¡n<br></font>";
 	}
 }
 
 if($nova_zru){
-mysql_query("update uzivatele set novacek='0' where jmeno='$logjmeno'");
+    mysql_query("update uzivatele set novacek='0' where jmeno='$logjmeno'");
 }
 
-
-if(isset($s)):
-			
+if(isset($s)):			
 			$ss=$s;
 			$s=md5($s);
 			$n=md5($n);
@@ -82,24 +77,24 @@ if(isset($s)):
 			$nn=md5($nn);
 			if($zaznam1["heslo"]==$s):
 				if($n==$nn):
-					if(strlen($nn_to_mail)<=5){echo "<h1>Heslo musí mít aspoò 6 znakù</h1>";}
+					if(strlen($nn_to_mail)<=5){echo "<h1>Heslo musï¿½ mï¿½t aspoï¿½ 6 znakï¿½</h1>";}
 				    	else {
 							$email=$zaznam1[email];
-							$zprava="Heslo v loginu $logjmeno zmìnìno na $nn_to_mail.";
-							mail ($email,"Zmìna hesla na stargateweb",$zprava);
+							$zprava="Heslo v loginu $logjmeno zmï¿½nï¿½no na $nn_to_mail.";
+							mail ($email,"Zmï¿½na hesla na stargateweb",$zprava);
 							MySQL_Query("update uzivatele set heslo = '$n' where cislo=$logcislo");
-							echo "<h1>Heslo zmìnìno</h1>";}
+							echo "<h1>Heslo zmï¿½nï¿½no</h1>";}
 				else:
-					echo "<h1>Nová hesla nejsou stejná</h1>";
+					echo "<h1>Novï¿½ hesla nejsou stejnï¿½</h1>";
 				endif;
 			else:
-				echo "<h1>Staré heslo nesouhlasí</h1>";
+				echo "<h1>Starï¿½ heslo nesouhlasï¿½</h1>";
 			endif;
 		endif;
 		
 		if(isset($icq)):
 			do{
-				if( (!ereg("^[[:digit:]]{5,}$",$icq)) and ($icq!="")){echo "<h1>Je poadováno ICQ#</h1>";};
+				if( (!ereg("^[[:digit:]]{5,}$",$icq)) and ($icq!="")){echo "<h1>Je poï¿½adovï¿½no ICQ#</h1>";};
 				
 				if(($zicq!="on") and ($zweb!="on") and ($zemail!="on")){$aa=1;};
 				if(($zicq!="on") and ($zweb!="on") and ($zemail=="on")){$aa=2;};
@@ -126,7 +121,7 @@ if(isset($s)):
 		if(isset($dnu)):
 			$s=md5($heslodnu);
 		do{
-      if($dnu<1){echo "<h1>Minimální doba zmraení je 1 den!</h1>";break;};
+      if($dnu<1){echo "<h1>Minimï¿½lnï¿½ doba zmraï¿½enï¿½ je 1 den!</h1>";break;};
 			if($zaznam1["heslo"]==$s):
 				
 				$ut2 = MySQL_Query("SELECT den,utocnik FROM utok where utocnik='$logjmeno' order by den DESC");
@@ -140,14 +135,14 @@ if(isset($s)):
 					$prach=$zaznam1[den]+(86400*$dnu);
 					$kdy=Date("U")+($dnu*3600*24);
 					MySQL_Query("update uzivatele set hra=1,zmrazeni=$kdy,den=$prach where cislo=$logcislo");
-					echo "<h1>Login zmraen</h1>";
+					echo "<h1>Login zmraï¿½en</h1>";
 				else:
 					$utoc=Round((Date("U")-$ut[den])/60);
 					$hod=Round((Date("U")-$ut[den])/3600);
-					echo "<h1>Útoèil jste teprve pøed ".$hod." hodinami (".$utoc." minut).</h1>";
+					echo "<h1>ï¿½toï¿½il jste teprve pï¿½ed ".$hod." hodinami (".$utoc." minut).</h1>";
 				endif;
 			else:
-				echo "<h1>Špatné heslo</h1>";
+				echo "<h1>ï¿½patnï¿½ heslo</h1>";
 			endif;
 			}while(false);
 		endif;
@@ -224,20 +219,20 @@ if(isset($s)):
 				    };	
 					// Odstraneni hlasovani v referendech - end
 			
-						echo "<script languague='JavaScript'>alert('Odhlášení probìhlo úspìšnì, nyní se prosím odhlašte.Není to však nutné, staèí zavøít okno.')</script>";
+						echo "<script languague='JavaScript'>alert('Odhlï¿½enï¿½ probï¿½hlo ï¿½spï¿½nï¿½, nynï¿½ se prosï¿½m odhlaï¿½te.Nenï¿½ to vï¿½ak nutnï¿½, staï¿½ï¿½ zavï¿½ï¿½t okno.')</script>";
 						echo "<script languague='JavaScript'>location.href='info.php'</script>";
 				else:
-					echo "<h1>Špatné heslo</h1>";
+					echo "<h1>ï¿½patnï¿½ heslo</h1>";
 				endif;
 			else:
 				$utoc=Round((Date("U")-$ut[den])/60);
 				$hod=Round((Date("U")-$ut[den])/3600);
-				echo "<h1>Útoèil jste teprve pøed ".$hod." hodinami (".$utoc." minut).</h1>";
+				echo "<h1>ï¿½toï¿½il jste teprve pï¿½ed ".$hod." hodinami (".$utoc." minut).</h1>";
 			endif;						
 		endif;
 
 		if(isset($skin)):
-		if($skin==1){echo "<h1>Neplatné zadání!</h1>";exit;}
+		if($skin==1){echo "<h1>Neplatnï¿½ zadï¿½nï¿½!</h1>";exit;}
 				MySQL_Query("update uzivatele set skin = '$skin' where cislo = $logcislo");
 				echo "<script language=JavaScript>location.href='info.php';</script>";
 		endif;		
@@ -247,7 +242,7 @@ if(isset($s)):
 			$heslo=md5($heslop);
 				$ted=Date("U");
 				$ted-=86400;
-			if($zaznam1[zmenavojpre]>$ted){echo "<h1>Zmìnu lze provést 24 hodin po pøedchozí zmìnì</h1>";break;}
+			if($zaznam1[zmenavojpre]>$ted){echo "<h1>Zmï¿½nu lze provï¿½st 24 hodin po pï¿½edchozï¿½ zmï¿½nï¿½</h1>";break;}
 			if($zaznam1["heslo"]==$heslo):
 				$h=Date("G");
 				$m=Date("i");
@@ -259,16 +254,9 @@ if(isset($s)):
 				$sek-=$se;
 				$a=$h-$chci;
 				$sek-=$a*3600;
-				//$sek+=24*3600;
-				//echo "<font class=info>".$zaznam1[den]." zaznam1[den]<br>";
-				//echo "<font class=info>".$sek." sek<br>";
-				//echo "<font class=info>".($sek-Date("U"))." rozdil<br>";
-				//echo "<font class=info>".Date("H:i:s j.m.Y",$sek)." novdat<br>";
-				//$datum2 = Date("H:i:s j.m.Y",$zaznam1[den]);
-				//echo "<font class=info>".$a." a<br>";
 				MySQL_Query("update uzivatele set zmenavojpre=$zmenavojpre,den=$sek,prepocet=$prepocet,restutoky=$vojprepocet where cislo = $logcislo");
 			else:
-				echo "<h1>Špatné heslo</h1>";
+				echo "<h1>Å patnÃ© heslo</h1>";
 			endif;
 			}while(false);
 	endif;
@@ -276,18 +264,18 @@ if(isset($s)):
 		if(isset($reg_kod)):
 				if($kodek==$reg_kod):
 					MySQL_Query("update uzivatele set reg=1 where cislo = $logcislo");
-					echo "<h1>Registrace dokonèena</h1>";
+					echo "<h1>Registrace dokonÄena</h1>";
 					$kodek=0;
 				else:
-					echo "<h1>Špatnı registraèní kód</h1>";
+					echo "<h1>Å patnÃ½ registraÄnÃ­ kÃ³d</h1>";
 				endif;		
 		endif;
 		
 	if(isset($duvod)):
-			$text=HTMLSpecialChars($duvod);
-			$text=NL2BR($text);
-			$text=AddSlashes($text);	
-			MySQL_Query("update multaci set duvod='$text' WHERE cislo=$logcislo");	
+        $text=HTMLSpecialChars($duvod);
+        $text=NL2BR($text);
+        $text=AddSlashes($text);	
+        MySQL_Query("update multaci set duvod='$text' WHERE cislo=$logcislo");	
 	endif;
 
 	$vys1 = MySQL_Query("SELECT * FROM uzivatele where cislo=$logcislo");
@@ -299,68 +287,68 @@ if(isset($s)):
 
 ?>
 <font class="info">
-<?
+<?php
 if($zaznam1[reg]==0):
 ?>
-<h6><font class=kapital>R</font>egistraèní kód</h6>
+<h6><font class=kapital>R</font>egistraÄnÃ­ kÃ³d</h6>
 <form name="form" method="post" action="osob.php">
-kód <input type="text" name="reg_kod">
-<input type="submit" value="pošli">
+kÃ³d <input type="text" name="reg_kod">
+<input type="submit" value="poÅ¡li">
 </form>
-<?
+<?php
 endif;
-?>
-<?
+
 if($am[cislo]>0):
 ?>
-<h6><font class=kapital>M</font>uláctví</h6>
+<h6><font class=kapital>M</font>ulï¿½ï¿½ctvï¿½</h6>
 <form name="form" method="post" action="osob.php">
-<font class=info>Byl jste naøèen z muláctví, prosím smate své profily nebo jejich existenci oduvodnìte v tomto oknì.</font>
-<br><textarea name="duvod" cols=60 rows=5><?echo $am[duvod]?></textarea><br>
-<input type="submit" value="odešli">
+<font class=info>Byl jste naÅ™Äen z mulï¿½ï¿½ctvï¿½, prosÃ­m smaÅ¾te svÃ© profily nebo jejich existenci odÃºvodnÄ›te v tomto oknÄ›.</font>
+<br><textarea name="duvod" cols=60 rows=5><?php $am[duvod]?></textarea><br>
+<input type="submit" value="odeï¿½li">
 </form>
-<?
+<?php
 endif;
-if($zaznam1[novacek]==1){echo "Myslíte-li si, e jste ji se hrou øádnì seznámen a chcete se stát bìnım hráèem, mùete si odebrat status nováèka zde: <form action=osob.php method=post><input type=submit value=odebrat name=nova_zru></form>";}
+
+if($zaznam1[novacek]==1){echo "MyslÃ­te-li si, Å¾e jste jiÅ¾ se hrou Å™Ã¡dnÄ› seznÃ¡men a chcete se stÃ¡t bÄ›Å¾nÃ½m hrÃ¡Äem, mÅ¯Å¾ete si odebrat status novÃ¡Äka zde: <form action=osob.php method=post><input type=submit value=odebrat name=nova_zru></form>";}
 ?>
 <table>
 <tr>
 <td>
-<h6><font class=kapital>Z</font>mìna hesla</h6>
+<h6><font class=kapital>Z</font>mï¿½na hesla</h6>
 <form name="form2" method="post" action="osob.php">
 <table>
 <tr>
-	<td>staré heslo</td>
+	<td>starÃ© heslo</td>
 	<td><input type="password" name="s"></td>
 </tr><tr>
-	<td>nové heslo</td>
+	<td>novÃ© heslo</td>
 	<td><input type="password" name="n"></td>
 </tr><tr>
-	<td>znovu nové heslo</td>
+	<td>znovu novÃ© heslo</td>
 	<td><input type="password" name="nn"></td>
 </tr><tr>
-	<td colspan=2><input type="submit" value="zmìò heslo"></td>
+	<td colspan=2><input type="submit" value="zmÄ›nit heslo"></td>
 </tr>
 </table>
 </form>
 </td>
 <td>
-<h6><font class=kapital>Z</font>rušení loginu</h6>
+<h6><font class=kapital>Z</font>ruÅ¡enÃ­ loginu</h6>
 <form name="form1" method="post" action="osob.php">
-<font class=info>Lze a za 48 hodinách po posledním útoku.</font><br><br>
+<font class=info>Lze aÅ¾ po 48 hodinÃ¡ch po poslednÃ­m Ãºtoku.</font><br><br>
 heslo <input type="password" name="heslo">
-<br><br><input type="submit" value="zruš login">
+<br><br><input type="submit" value="zruÅ¡it login">
 </form>
 </td>
 </tr>
 <tr>
 <td>
-<h6><font class=kapital>Z</font>mraení loginu</h6>
+<h6><font class=kapital>Z</font>mraÅ¾enÃ­ loginu</h6>
 <form name="form4" method="post" action="osob.php">
-<font class=info>Pokud je login zmraen, nelze za nìj hrát, nepøibıvá za ten èas co je loginu zmrazen naquadah, nelze na nìj útoèit. Login lze zmrazit pokud s nim 24 hodin nebylo útoèeno.<br><br>
+<font class=info>Pokud je login zmraÅ¾en, nelze za nÄ›j hrÃ¡t, nepï¿½ibï¿½vï¿½ za ten Äas co je loginu zmrazen naquadah, nelze na nÄ›j ÃºtoÄit. Login lze zmrazit pokud s nÃ­m 24 hodin nebylo ÃºtoÄeno.<br><br>
 <table>
 <tr>
-	<td>Zmrazit na kolik dní: </td>
+	<td>Zmrazit na kolik dnÅ¯: </td>
 	<td><input type="text" name="dnu"></td>
 </tr>
 <tr>
@@ -368,27 +356,30 @@ heslo <input type="password" name="heslo">
 	<td><input type="password" name="heslodnu"></td>
 </tr>
 <tr>
-	<td colspan=2><input type="submit" value="zmra login"></td>
+	<td colspan=2><input type="submit" value="zmrazit login"></td>
 </tr>
 </table>
 </font>
 </form>
 </td>
 <td>
-<h6><font class=kapital>N</font>astavení pøepoètu</h6>
+<h6><font class=kapital>N</font>astavenÃ­ pÅ™epoÄtu</h6>
 <form name="form3" method="post" action="osob.php">
-<font class=info>Mùete si zmìnit èas vašeho pøepoètu. Pokud to udìláte další pøepoèet se provede nejdøíve za 24 hodin. Zmìna jakéhokoliv pøepoètu ovlivní i druhı pøepoèet. Je umonìna pouze jedna zmìna za 24 hodin.<br><br>
+<font class=info>MÅ¯Å¾ete si zmÄ›nit Äas vaÅ¡eho pÅ™epoÄtu. Pokud to udÄ›lÃ¡te dalÅ¡Ã­ pÅ™epoÄet se provede nejdÅ™Ã­ve za 24 hodin. ZmÄ›na jakÃ©hokoliv pÅ™epoÄtu ovlivnÃ­ i druhÃ½ pÅ™epoÄet. Je umoÅ¾nÄ›na pouze jedna zmÄ›na za 24 hodin.<br><br>
 <table>
 <tr>
-	<td>Pøepoèet v: </td>
+	<td>PÅ™epoÄet v: </td>
 	<td><select name="prepocet">
-<?
+<?php
 $i=0;
 while($i<24):
 	$ch="";
-	//if($i==11){$ch="selected";};
-	if($zaznam1[prepocet]==$i){$ch="selected";};
-	if($i<10):
+
+	if($zaznam1[prepocet]==$i){
+        $ch="selected";
+    }
+
+    if($i<10):
 		echo "<option ".$ch.">0".$i;
 	else:
 		echo "<option ".$ch.">".$i;
@@ -397,15 +388,19 @@ while($i<24):
 endwhile;
 ?>
 	</select></td>
+</tr>
 <tr>
-	<td>Voj. pøepoèet v: </td>
+	<td>Voj. pÅ™epoÄet v: </td>
 	<td><select name="vojprepocet">
-<?
+<?php
 $j=0;
 while($j<24):
 	$ch="";
-	//if($i==11){$ch="selected";};
-	if($zaznam1[restutoky]==$j){$ch="selected";};
+
+	if($zaznam1[restutoky]==$j){
+        $ch="selected";
+    }
+
 	if($j<10):
 		echo "<option ".$ch.">0".$j;
 	else:
@@ -421,7 +416,7 @@ endwhile;
 	<td><input type="password" name="heslop"></td>
 </tr>
 <tr>
-	<td colspan=2><input type="submit" value="zmìò pøepoèet"></td>
+	<td colspan=2><input type="submit" value="zmÄ›nit pÅ™epoÄet"></td>
 </tr>
 </table>
 </font>
@@ -431,19 +426,19 @@ endwhile;
 <tr>
 <td>
 </form>
-<h6><font class=kapital>Z</font>mìna skinu.</h6>
-<font class=info>Pro naètení všech obrázkù, zmáèknìte po odeslání stránky F5</font><br>
+<h6><font class=kapital>Z</font>mÄ›na skinu.</h6>
+<font class=info>Pro naÄtenÃ­ vÅ¡ech obrÃ¡zkÅ¯, zmÃ¡ÄknÄ›te po odeslÃ¡nÃ­ strÃ¡nky F5</font><br>
 <form name="form5" method="post" action="osob.php">
 <select name="skin">
-<option value=0 <?if($zaznam1[skin]==0){echo "selected";};?>>základní
+<option value=0 <?php if($zaznam1[skin]==0){echo "selected";};?>>zÃ¡kladnÃ­
 
 </select>
-<input type="submit" value="zmìò">
+<input type="submit" value="zmÄ›nit">
 </form>
 
 </td>
 <td>
-<?
+<?php
 switch($zaznam1["zobrd"]){
 	case 1: break;
 	case 2: $c="checked";
@@ -472,28 +467,28 @@ switch($zaznam1["zobrd"]){
 <table>
 <tr>
 <td>ICQ</td>
-<td><input type="text" name=icq value="<?echo $zaznam1[icq]?>"></td>
+<td><input type="text" name=icq value="<?php $zaznam1[icq]?>"></td>
 </tr>
 <tr>
 <td>web</td>
-<td><input type="text" name=web value="<?echo $zaznam1[www]?>"></td>
+<td><input type="text" name=web value="<?php $zaznam1[www]?>"></td>
 </tr>
 <tr>
-<td>Mìsto</td>
-<td><input type="text" name=mesto value="<?echo $zaznam1[mesto]?>"></td>
+<td>MÄ›sto</td>
+<td><input type="text" name=mesto value="<?php $zaznam1[mesto]?>"></td>
 </tr>
 <tr>
 <td rowspan=3>zobrazovat&nbsp;&nbsp;&nbsp;</td>
-<td><input type="checkbox" <? echo $a;?> name=zicq> ICQ</td>
+<td><input type="checkbox" <?php echo $a;?> name=zicq> ICQ</td>
 </tr>
 <tr>
-<td><input type="checkbox" <? echo $b;?> name=zweb> web</td>
+<td><input type="checkbox" <?php echo $b;?> name=zweb> web</td>
 </tr>
 <tr>
-<td><input type="checkbox" <? echo $c;?> name=zemail> email&nbsp;&nbsp;(<font class=pole><? echo $zaznam1[email];?></font>)</td>
+<td><input type="checkbox" <?php echo $c;?> name=zemail> email&nbsp;&nbsp;(<font class=pole><?php echo $zaznam1[email];?></font>)</td>
 </tr>
 </table>
-<input type="submit" value="zmìò">
+<input type="submit" value="zmÄ›nit">
 
 </form>
 
@@ -501,12 +496,10 @@ switch($zaznam1["zobrd"]){
 </tr>
 <tr><td>
 <h6><font class=kapital>S</font>miles</h6>
-<font class=info>Zaškrknuté políèko znamená, e smiles jsou zapnuty.</font>
-<form action=osob.php method=post>Smiles: <input type="checkbox" name="smile" value="1" <? if($sm=="1"){ echo "checked";} ?>> <input type="submit" value="zmìò" name="smi"></form></td></tr>
+<font class=info>ZaÅ¡krtnutÃ© polÃ­Äko znamenÃ¡, Å¾e smiles jsou zapnuty.</font>
+<form action=osob.php method=post>Smiles: <input type="checkbox" name="smile" value="1" <?php if($sm=="1"){ echo "checked";} ?>> <input type="submit" value="zmÄ›nit" name="smi"></form></td></tr>
 </table>
 
 </font>
-
-
 </body>
 </html>

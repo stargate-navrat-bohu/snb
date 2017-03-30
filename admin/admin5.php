@@ -89,7 +89,7 @@ if(isset($_POST["clean"]) AND $_POST["clean"]=="ano"){
 
 ?>
 <style type="text/css">
-@import url(<?echo $styl?>.css);
+@import url(<?php echo $styl?>.css);
 </style>
 <script language="JavaScript" src="a.php" >
 </script>
@@ -106,7 +106,7 @@ if(isset($_POST["clean"]) AND $_POST["clean"]=="ano"){
 
 <form name='form1' method='post' action='hlavni.php?page=admin5'>
 Vyber rasu <select name='rasa'>
-<?
+<?php
 $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa>0 and rasa<100 order by rasa");
 while ($zaznam4 = MySQL_Fetch_Array($vys4)):
 	echo "<option value = ".$zaznam4[rasa];
@@ -117,137 +117,120 @@ endwhile;
 </select>
 <input type=submit value="zobraz">
 </form>
-<?
-	if(isset($rasa)):
-		$ra1 = MySQL_Query("SELECT * FROM rasy where rasa = $rasa");
-		$ra = MySQL_Fetch_Array($ra1);
-		$vu1 = MySQL_Query("SELECT * FROM vudce where rasa = $rasa");
-		$vu = MySQL_Fetch_Array($vu1);
-		$rs1 = MySQL_Query("SELECT * FROM rasarm where rasa = $rasa");
-		$rs = MySQL_Fetch_Array($rs1);		
-		$refer = MySQL_Query("SELECT * FROM refnew where cislo='$rasa'");
-		$ref = MySQL_Fetch_Array($refer);
-		$politika1 = MySQL_Query("SELECT * FROM politika where rasa = $rasa");
-		$politika = MySQL_Fetch_Array($politika1);			
-			
-		echo "<h6>Rasov� arm�da</h6>";
-		echo "<form action='hlavni.php?page=admin5' method='post'>";
-		echo "<TABLE ".$table." ".$border.">";
-		echo "<tr>";
-		echo "<th>n�zev</th>";
-		echo "<th>�tok/obrana</th>";
-		echo "<th>je v arm�d�</th>";
-		echo "<th>nov� stav</th>";
-		echo "</tr>";
-		echo "<tr>";
-		echo "<td class=text_modry>".$ra["jed1_nazev"]."</td>";		
-		echo "<td>".$ra["jed1_utok"]."/".$ra["jed1_obrana"]."</td>";
-		echo "<td>".$rs["jed1"]."</td>";
-		echo "<td><input type='text' value='".$rs["jed1"]."' name='nove_jed1'></td>";		
-		echo "</tr>";
-		echo "<tr>";
-		echo "<td class=text_modry>".$ra["jed2_nazev"]."</td>";		
-		echo "<td>".$ra["jed2_utok"]."/".$ra["jed2_obrana"]."</td>";
-		echo "<td>".$rs["jed2"]."</td>";
-		echo "<td><input type='text' value='".$rs["jed2"]."' name='nove_jed2'></td>";
-		echo "</tr>";
-		echo "<tr>";
-		echo "<td class=text_modry>".$ra["jed4_nazev"]."</td>";		
-		echo "<td>".$ra["jed4_utok"]."/".$ra["jed4_obrana"]."</td>";
-		echo "<td>".$rs["jed4"]."</td>";
-		echo "<td><input type='text' value='".$rs["jed4"]."' name='nove_jed4'></td>";
-		echo "</tr>";
-		echo "<tr>";
-		echo "<td class=text_modry>".$ra["jed3_nazev"]."</td>";		
-		echo "<td>".$ra["jed3_ucinek"]."</td>";
-		echo "<td>".$rs["jed3"]."</td>";
-		echo "<td><input type='text' value='".$rs["jed3"]."' name='nove_jed3'></td>";		
-		echo "</tr>";
-		echo "<tr>";
-		echo "<td class=text_modry>".$zold_nazev."</td>";
-		echo "<td>".$zold_utok."/".$zold_obrana."</td>";
-		echo "<td>".$rs["jed5"]."</td>";
-		echo "<td><input type='text' value='".$rs["jed5"]."' name='nove_jed5'></td>";		
-		echo "</tr>";
-		echo "</table>";
-		echo "<input type='hidden' name='rasa' value='$rasa'>";
-		echo "<input type='hidden' name='zmena_armad' value='1'>";
-		echo "<input type='hidden' name='jed1_puv' value='$rs[jed1]'>";
-		echo "<input type='hidden' name='jed2_puv' value='$rs[jed2]'>";
-		echo "<input type='hidden' name='jed3_puv' value='$rs[jed3]'>";
-		echo "<input type='hidden' name='jed4_puv' value='$rs[jed4]'>";
-		echo "<input type='hidden' name='jed5_puv' value='$rs[jed5]'>";				
-		echo "<input type='submit' value='zm��'>";
-		echo "</form>";
-		echo "<h6>Referendum</h6>";
-	echo "<h6><font class=text_modry>N</font>�rodn� referendum.</h6><font class='text_bili'>";
-	echo "Ot�zka zn�: <font class=text_modry>".$ref[otazka]."</font><br>";
-	echo "Zat�m odpov�d�lo: <font class=text_modry>";
-	echo $poc1+$poc2+$poc3 . " / " . $hhh;
-	if ($hhh!=0) {echo " (". Round(($poc1+$poc2+$poc3)/$hhh*100) ."%)</font>";};
-	echo "<br>Pro <font class=text_modry>" .$ref[odpoved1]. "</font> zat�m hlasovalo: <font class=text_modry>" .$poc1. " ";
-	if (($poc1+$poc25+$poc3)!=0) echo " (". Round($poc1/($poc1+$poc2+$poc3)*100) ."%)<br>";
-	echo "</font>Pro <font class=text_modry>".$ref[odpoved2]."</font> zat�m hlasovalo: <font class=text_modry>".$poc2." ";
-	if (($poc1+$poc2+$poc3)!=0) echo " (". Round($poc2/($poc1+$poc2+$poc3)*100) ."%)<br>";
-	echo "</font>Pro <font class=text_modry>".$ref[odpoved3]."</font> zat�m hlasovalo: <font class=text_modry>".$poc3." ";
-	if (($poc1+$poc2+$poc3)!=0) echo " (". Round($poc3/($poc1+$poc2+$poc3)*100) ."%)";
-	echo "</font>";
-	if($zaznam55[refn]<"1"){
-	echo "<form method='post' action='hlavni.php?page=ref'>";
-	echo "<input type='radio' name='nar' value='1'"; if($zaznam55[refn]=="1"){echo " checked";}echo " > ".$ref[odpoved1]." &nbsp;&nbsp;&nbsp;&nbsp;<input type='radio' name='nar' value='2'"; if($zaznam55[refn]=="2"){echo " checked";}echo " > ".$ref[odpoved2]."  &nbsp;&nbsp;&nbsp;&nbsp;<input type='radio' name='nar' value='3'"; if($zaznam55[refn]=="3"){echo " checked";}echo " > ".$ref[odpoved3]." ";
-	echo "</form>";
-	}else{
-	echo "<br>Vy jste hlasoval pro: <font class=text_modry>"; if($zaznam55[refn]=="1"){echo "".$ref[odpoved1]."";}elseif($zaznam55[refn]=="2"){echo "".$ref[odpoved2]."";}elseif($zaznam55[refn]=="3"){echo "".$ref[odpoved3]."";}echo "</font><br>";
-	}
-	echo "V�sledek minul�ho referenda: <font class=text_modry>".stripslashes($ref[vysledek])."</font></font>";
-		
-		echo "<h6>Fond</h6>";
-		echo "Ve fondu je: <font class=text_modry>".number_format($vu[fond],0,0," ")."</font><br>";
+<?php
+if(isset($rasa)):
+    $ra1 = MySQL_Query("SELECT * FROM rasy where rasa = $rasa");
+    $ra = MySQL_Fetch_Array($ra1);
+    $vu1 = MySQL_Query("SELECT * FROM vudce where rasa = $rasa");
+    $vu = MySQL_Fetch_Array($vu1);
+    $rs1 = MySQL_Query("SELECT * FROM rasarm where rasa = $rasa");
+    $rs = MySQL_Fetch_Array($rs1);		
+    $refer = MySQL_Query("SELECT * FROM refnew where cislo='$rasa'");
+    $ref = MySQL_Fetch_Array($refer);
+    $politika1 = MySQL_Query("SELECT * FROM politika where rasa = $rasa");
+    $politika = MySQL_Fetch_Array($politika1);			
 
-		echo "<h6>Tabulka hlas�</h6>";
-		echo "<table border='1'>";
-		echo "<tr>";
-		echo "<td>po�ad�</td>";
-		echo "<td>jm�no</td>";
-		echo "<td>hlas�</td>";
-		echo "</tr>";
+    echo "<h6>Rasov� arm�da</h6>";
+    echo "<form action='hlavni.php?page=admin5' method='post'>";
+    echo "<TABLE ".$table." ".$border.">";
+    echo "<tr>";
+    echo "<th>název</th>";
+    echo "<th>útok/obrana</th>";
+    echo "<th>je v armádě</th>";
+    echo "<th>nový stav</th>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td class=text_modry>".$ra["jed1_nazev"]."</td>";		
+    echo "<td>".$ra["jed1_utok"]."/".$ra["jed1_obrana"]."</td>";
+    echo "<td>".$rs["jed1"]."</td>";
+    echo "<td><input type='text' value='".$rs["jed1"]."' name='nove_jed1'></td>";		
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td class=text_modry>".$ra["jed2_nazev"]."</td>";		
+    echo "<td>".$ra["jed2_utok"]."/".$ra["jed2_obrana"]."</td>";
+    echo "<td>".$rs["jed2"]."</td>";
+    echo "<td><input type='text' value='".$rs["jed2"]."' name='nove_jed2'></td>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td class=text_modry>".$ra["jed4_nazev"]."</td>";		
+    echo "<td>".$ra["jed4_utok"]."/".$ra["jed4_obrana"]."</td>";
+    echo "<td>".$rs["jed4"]."</td>";
+    echo "<td><input type='text' value='".$rs["jed4"]."' name='nove_jed4'></td>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td class=text_modry>".$ra["jed3_nazev"]."</td>";		
+    echo "<td>".$ra["jed3_ucinek"]."</td>";
+    echo "<td>".$rs["jed3"]."</td>";
+    echo "<td><input type='text' value='".$rs["jed3"]."' name='nove_jed3'></td>";		
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td class=text_modry>".$zold_nazev."</td>";
+    echo "<td>".$zold_utok."/".$zold_obrana."</td>";
+    echo "<td>".$rs["jed5"]."</td>";
+    echo "<td><input type='text' value='".$rs["jed5"]."' name='nove_jed5'></td>";		
+    echo "</tr>";
+    echo "</table>";
+    echo "<input type='hidden' name='rasa' value='$rasa'>";
+    echo "<input type='hidden' name='zmena_armad' value='1'>";
+    echo "<input type='hidden' name='jed1_puv' value='$rs[jed1]'>";
+    echo "<input type='hidden' name='jed2_puv' value='$rs[jed2]'>";
+    echo "<input type='hidden' name='jed3_puv' value='$rs[jed3]'>";
+    echo "<input type='hidden' name='jed4_puv' value='$rs[jed4]'>";
+    echo "<input type='hidden' name='jed5_puv' value='$rs[jed5]'>";				
+    echo "<input type='submit' value='zm��'>";
+    echo "</form>";
+    echo "<h6>Referendum</h6>";
+    echo "<h6><font class=text_modry>N</font>�rodn� referendum.</h6><font class='text_bili'>";
+    echo "Ot�zka zn�: <font class=text_modry>".$ref[otazka]."</font><br>";
+    echo "Zat�m odpov�d�lo: <font class=text_modry>";
+    echo $poc1+$poc2+$poc3 . " / " . $hhh;
+    if ($hhh!=0) {echo " (". Round(($poc1+$poc2+$poc3)/$hhh*100) ."%)</font>";};
+        echo "<br>Pro <font class=text_modry>" .$ref[odpoved1]. "</font> zat�m hlasovalo: <font class=text_modry>" .$poc1. " ";
+    if (($poc1+$poc25+$poc3)!=0) echo " (". Round($poc1/($poc1+$poc2+$poc3)*100) ."%)<br>";
+        echo "</font>Pro <font class=text_modry>".$ref[odpoved2]."</font> zat�m hlasovalo: <font class=text_modry>".$poc2." ";
+    if (($poc1+$poc2+$poc3)!=0) echo " (". Round($poc2/($poc1+$poc2+$poc3)*100) ."%)<br>";
+        echo "</font>Pro <font class=text_modry>".$ref[odpoved3]."</font> zat�m hlasovalo: <font class=text_modry>".$poc3." ";
+    if (($poc1+$poc2+$poc3)!=0) echo " (". Round($poc3/($poc1+$poc2+$poc3)*100) ."%)";
+        echo "</font>";
+    if($zaznam55[refn]<"1"){
+        echo "<form method='post' action='hlavni.php?page=ref'>";
+        echo "<input type='radio' name='nar' value='1'"; if($zaznam55[refn]=="1"){echo " checked";}echo " > ".$ref[odpoved1]." &nbsp;&nbsp;&nbsp;&nbsp;<input type='radio' name='nar' value='2'"; if($zaznam55[refn]=="2"){echo " checked";}echo " > ".$ref[odpoved2]."  &nbsp;&nbsp;&nbsp;&nbsp;<input type='radio' name='nar' value='3'"; if($zaznam55[refn]=="3"){echo " checked";}echo " > ".$ref[odpoved3]." ";
+        echo "</form>";
+    }else{
+        echo "<br>Vy jste hlasoval pro: <font class=text_modry>"; if($zaznam55[refn]=="1"){echo "".$ref[odpoved1]."";}elseif($zaznam55[refn]=="2"){echo "".$ref[odpoved2]."";}elseif($zaznam55[refn]=="3"){echo "".$ref[odpoved3]."";}echo "</font><br>";
+    }
+    echo "V�sledek minul�ho referenda: <font class=text_modry>".stripslashes($ref[vysledek])."</font></font>";
 
-		$vys1 = MySQL_Query("SELECT jmeno,volen,status,cislo FROM uzivatele where (rasa = $rasa and status!=5) ORDER BY volen DESC");
-		$x=1;
-		while($zaznam1=MySQL_Fetch_Array($vys1)):
-			echo "<tr>";
-			echo "<td>".$x."</td>";
-			echo "<td>".$zaznam1["jmeno"]."</td>";
-			echo "<td>".$zaznam1["volen"]."</td>";
-			echo "</tr>";
-			$j=$zaznam1["cislo"];
-			$r=$rasa;
-/*			if($x==1):
-			    MySQL_Query("update vudce set vudce = '$zaznam1[jmeno]' where rasa = '$r'");
-				MySQL_Query("update uzivatele set status = 1 where cislo=$j");
-   			elseif($x==2):
-				MySQL_Query("update vudce set zastupce = '$zaznam1[jmeno]' where rasa = '$r'");
-				MySQL_Query("update uzivatele set status = 2 where cislo=$j");
-        	elseif($zaznam1["status"]==4):
-				MySQL_Query("update uzivatele set status = 4 where jmeno = '$j'");
-    		elseif($zaznam1["status"]==5):
-				MySQL_Query("update uzivatele set status = 5 where jmeno = '$j'");
-			else:
-				MySQL_Query("update uzivatele set status = 0 where jmeno = '$j'");
-			endif; */
-			$x++;
-			if($x==20){break;};
-		endwhile;
+    echo "<h6>Fond</h6>";
+    echo "Ve fondu je: <font class=text_modry>".number_format($vu[fond],0,0," ")."</font><br>";
 
-	echo "</table>";
+    echo "<h6>Tabulka hlas�</h6>";
+    echo "<table border='1'>";
+    echo "<tr>";
+    echo "<td>po�ad�</td>";
+    echo "<td>jm�no</td>";
+    echo "<td>hlas�</td>";
+    echo "</tr>";
 
-?>
-<form name='form' method='post' action='hlavni.php?page=admin5'>
-<?
-echo "<br><h6><font class=text_modry>Ch</font>ov�n� rasy</h6>";
+    $vys1 = MySQL_Query("SELECT jmeno,volen,status,cislo FROM uzivatele where (rasa = $rasa and status!=5) ORDER BY volen DESC");
+    $x=1;
+    while($zaznam1=MySQL_Fetch_Array($vys1)):
+        echo "<tr>";
+        echo "<td>".$x."</td>";
+        echo "<td>".$zaznam1["jmeno"]."</td>";
+        echo "<td>".$zaznam1["volen"]."</td>";
+        echo "</tr>";
+        $j=$zaznam1["cislo"];
+        $r=$rasa;
+        $x++;
+        if($x==20){break;};
+    endwhile;
+    echo "</table>";
+    echo "<form name='form' method='post' action='hlavni.php?page=admin5'>";
+    echo "<br><h6><font class=text_modry>Ch</font>ov�n� rasy</h6>";
 
-$s1=$s2=$s3=0;
-switch($politika[status]){
+    $s1=$s2=$s3=0;
+    switch($politika[status]){
 		case 1:	$s1="checked";
 			$co="dobr�";
 			$pm="+10% obrana,+10% spokojenost,+5%v�zkum,+25% cena t�ebn� budovy";
@@ -260,42 +243,16 @@ switch($politika[status]){
 			$co="zl�";
 			$pm="+15% �tok,-40% cena 3.jednotky,-15 spokojenost,-10% denn� t�by";
 			break;
-		}
+    }
 
-		echo "<font class=text_bili><input type=radio name=stat value=1 ".$s1."> Dobr� ";
-		echo "<input type=radio name=stat value=2 ".$s2."> Neutr�l ";
-		echo "<input type=radio name=stat value=3 ".$s3."> Zl� ";
-		echo "<input type=hidden name=rasa value='$rasa'>";;
-		echo "<br><input type=submit value='Zm��'></font>";
-/*
-?>
-</form>
+    echo "<font class=text_bili><input type=radio name=stat value=1 ".$s1."> Dobr� ";
+    echo "<input type=radio name=stat value=2 ".$s2."> Neutr�l ";
+    echo "<input type=radio name=stat value=3 ".$s3."> Zl� ";
+    echo "<input type=hidden name=rasa value='$rasa'>";;
+    echo "<br><input type=submit value='Zm��'></font>";
+endif;
 
-<TABLE <? echo $table." ".$border; ?> align=center>
-<tr>
-<th colspan=2>Chov�n�</th>
-</tr>
-<tr>
-<td class=text_modry>Dobr�</td>
-<td>+10% obrana,+10% spokojenost,+5%v�zkum,+25% cena t�ebn� budovy</td>
-</tr>
-<tr>
-<td class=text_modry>Neutr�l</td>
-<td>nic dobr�ho ani zl�ho</td>
-</tr>
-<tr>
-<td class=text_modry>Zl�</td>
-<td>+15% �tok,-40% cena 3.jednotky,-15 spokojenost,-10% denn� t�by</td>
-</tr>
-</table>
-</center>
-<?	
-*/
-	endif;
 MySQL_Close($spojeni);		
 ?>
-<body bgcolor="bbbbbb">
-
-
 </body>
 </html>
