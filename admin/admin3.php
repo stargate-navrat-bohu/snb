@@ -6,7 +6,7 @@ Header ("Cache control: no-cache");
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
 <?php
 
-mysql_query("SET NAMES cp1250");
+//mysql_query("SET NAMES cp1250");
 $vys1 = MySQL_Query("SELECT jmeno,heslo,cislo,heslo2,skin,koho FROM uzivatele where cislo = '$logcislo'");	
 $zaznam1 = MySQL_Fetch_Array($vys1);	
 

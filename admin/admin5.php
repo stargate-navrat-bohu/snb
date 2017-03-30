@@ -84,14 +84,14 @@ if(isset($_POST["clean"]) AND $_POST["clean"]=="ano"){
 		MySQL_Query("update rasy set status=$stat where rasa=$rasa");
 	endif;
 	
-	$styl="styl".$zaznam1[skin];
-	if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or $zaznam1[skin]==4){$styl="styl1";};
+	$styl="styl".$zaznam1['skin'];
+	if($zaznam1['skin']==1 or $zaznam1['skin']==2 or $zaznam1['skin']==3 or $zaznam1['skin']==4){$styl="styl1";};
 
 ?>
 <style type="text/css">
 @import url(<?php echo $styl?>.css);
 </style>
-<script language="JavaScript" src="a.php" >
+<script type="text/javascript" src="a.php" >
 </script>
 </head>
 <body>

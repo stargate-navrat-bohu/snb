@@ -8,9 +8,6 @@ Header ("Cache control: no-cache");
 $heslo1=md5($heslo1);
 $heslo2=md5($heslo2);		
 
-//$bheslo="7c1a86fe2c114ea13edb9660128d6116";
-//$aheslo="5241ea8546be8f22155afc9a0aaff041";	
-
 require"ad1234.php";
 if($heslo1==$aheslo and $heslo2==$bheslo):
     if(isset($duvodh)):
@@ -52,14 +49,14 @@ if($heslo1==$aheslo and $heslo2==$bheslo):
     $zastaveno2 = MySQL_Query("SELECT cislo,zutok,zhra,zmezi FROM servis where cislo=1");	
     $zastaveno = MySQL_Fetch_Array($zastaveno2);	
 else:
-    echo "<h6>�patn� heslo</h6>";
+    echo "<h6>Špatné heslo</h6>";
 endif;
 	
 ?>
 <style type="text/css">
 @import url(styl0.css);
 </style>
-<script language="JavaScript" src="a.php" >
+<script type="text/javascript" src="a.php" >
 </script>
 </head>
 <body>
@@ -67,10 +64,10 @@ endif;
 <center>
 <h6>Zastavené hry</h6> 
 <?php
-if($zastaveno[zhra]==""):
+if($zastaveno['zhra']==""):
 ?>
 <form name='form1' method='post' action='astopky.php'>
-<textarea name=duvodh cols=50 rows=5>Důvod zastavené hry (zobrazí se na index.php)</textarea>
+    <textarea name=duvodh cols=50 rows=5>Důvod zastavené hry (zobrazí se na index.php)</textarea>
 <br>
 <table>
 	<tr>
@@ -105,12 +102,12 @@ else:
 endif;
 ?>
 
-<h6>Zastaven� �toku</h6> 
+<h6>Zastavení útoku</h6> 
 <?php
 if($zastaveno['zutok']==""):
 ?>
 <form name='form2' method='post' action='astopky.php'>
-<textarea name=duvodu cols=50 rows=5>D�vod zastaven� �toku (zobraz� se v utok.php)</textarea>
+<textarea name=duvodu cols=50 rows=5>Důvod zastavení útoku (zobrazí se v utok.php)</textarea>
 <table>
 	<tr>
 	<td>heslo1: </td>
@@ -123,7 +120,7 @@ if($zastaveno['zutok']==""):
  </table>
 <br><input type='submit' value="zastav">
 </form>
-<?
+<?php
 else:
 ?>
 <form name='form2' method='post' action='astopky.php'>
@@ -144,7 +141,7 @@ else:
 endif;
 ?>
 
-<h6>Meziv�k</h6> 
+<h6>Mezivěk</h6> 
 <?php
 if($zastaveno['zmezi']==""):
 ?>
@@ -166,7 +163,7 @@ if($zastaveno['zmezi']==""):
 else:
 ?>
 <form name='form3' method='post' action='astopky.php'>
-<font class=info>Spu�t�n meziv�k</font><br>
+<font class=info>Spuštěn mezivěk</font><br>
 <table>
 	<tr>
 	<td>heslo1: </td>
@@ -183,7 +180,7 @@ else:
 endif;
 ?>
 <i>
-To samé lze i z adresy 'astopky.php', je to jedin� mo�nost na spu�t�n� hry
+To samé lze i z adresy 'astopky.php', je to jediná možnost na spuštění hry
 </i>
 <?php		
 MySQL_Close($spojeni);

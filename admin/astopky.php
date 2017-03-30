@@ -58,7 +58,7 @@ endif;
 <style type="text/css">
 @import url(styl0.css);
 </style>
-<script language="JavaScript" src="a.php" >
+<script type="text/javascript" src="a.php" >
 </script>
 </head>
 <body>
@@ -126,7 +126,7 @@ if($zastaveno['zutok']==""):
 else:
 ?>
 <form name='form2' method='post' action='astopky.php'>
-<font class=info>�tok je zastaven</font><br>
+<font class=info>útok je zastaven</font><br>
 <table>
 	<tr>
 	<td>heslo1: </td>
@@ -148,7 +148,7 @@ endif;
 if($zastaveno['zmezi']==""):
 ?>
 <form name='form3' method='post' action='astopky.php'>
-<textarea name=duvodm cols=50 rows=5>pr�choz� text k meziv�ku</textarea>
+<textarea name=duvodm cols=50 rows=5>průchozí text k mezivěku</textarea>
 <table>
 	<tr>
 	<td>heslo1: </td>
@@ -165,7 +165,7 @@ if($zastaveno['zmezi']==""):
 else:
 ?>
 <form name='form3' method='post' action='astopky.php'>
-<font class=info>Spu�t�n meziv�k</font><br>
+<font class=info>Spuštěn mezivěk</font><br>
 <table>
 	<tr>
 	<td>heslo1: </td>
@@ -182,7 +182,7 @@ else:
 endif;
 ?>
 <i>
-To samé lze i z adresy 'astopky.php', je to jedin� mo�nost na spu�t�n� hry
+    To samé lze i z adresy <a href="astopky.php"><code>astopky.php</code></a>, je to jediná možnost na spuštěné hry
 </i>
 <?php
 		
