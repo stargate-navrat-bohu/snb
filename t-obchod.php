@@ -11,7 +11,7 @@ require "data_1.php";
 $vys1 = MySQL_Query("SELECT * FROM uzivatele where cislo=$logcislo");
 $zaznam1 = MySQL_Fetch_Array($vys1);
 
-$styl="styl".$zaznam1[skin];
+$styl="styl".$zaznam1['skin'];
 if($zaznam1['skin']==1 or $zaznam1['skin']==2 or $zaznam1['skin']==3 or 	$zaznam1['skin']==4){
     $styl="styl1";
 }

@@ -19,8 +19,8 @@ if($smi){
 $sm=$zaznam1[smiles];
 require("kontrola.php");
 
-$styl="styl".$zaznam1[skin];
-if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or $zaznam1[skin]==4){
+$styl="styl".$zaznam1['skin'];
+if($zaznam1['skin']==1 or $zaznam1['skin']==2 or $zaznam1['skin']==3 or $zaznam1['skin']==4){
     $styl="styl1";
 }
 ?>
@@ -430,7 +430,7 @@ endwhile;
 <font class=info>Pro načtení všech obrázků, zmáčkněte po odeslání stránky F5</font><br>
 <form name="form5" method="post" action="osob.php">
 <select name="skin">
-<option value=0 <?php if($zaznam1[skin]==0){echo "selected";};?>>základní
+<option value=0 <?php if($zaznam1['skin']==0){echo "selected";};?>>základní
 
 </select>
 <input type="submit" value="změnit">

@@ -5,15 +5,12 @@
 <style type="text/css">
 td{text-align:center};
 </style>
-<script language="JavaScript" src="a.js" >
+<script type="text/javascript" src="a.js" >
 </script>
 </head>
 <body>
 <body bgcolor="black">
-<h2><font color="silver"><center>Tady bude v nejbliší dobì nová herna</h2><br><br><br>
+<h2><font color="silver"><center>Tady bude v nejbliÅ¾Å¡Ã­ dobÄ› novÃ¡ herna</h2><br><br><br>
 <center>
-
-
 </body>
-
 </html>

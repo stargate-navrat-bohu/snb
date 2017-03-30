@@ -15,9 +15,9 @@ $den=Date("U");
 
 MySQL_Query("update uzivatele set posl=$den where cislo=$logcislo");
 
-$styl="styl".$zaznam1[skin];
+$styl="styl".$zaznam1['skin'];
 
-if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or $zaznam1[skin]==4){
+if($zaznam1['skin']==1 or $zaznam1['skin']==2 or $zaznam1['skin']==3 or $zaznam1['skin']==4){
     $styl="styl1";
 }
 

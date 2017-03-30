@@ -55,11 +55,11 @@ die;
 
 		$info=1;
 		require("kontrola.php");
-		$styl=$zaznam1[skin];
-		if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or $zaznam1[skin]==4){$styl="1";};
+		$styl=$zaznam1['skin'];
+		if($zaznam1['skin']==1 or $zaznam1['skin']==2 or $zaznam1['skin']==3 or $zaznam1['skin']==4){$styl="1";};
 
     unset($skin_name);
-		switch($zaznam1[skin]){
+		switch($zaznam1['skin']){
       case 0: $cols="270"; break;
 			case 1: $cols="220"; break;
 			case 2: $cols="220";break;

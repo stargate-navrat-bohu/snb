@@ -12,43 +12,63 @@ td{text-align:center;}
     background:#6B7B84;
 	}
 </style>
-<script language="JavaScript" src="a.php" >
-</script>
+<script type="text/javascript" src="a.php" ></script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 function zmena(){
-document.formw.planeta.value=1;
+    document.formw.planeta.value=1;
 }
 </script>
 
 </head>
 <body bgcolor="#bbbbbb">
-<?
+<?php
 mysql_query("SET NAMES cp1250");
 $vedne=1055696889;
 $vedne=Round($vedne/(3600*24));
 $rok=Floor($vedne/12);
 $mes=$vedne-($rok*12);
 $rok+=1000;
-
-//echo "10:05 5.".$mes." ".$rok." centrálního tauranského èasu";
 ?>
 <center><h6>Trocha historie...</h6></center>
 <font class=info>
-
-	V dávnıch dobách, je¹tì kdy¾ hvìzdná brána byla jediná mo¾nost jak rychle cestovat napøíè vesmírem, v té dobì bylo ve vesmíru kvantum rozli¹nıch ras, které èasem vymøeli, pozabíjely se mezi sebou, nebo je znièili goa'uldi.
+V dÃ¡vnÃ½ch dobÃ¡ch, jeÅ¡tÄ› kdyÅ¾ hvÄ›zdnÃ¡ brÃ¡na byla jedinÃ¡ moÅ¾nost jak rychle cestovat 
+napÅ™Ã­Ä vesmÃ­rem, v tÃ© dobÄ› bylo ve vesmÃ­ru kvantum rozliÄnÃ½ch ras, kterÃ© Äasem vymÅ™eli, 
+pozabÃ­jely se mezi sebou, nebo je zniÄili goa'uldi.
 <br><br>
-Mezi ty technologicky nejvyspìlej¹í rasy tenkrát patøili goa'uldi, asgardi a tolláni. Asgardi mìli nejsilnìj¹í zbranì a v¾ili se do role ochránce slab¹ích ras pøed goa'uldy. Goa'uldi nemìli zbranì jako asgardi nebo tolláni, jejich síla toti¾ spoèívala v poètech. I v tom nejzapadlej¹ím koutu galaxie mìly flotilu o stovkách lodí. Tollání byli velmi vyspìlí, ale jejich vliv byl minimální, od v¹eho dìní ve vesmíru se distancovali, jediné co je zajímalo byla jejich domovská planeta.
+Mezi ty technologicky nejvyspÄ›lejÅ¡Ã­ rasy tenkrÃ¡t patÅ™ili goa'uldi, asgardi a tollani. 
+Asgardi mÄ›li nejsilnÄ›jÅ¡Ã­ zbranÄ› a vÅ¾ili se do role ochrÃ¡nce slabÅ¡Ã­ch ras pÅ™ed goa'uldy. 
+Goa'uldi nemÄ›li zbranÄ› jako asgardi nebo tollani, jejich sÃ­la totiÅ¾ spoÄÃ­vala v poÄtech. 
+I v tom nejzapadlejÅ¡Ã­m koutu galaxie mÄ›ly flotilu o stovkÃ¡ch lodÃ­. TollanÃ© byli velmi 
+vyspÄ›lÃ­, ale jejich vliv byl minimÃ¡lnÃ­, od vÅ¡eho dÄ›nÃ­ ve vesmÃ­ru se distancovali, jedinÃ© 
+co je zajÃ­malo byla jejich domovskÃ¡ planeta.
 <br><br><img src="obr1.JPG" align="right">
-Asgardi byli mnohokrát napadeni goa'uldy. Goa'uldi mìly obrovské ztráty ale poka¾dé znièili hrstku asgardù, v pozdìj¹ích bitvách je dokonce musely zachránit sabotá¾e tauri (nynìj¹ích terranù). Asgardé u¾ nemohli snést dal¹í ztráty , bylo jich pøíli¹ málo. Vyústìním této situace byla dohoda mezi goa'uldy a asgardy o chránìnıch planetách. Na to goa'uldi èekali , to byla jejich chvíle.
+Asgardi byli mnohokrÃ¡t napadeni goa'uldy. Goa'uldi mÄ›li obrovskÃ© ztrÃ¡ty ale pokaÅ¾dÃ© 
+zniÄili hrstku asgardÅ¯, v pozdÄ›jÅ¡Ã­ch bitvÃ¡ch je dokonce musely zachrÃ¡nit sabotÃ¡Å¾e 
+tauri (nynÄ›jÅ¡Ã­ch terranÅ¯). AsgardovÃ© uÅ¾ nemohli snÃ©st dalÅ¡Ã­ ztrÃ¡ty , bylo jich pÅ™Ã­liÅ¡ 
+mÃ¡lo. VyÃºstÄ›nÃ­m tÃ©to situace byla dohoda mezi goa'uldy a asgardy o chrÃ¡nÄ›nÃ½ch planetÃ¡ch. 
+Na to goa'uldi Äekali , to byla jejich chvÃ­le.
 <br><br>
-Zaèali systematicky likvidovat rasy mimo pakt. Vojáky pora¾enıch naverbovali k sobì do armády; ¾eny, dìti a mu¾e donutili stavìt nové a nové lodì do jejich flotily - chystali finální støet. Kdy¾ byli na absolutním vrcholu své síly, zmobilizovali se a v¹echny své síly vyslaly na nejdùle¾itìj¹í chránìnou planetu- na planetu zemi. Asgardùm netrvalo dlouho a dorazily k zemi je¹tì pøed goa'uldy. Strhla se ohromná bitva. Asgardi dokázali bránit dlouho, ale goauldù poøád pøilétalo víc a víc. Zbylí asgardé se po bitvì museli stáhnout, ale nenechaly to jen tak, spoleènımi silami s tollány a tauri vytvoøili antihmotovou bombu.
+ZaÄali systematicky likvidovat rasy mimo pakt. VojÃ¡ky poraÅ¾enÃ½ch naverbovali k sobÄ› 
+do armÃ¡dy; Å¾eny, dÄ›ti a muÅ¾e donutili stavÄ›t novÃ© a novÃ© lodÄ› do jejich flotily - chystali 
+finÃ¡lnÃ­ stÅ™et. KdyÅ¾ byli na absolutnÃ­m vrcholu svÃ© sÃ­ly, zmobilizovali se a vÅ¡echny svÃ© 
+sÃ­ly vyslaly na nejdÅ¯leÅ¾itÄ›jÅ¡Ã­ chrÃ¡nÄ›nou planetu - na planetu Zemi. AsgardÅ¯m netrvalo 
+dlouho a dorazily k zemi jeÅ¡tÄ› pÅ™ed goa'uldy. Strhla se ohromnÃ¡ bitva. Asgardi dokÃ¡zali 
+brÃ¡nit dlouho, ale goauldÅ¯ poÅ™Ã¡d pÅ™ilÃ©talo vÃ­c a vÃ­c. ZbylÃ­ asgardi se po bitvÄ› museli 
+stÃ¡hnout, ale nenechaly to jen tak, spoleÄnÃ½mi silami s tollany a tauri vytvoÅ™ili 
+antihmotovou bombu.
 <br><img src="obr2.JPG" align=left><br>
-Kdy¾ dorazili k goauldskım lodím s bombou, byli u¾ na zemi vylodìny statisíce jaffù a dal¹í milióny na cestì, asgardi se museli rychle rozhodnout a vypustili do roje goauldskıch lodí antihmotovou bombu. Vıbuch vyústil v totální anihilace hmoty v okruhu statisíce kilometrù. Z goauldské flotily nezbylo skoro nic a se zbylımi jaffy bojovali pozem¹»ané tváøí v tváø. V tu chvíli se tollání koneènì rozhodli a pøevzali iniciativu do svıch rukou- v¹echny zbylé goauldy vyhnaly z na¹í galaxie a na nejvet¹í taurijské boji¹tì vypustili virus kterı znièil vìt¹inu jaffù a taky tisíce taurijcù. Goauldi se po drtivé porá¾ce vzpamatovávají v neznáme galaxii, asgardi se pokou¹í zachránit svoji rasu pøed vymøením a odchází zpátky do své rodné galaxie Ida; Tolláni se po záchranì vesmíru vracejí na svojí milovanou planetu Nová Tollana a znovu se uzavírají...                         
+KdyÅ¾ dorazili k goauldskÃ½m lodÃ­m s bombou, byli uÅ¾ na zemi vylodÄ›ny statisÃ­ce jaffÅ¯ 
+a dalÅ¡Ã­ miliÃ³ny na cestÄ›, asgardi se museli rychle rozhodnout a vypustili do roje 
+goauldskÃ½ch lodÃ­ antihmotovou bombu. VÃ½buch vyÃºstil v totÃ¡lnÃ­ anihilaci hmoty v okruhu 
+statisÃ­ce kilometrÅ¯. Z goauldskÃ© flotily nezbylo skoro nic a se zbylÃ½mi jaffy bojovali 
+pozemÅ¡Å¥anÃ© tvÃ¡Å™Ã­ v tvÃ¡Å™. V tu chvÃ­li se tollanÃ© koneÄnÄ› rozhodli a pÅ™evzali iniciativu 
+do svÃ½ch rukou- vÅ¡echny zbylÃ© goauldy vyhnali z naÅ¡Ã­ galaxie a na nejvetÅ¡Ã­ taurijskÃ© 
+bojiÅ¡tÄ› vypustili virus, kterÃ½ zniÄil vÄ›tÅ¡inu jaffÅ¯ a taky tisÃ­ce taurijcÅ¯. Goauldi se 
+po drtivÃ© porÃ¡Å¾ce vzpamatovÃ¡vajÃ­ v neznÃ¡me galaxii, asgardi se pokouÅ¡Ã­ zachrÃ¡nit svoji 
+rasu pÅ™ed vymÅ™enÃ­m a odchÃ¡zÃ­ zpÃ¡tky do svÃ© rodnÃ© galaxie Ida; Tollani se po zÃ¡chranÄ› 
+vesmÃ­ru vracejÃ­ na svoji milovanou planetu NovÃ¡ Tollana a znovu se uzavÃ­rajÃ­...
 <br><br>
 </font>
-
-
-
 </body>
 </html>

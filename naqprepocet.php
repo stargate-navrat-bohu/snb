@@ -1,53 +1,43 @@
-
-<?
-mysql_query("SET NAMES cp1250");
+<?php
+//mysql_query("SET NAMES cp1250");
 unset($zaznam1);
 unset($rasa1);
 unset($rasa2);
 require "data_1.php";
 
-	$vys1 = MySQL_Query("SELECT cislo,rasa,admin FROM uzivatele where cislo=$logcislo");
-	$zaznam1 = MySQL_Fetch_Array($vys1);
-
-
+$vys1 = MySQL_Query("SELECT cislo,rasa,['admin'] FROM uzivatele where cislo=$logcislo");
+$zaznam1 = MySQL_Fetch_Array($vys1);
 
 ?>
-
-
 <center><font class='tabulka'>
-<a href="hlavni.php?page=vlada&vyber=1" >Funkce</a>
+<a href="hlavni.php?page=vlada&amp;vyber=1" >Funkce</a>
 &nbsp;&nbsp;
-<a href="hlavni.php?page=vlada&vyber=2" >Èiny vedení</a>
+<a href="hlavni.php?page=vlada&amp;vyber=2" >ÄŒiny vedenÃ©</a>
 &nbsp;&nbsp;
-<a href="hlavni.php?page=vlada&vyber=5" >Fond vızkum</a>
+<a href="hlavni.php?page=vlada&amp;vyber=5" >Fond vÃ½zkum</a>
 &nbsp;&nbsp;
-<a href="hlavni.php?page=vlada&vyber=7" >Pøepoèty</a>
+<a href="hlavni.php?page=vlada&amp;vyber=7" >PÅ™epoÄty</a>
 &nbsp;&nbsp;
-<a href="hlavni.php?page=vlada&vyber=6" >Pøepoèet naquadahu</a>
+<a href="hlavni.php?page=vlada&amp;vyber=6" >PÅ™epoÄet naquadahu</a>
 &nbsp;&nbsp;
-<?
-if($zaznam1[admin]==1):
-echo "<a href='hlavni.php?page=vlada&vyber=4'>Èiny adminù</a>
-&nbsp;&nbsp;";
-
+<?php
+if($zaznam1[['admin']]==1):
+    echo "<a href='hlavni.php?page=vlada&amp;vyber=4'>ÄŒiny adminÅ¯</a>&nbsp;&nbsp;";
 endif;
 ?>
-
-<font class='tabulka'><center><font class='text_modry'>P</font>øepoèet naquadahu</font>
-
-
-<script language="JavaScript">
+<font class='tabulka'><center><font class='text_modry'>P</font>Å™epoÄet naquadahu</font>
+<script type="text/javascript">
 function zmena(){
-document.formw0.co.value=1;
-document.formw1.co.value=1;
-document.formw2.co.value=1;
-alert(document.formw0.co.value);
-alert(document.formw1.co.value);
-alert(document.formw2.co.value);
+    document.formw0.co.value=1;
+    document.formw1.co.value=1;
+    document.formw2.co.value=1;
+    alert(document.formw0.co.value);
+    alert(document.formw1.co.value);
+    alert(document.formw2.co.value);
 }
 </script>
 
-<?
+<?php
 //----------------------------------------------------------------------------
 
 // *** nacteni ras do pole $rasa ***
@@ -57,12 +47,10 @@ while($row=mysql_fetch_array($result)){
   $array_rasy[$row["rasa"]] = $row["nazevrasy"];
 }
 
-
-
 ?><center><table width="600" border="0" cellpadding="5" cellspacing="5">
   <tr> 
     <td colspan="2" valign="top" align="left"> <font color="#FFFFFF"> </font>
-      <form name="form1" action="hlavni.php?page=vlada&vyber=6" method="post">
+      <form name="form1" action="hlavni.php?page=vlada&amp;vyber=6" method="post">
         <div align="center"><font color="#FFFFFF"> </font></div>
         <div align="center"></div>
         <font color="#FFFFFF"> </font>
@@ -75,7 +63,7 @@ while($row=mysql_fetch_array($result)){
 		      }
 		    ?>
            
-            <option value="98">Vyvrhelové</option>
+            <option value="98">VyvrhelovÃ©</option>
           </select>
           ---------&gt; 
           <select name="druhy" class="select">
@@ -85,21 +73,21 @@ while($row=mysql_fetch_array($result)){
 		      }
 		    ?>
             
-            <option value="98">Vyvrhelové</option>
+            <option value="98">VyvrhelovÃ©</option>
           </select>
           </font></p>
         <p align="center"><font color="#FFFFFF"> NAQ: 
           <input type="text" name="naq" class="input">
           </font></p>
         <p align="center"> <font color="#FFFFFF">
-          <input type="submit" name="Submit" value="Vypoèítat" class="button" style="font-weight: bold;">
+          <input type="submit" name="Submit" value="VypoÄÃ­tat" class="button" style="font-weight: bold;">
           </font></p>
       </form> 
-      <p align="center"><?
+      <p align="center"><?php
 
 $naq=htmlspecialchars($naq);
 if ($chars==0 && !is_numeric($field)) 
-     $error="NAQ nebyl zadán správnì!";
+     $error="NAQ nebyl zadÃ¡n sprÃ¡vnÄ›!";
 if (is_numeric($naq)){ 
 
 	if($prvni<=10 OR $prvni==11 OR $prvni==98 OR $prvni==97){
@@ -109,11 +97,9 @@ if (is_numeric($naq)){
 	$rasa1 = MySQL_Fetch_Array($vyr1);
 	$vyr2 = MySQL_Query("SELECT vyr_vyrob,nazevrasy FROM rasy where rasa=$druhy");
 	$rasa2 = MySQL_Fetch_Array($vyr2);
+    $castka=$naq*($rasa2['vyr_vyrob']/$rasa1['vyr_vyrob']);
 
-        $castka=$naq*($rasa2[vyr_vyrob]/$rasa1[vyr_vyrob]);
-
-
-echo"<centre><font class='pozor'> ".number_format($naq,0,0," ")." ".$rasa1[nazevrasy]." NAQ je ".number_format($castka,0,0," ")."NAQ v mìnì ".$rasa2[nazevrasy]."</centre></font>";
+    echo"<centre><font class='pozor'> ".number_format($naq,0,0," ")." ".$rasa1[nazevrasy]." NAQ je ".number_format($castka,0,0," ")."NAQ v mï¿½nï¿½ ".$rasa2['nazevrasy']."</centre></font>";
 
 }}}
 
