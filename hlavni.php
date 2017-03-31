@@ -232,12 +232,9 @@ onmouseout="document['odhlasit'].src = 'buttons/button21up.png' ;">
       <div class="menu_paticka"></div>
 
 	    <div class="info"></div>
-	    <div class="reklama_telo"> <? include("horni-info.php"); ?></div>
+	    <div class="reklama_telo"> <?php include('horni-info.php') ?></div>
 	    <div class="menu_paticka"></div>
 
-	    <div class="reklama"></div>
-	    <div class="reklama_telo"> <? //include("reklama2.php"); ?> </div>
-	    <div class="menu_paticka"></div>
         </div>
 
 
