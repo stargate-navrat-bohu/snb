@@ -193,12 +193,9 @@ $hlavni='index.php?page=podpora';
 	    <div class="menu_paticka"></div>
 
 	    <div class="info"></div>
-	    <div class="reklama_telo"> <? include("vek.php"); ?></div>
+	    <div class="reklama_telo"> <?php include('vek.php') ?></div>
 	    <div class="menu_paticka"></div>
 
-	    <div class="reklama"></div>
-	    <div class="reklama_telo"> <? include("reklama.php"); ?> </div>
-	    <div class="menu_paticka"></div>
         </div>
 	<div class="telo">
 	    <div class="telo_telo">
