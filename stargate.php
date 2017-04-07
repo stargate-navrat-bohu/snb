@@ -148,7 +148,7 @@ $hlavni='index.php?page=podpora';
     <meta name='keywords' content='Stargate,Hvězdná brána,Stargate NB,Sg-nb,serial Hvězdná brána,Online hra,Textová hra,hra,webová hra,zábava.' lang='cs' />
     <meta name="author" content="Maca">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="default_index.css">
+    <link rel="stylesheet" type="text/css" href="css/default_index.css">
   </head>
   <body>
 
