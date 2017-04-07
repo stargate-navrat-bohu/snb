@@ -1,23 +1,27 @@
 <?php
-Header ("Cache control: no-cache");
-?>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<?php
-//mysql_query("SET NAMES cp1250");
+header('Cache control: no-cache');
+
 require 'data_1.php';	
+?>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+<?php
+
+
 	
-$vys1 = MySQL_Query("SELECT * FROM uzivatele where cislo=$logcislo");
+$vys1    = MySQL_Query('SELECT * FROM uzivatele where cislo="'.$logcislo.'" ');
 $zaznam1 = MySQL_Fetch_Array($vys1);
-$info=1;
-$adre=$zaznam1["img"];
+$info    = 1;
+$adre    = $zaznam1['img'];
 if($smi){
     MySQL_Query("UPDATE uzivatele SET smiles='$smile' WHERE jmeno='".$logjmeno."'");
 }
 
-$sm=$zaznam1[smiles];
-require("kontrola.php");
+$sm=$zaznam1['smiles'];
+
+require('kontrola.php');
 
 $styl="styl".$zaznam1['skin'];
 if($zaznam1['skin']==1 or $zaznam1['skin']==2 or $zaznam1['skin']==3 or $zaznam1['skin']==4){
@@ -482,10 +486,10 @@ switch($zaznam1["zobrd"]){
 <td><input type="checkbox" <?php echo $a;?> name=zicq> ICQ</td>
 </tr>
 <tr>
-<td><input type="checkbox" <?php echo $b;?> name=zweb> web</td>
+<td><input type="checkbox" <?= $b ?> name=zweb> web</td>
 </tr>
 <tr>
-<td><input type="checkbox" <?php echo $c;?> name=zemail> email&nbsp;&nbsp;(<font class=pole><?php echo $zaznam1[email];?></font>)</td>
+<td><input type="checkbox" <?= $c ?> name=zemail> email&nbsp;&nbsp;(<font class=pole><?php echo $zaznam1['email'];?></font>)</td>
 </tr>
 </table>
 <input type="submit" value="změnit">

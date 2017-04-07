@@ -1,34 +1,31 @@
 <?php
-mysql_query("SET NAMES cp1250");
-Header ("Cache control: no-cache");
-/*$i=0;
-while($i<200){
-	mysql_query("INSERT INTO refnew VALUES('$i', 'test', 'jede', 'jede', 'jede', '0')");
-	$i++;
-}*/
+header('Cache control: no-cache');
 ?>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
 
 <?php
-require "data_1.php";
+require 'data_1.php';
 
 $vys1 = MySQL_Query("SELECT jmeno,heslo,volen,koho,rasa,status,ref,refn,cislo,hra,zmrazeni,skin,orp,admin,reg FROM uzivatele where cislo=$logcislo");
 $zaznam1 = MySQL_Fetch_Array($vys1);
 
-require("kontrola.php");
+require 'kontrola.php';
 
-$styl="styl".$zaznam1[skin];
-if($zaznam1[skin]==1 or $zaznam1[skin]==2 or $zaznam1[skin]==3 or $zaznam1[skin]==4){$styl="styl1";};
+$styl="styl".$zaznam1['skin'];
+if($zaznam1['skin']==1 || $zaznam1['skin']==2 || $zaznam1['skin']==3 || $zaznam1['skin']==4){
+    $styl="styl1";
+}
 ?>
 
-<style type="text/css">
+        <style type="text/css">
 @import url(<?php echo $styl?>.css);
 td{text-align:center;}
-</style>
-<script language="JavaScript" src="a.js"></script>
-</head>
+        </style>
+        <script type="text/javascript" src="a.js"></script>
+    </head>
 <body>
 
 <?php
@@ -40,7 +37,7 @@ if (isset($znar)) {
     if ($zaznam1[status]!=1)
     if ($zaznam1[status]!=2)
     if ($zaznam1[status]!=5) {
-      echo "<h1>Toto je povoleno pouze vůdci, zástupci a poradcům.</h1>";
+      echo "<h1>Toto je povoleno pouze vďż˝dci, zďż˝stupci a poradcďż˝m.</h1>";
 	  break;
 	};
 	$vys5 = MySQL_Query("SELECT jmeno FROM uzivatele where rasa ='$rasa'");
@@ -71,7 +68,7 @@ if(isset($zmez)) {
   do {
     if($zaznam1[admin]!=1)
     if ($zaznam1[status]!=1) {
-	  echo "<h1>Toto je dovoleno pouze adminům a vůdcům.</h1>";
+	  echo "<h1>Toto je dovoleno pouze adminďż˝m a vďż˝dcďż˝m.</h1>";
 	  break;
 	};	
 	$vys5 = MySQL_Query("SELECT jmeno FROM uzivatele");
@@ -79,7 +76,7 @@ if(isset($zmez)) {
 	$refer = MySQL_Query("SELECT * FROM refnew where cislo = 0");
 	$ref = MySQL_Fetch_Array($refer);
 	$dohromady=$ref[odp1]+$ref[odp2]+$ref[odp3];
-	$vysledek="Na otazku: \'".$ref[otazka]."\' pro odpověď: ".$ref[odpoved1]." hlasovalo ".$ref[odp1].", pro odpověď: ".$ref[odpoved2]." hlasovalo ".$ref[odp2]." a pro odpověď: ".$ref[odpoved3]." hlasovalo ".$ref[odp3].". Celkem hlasovalo lidí: ".$dohromady . " / " . $hhh;
+	$vysledek="Na otazku: \'".$ref[otazka]."\' pro odpovďż˝ďż˝: ".$ref[odpoved1]." hlasovalo ".$ref[odp1].", pro odpovďż˝ďż˝: ".$ref[odpoved2]." hlasovalo ".$ref[odp2]." a pro odpovďż˝ďż˝: ".$ref[odpoved3]." hlasovalo ".$ref[odp3].". Celkem hlasovalo lidďż˝: ".$dohromady . " / " . $hhh;
 	if ($hhh!=0) {$vysledek.= " (". Round(($ref[odp1]+$ref[odp2]+$ref[odp3])/$hhh*100) ."%).";} else {$vysledek.=".";};
 	$zmez.=" (Zadal: " . $zaznam1[jmeno] . ")";
 	
@@ -201,28 +198,28 @@ $ref = MySQL_Fetch_Array($refer);
 	$vys5 = MySQL_Query("SELECT jmeno FROM uzivatele");
 	$hhh = mysql_num_rows($vys5);
 	
-	echo "<h6><font class=kapital>C</font>elovesmírné referendum.</h6><font class='info'>";
-	echo "Otázka zní: <font class=pole>".$ref[otazka]."</font><br>";
-	echo "Odpověď 1: <font class=pole>".$ref[odpoved1]."</font><br>";
-	echo "Odpověď 2: <font class=pole>".$ref[odpoved2]."</font><br>";
-	echo "Odpověď 3: <font class=pole>".$ref[odpoved3]."</font><br>";
-	echo "Zatím odpovědělo: <font class=pole>";
+	echo "<h6><font class=kapital>C</font>elovesmďż˝rnďż˝ referendum.</h6><font class='info'>";
+	echo "Otďż˝zka znďż˝: <font class=pole>".$ref[otazka]."</font><br>";
+	echo "Odpovďż˝ďż˝ 1: <font class=pole>".$ref[odpoved1]."</font><br>";
+	echo "Odpovďż˝ďż˝ 2: <font class=pole>".$ref[odpoved2]."</font><br>";
+	echo "Odpovďż˝ďż˝ 3: <font class=pole>".$ref[odpoved3]."</font><br>";
+	echo "Zatďż˝m odpovďż˝dďż˝lo: <font class=pole>";
 	echo $ref[odp1]+$ref[odp2]+$ref[odp3] . " / " . $hhh;
 	if ($hhh!=0) {echo " (". Round(($ref[odp1]+$ref[odp2]+$ref[odp3])/$hhh*100) ."%)</font>";};
-	echo "<br>Odpověď 1 zvolilo: <font class=pole>".$ref[odp1];
+	echo "<br>Odpovďż˝ďż˝ 1 zvolilo: <font class=pole>".$ref[odp1];
 	if (($ref[odp1]+$ref[odp2]+$ref[odp3])!=0) echo " (". Round($ref[odp1]/($ref[odp1]+$ref[odp2]+$ref[odp3])*100) ."%)";
-	echo "</font>. Odpověď 2 zvolilo: <font class=pole>".$ref[odp2];
+	echo "</font>. Odpovďż˝ďż˝ 2 zvolilo: <font class=pole>".$ref[odp2];
 	if (($ref[odp1]+$ref[odp2]+$ref[odp3])!=0) echo " (". Round($ref[odp2]/($ref[odp1]+$ref[odp2]+$ref[odp3])*100) ."%)";
-	echo "</font>. Odpověď 3 zvolilo: <font class=pole>".$ref[odp3];
+	echo "</font>. Odpovďż˝ďż˝ 3 zvolilo: <font class=pole>".$ref[odp3];
 	if (($ref[odp1]+$ref[odp2]+$ref[odp3])!=0) echo " (". Round($ref[odp3]/($ref[odp1]+$ref[odp2]+$ref[odp3])*100) ."%)";
 	echo "</font>";
 	echo "<form method='post' action='ref2.php'>";
-	echo "<input type='radio' name='r' value='odp1' ".$odp1."> Odpověď 1 &nbsp;&nbsp;&nbsp;&nbsp;
-  <input type='radio' name='r' value='odp2' ".$odp2."> Odpověď 2 &nbsp;&nbsp;&nbsp;&nbsp;
-  <input type='radio' name='r' value='odp3' ".$odp3."> Odpověď 3 ";
-	echo "<br><br><input type='submit' value='změň volbu'>";
+	echo "<input type='radio' name='r' value='odp1' ".$odp1."> Odpovďż˝ďż˝ 1 &nbsp;&nbsp;&nbsp;&nbsp;
+  <input type='radio' name='r' value='odp2' ".$odp2."> Odpovďż˝ďż˝ 2 &nbsp;&nbsp;&nbsp;&nbsp;
+  <input type='radio' name='r' value='odp3' ".$odp3."> Odpovďż˝ďż˝ 3 ";
+	echo "<br><br><input type='submit' value='zmďż˝ďż˝ volbu'>";
 	echo "</form>";
-	echo "Výsledek minulého referenda: <font class=pole>".stripslashes($ref[vysledek])."</font></font>";
+	echo "Vďż˝sledek minulďż˝ho referenda: <font class=pole>".stripslashes($ref[vysledek])."</font></font>";
 
 	$refer = MySQL_Query("SELECT * FROM refnew where cislo=$rasa");
 	$ref = MySQL_Fetch_Array($refer);
@@ -240,31 +237,31 @@ $ref = MySQL_Fetch_Array($refer);
 	else:
 		echo " ";
 	endif;
-	if($rasa!=20 and $rasa!=0):
+	if($rasa!=20 && $rasa!=0):
 	$vys5 = MySQL_Query("SELECT jmeno FROM uzivatele where rasa='$rasa'");
 	$hhh = mysql_num_rows($vys5);
-	echo "<h6><font class=kapital>N</font>árodní referendum.</h6><font class='info'>";
-	echo "Otázka zní: <font class=pole>".$ref[otazka]."</font><br>";
-	echo "Odpověď 1: <font class=pole>".$ref[odpoved1]."</font><br>";
-	echo "Odpověď 2: <font class=pole>".$ref[odpoved2]."</font><br>";
-	echo "Odpověď 3: <font class=pole>".$ref[odpoved3]."</font><br>";
-	echo "Zatím odpovědělo: <font class=pole>";
+	echo "<h6><font class=kapital>N</font>ďż˝rodnďż˝ referendum.</h6><font class='info'>";
+	echo "Otďż˝zka znďż˝: <font class=pole>".$ref[otazka]."</font><br>";
+	echo "Odpovďż˝ďż˝ 1: <font class=pole>".$ref[odpoved1]."</font><br>";
+	echo "Odpovďż˝ďż˝ 2: <font class=pole>".$ref[odpoved2]."</font><br>";
+	echo "Odpovďż˝ďż˝ 3: <font class=pole>".$ref[odpoved3]."</font><br>";
+	echo "Zatďż˝m odpovďż˝dďż˝lo: <font class=pole>";
 	echo $ref[odp1]+$ref[odp2]+$ref[odp3] . " / " . $hhh;
 	if ($hhh!=0) {echo " (". Round(($ref[odp1]+$ref[odp2]+$ref[odp3])/$hhh*100) ."%)</font>";};
-	echo "<br>Odpověď 1 zvolilo: <font class=pole>".$ref[odp1];
+	echo "<br>Odpovďż˝ďż˝ 1 zvolilo: <font class=pole>".$ref[odp1];
 	if (($ref[odp1]+$ref[odp2]+$ref[odp3])!=0) echo " (". Round($ref[odp1]/($ref[odp1]+$ref[odp2]+$ref[odp3])*100) ."%)";
-	echo "</font>. Odpověď 2 zvolilo: <font class=pole>".$ref[odp2];
+	echo "</font>. Odpovďż˝ďż˝ 2 zvolilo: <font class=pole>".$ref[odp2];
 	if (($ref[odp1]+$ref[odp2]+$ref[odp3])!=0) echo " (". Round($ref[odp2]/($ref[odp1]+$ref[odp2]+$ref[odp3])*100) ."%)";
-	echo "</font>. Odpověď 3 zvolilo: <font class=pole>".$ref[odp3];
+	echo "</font>. Odpovďż˝ďż˝ 3 zvolilo: <font class=pole>".$ref[odp3];
 	if (($ref[odp1]+$ref[odp2]+$ref[odp3])!=0) echo " (". Round($ref[odp3]/($ref[odp1]+$ref[odp2]+$ref[odp3])*100) ."%)";
 	echo "</font>";
 	echo "<form method='post' action='ref2.php'>";
-	echo "<input type='radio' name='r' value='odp1' ".$odp1."> Odpověď 1 &nbsp;&nbsp;&nbsp;&nbsp;
-  <input type='radio' name='r' value='odp2' ".$odp2."> Odpověď 2 &nbsp;&nbsp;&nbsp;&nbsp;
-  <input type='radio' name='r' value='odp3' ".$odp3."> Odpověď 3 ";
-	echo "<br><br><input type='submit' value='změň volbu'>";
+	echo "<input type='radio' name='r' value='odp1' ".$odp1."> Odpovďż˝ďż˝ 1 &nbsp;&nbsp;&nbsp;&nbsp;
+  <input type='radio' name='r' value='odp2' ".$odp2."> Odpovďż˝ďż˝ 2 &nbsp;&nbsp;&nbsp;&nbsp;
+  <input type='radio' name='r' value='odp3' ".$odp3."> Odpovďż˝ďż˝ 3 ";
+	echo "<br><br><input type='submit' value='zmďż˝ďż˝ volbu'>";
 	echo "</form>";
-	echo "Výsledek minulého referenda: <font class=pole>".stripslashes($ref[vysledek])."</font></font>";
+	echo "Vďż˝sledek minulďż˝ho referenda: <font class=pole>".stripslashes($ref[vysledek])."</font></font>";
 	
 	$refer = MySQL_Query("SELECT * FROM obrref where rasa=$rasa order by cas DESC");
 	$ref = MySQL_Fetch_Array($refer);
@@ -279,25 +276,25 @@ $ref = MySQL_Fetch_Array($refer);
 		$oa="q3";		
 	endif;	
 
-	if($zaznam1[status]==1 or $zaznam1[status]==5 or $zaznam1[status]==2):
+	if($zaznam1[status]==1 || $zaznam1[status]==5 || $zaznam1[status]==2):
 		echo "<form method='post' action='ref2.php'>";
-		echo "<h6><font class=kapital>Z</font>měnit narodní referndum.</h6><font class='info'>";
-		echo "Otázka: <input type=text name=znar size=80><br>";
-		echo "Odpověď 1: <input type=text name=nodpoved1 size=80><br>";
-		echo "Odpověď 2: <input type=text name=nodpoved2 size=80><br>";
-		echo "Odpověď 3: <input type=text name=nodpoved3 size=80><br>";
-		echo "<br></font><input type='submit' value='změň referendum'>";
+		echo "<h6><font class=kapital>Z</font>mďż˝nit narodnďż˝ referndum.</h6><font class='info'>";
+		echo "Otďż˝zka: <input type=text name=znar size=80><br>";
+		echo "Odpovďż˝ďż˝ 1: <input type=text name=nodpoved1 size=80><br>";
+		echo "Odpovďż˝ďż˝ 2: <input type=text name=nodpoved2 size=80><br>";
+		echo "Odpovďż˝ďż˝ 3: <input type=text name=nodpoved3 size=80><br>";
+		echo "<br></font><input type='submit' value='zmďż˝ďż˝ referendum'>";
 		echo "</form>";
 	endif;
 	endif;
 	if($zaznam1[admin]==1):
 		echo "<form method='post' action='ref2.php'>";
-		echo "<h6><font class=kapital>Z</font>měnit celovesmírné referendum.</h6><font class='info'>";
-		echo "Otázka: <input type=text name=zmez size=80><br>";
-		echo "Odpověď 1: <input type=text name=codpoved1 size=80><br>";
-		echo "Odpověď 2: <input type=text name=codpoved2 size=80><br>";
-		echo "Odpověď 3: <input type=text name=codpoved3 size=80><br>";
-		echo "<br></font><input type='submit' value='změň referendum'>";
+		echo "<h6><font class=kapital>Z</font>mďż˝nit celovesmďż˝rnďż˝ referendum.</h6><font class='info'>";
+		echo "Otďż˝zka: <input type=text name=zmez size=80><br>";
+		echo "Odpovďż˝ďż˝ 1: <input type=text name=codpoved1 size=80><br>";
+		echo "Odpovďż˝ďż˝ 2: <input type=text name=codpoved2 size=80><br>";
+		echo "Odpovďż˝ďż˝ 3: <input type=text name=codpoved3 size=80><br>";
+		echo "<br></font><input type='submit' value='zmďż˝ďż˝ referendum'>";
 		echo "</form>";
 	endif;
 

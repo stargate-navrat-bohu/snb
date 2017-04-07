@@ -1,48 +1,54 @@
 <?php
-mysql_query("SET NAMES cp1250");
 $heslob="c22ff79a02363de9b0861e20662f72cd";
-
 $zastaveno2 = MySQL_Query("SELECT cislo,zutok,zhra,zmezi FROM servis where cislo='1'");	
 $zastaveno = MySQL_Fetch_Array($zastaveno2);
 	
-if($zastaveno[zhra]!="" and $zaznam1[admin]==0){echo "<center><h1>$zastaveno[zhra]</h1></center>";exit;};
-if($zastaveno[zmezi]!="" and $mezi_ovl==1){echo "<center><h1>$zastaveno[zmezi]</h1></center>";exit;};
-if(!(($zaznam1["heslo"]==$logheslo)and($zaznam1["jmeno"]==$logjmeno)and($zaznam1["cislo"]==$logcislo)))
-{echo "<script languague='JavaScript'>location.href='neprihlas.htm'</script>"; exit;};
+if($zastaveno['zhra']!="" && $zaznam1['admin']==0){
+    echo '<h1 class="center-text">'.$zastaveno['zhra'].'</h1>';
+    exit;
+}
 
-//----------------------/*
+if($zastaveno['zmezi']!="" && $mezi_ovl==1){
+    echo '<h1 class="center-text">'.$zastaveno['zmezi'].'</h1>';
+    exit;
+}
+
+if(!(($zaznam1['heslo']==$logheslo) && ($zaznam1['jmeno']==$logjmeno) && ($zaznam1['cislo']==$logcislo))){
+    echo '<script type="text/javascript">location.href="neprihlas.htm";</script>';
+    exit;
+}
 
 if ($horni_info==1):
-$horni_info=0;
+    $horni_info=0;
 else:
+    $stop1 = MySQL_Query("SELECT patnactminut,casnasg,admin FROM uzivatele where cislo='$logcislo'");
+    $stop11 = MySQL_Fetch_Array($stop1);
+    $cas15=Date("U");
+    $stopp=(($stop11['patnactminut'])+900);
 
-
-
-
- $stop1 = MySQL_Query("SELECT patnactminut,casnasg,admin FROM uzivatele where cislo='$logcislo'");
-		$stop11 = MySQL_Fetch_Array($stop1);
-
-$cas15=Date("U");
-$stopp=(($stop11[patnactminut])+900);
-//echo $cas15,$stopp;
-if(($stopp<$cas15) AND ($stop11[admin]!=1 and $stop11[admin]!=2 and $stop11[admin]!=3 and $stop11[admin]!=4) ):
-MySQL_Query("DELETE FROM online where  jmeno='".$logjmeno."'");
-echo "<script languague='JavaScript'>location.href='neprihlasen.htm'</script>"; exit;
-else:
-$cassg=($cas15-$stop11[patnactminut])+$stop11[casnasg];
-  MySQL_Query("update uzivatele set patnactminut='$cas15',casnasg='$cassg' where cislo='$logcislo'") or die(mysql_error());
+    if(($stopp<$cas15) && ($stop11['admin']!=1 && $stop11['admin']!=2 && $stop11['admin']!=3 && $stop11['admin']!=4) ):
+        MySQL_Query("DELETE FROM online where  jmeno='".$logjmeno."'");
+        echo '<script type="text/javascript">location.href="neprihlasen.htm";</script>';
+        exit;
+    else:
+        $cassg=($cas15-$stop11['patnactminut'])+$stop11['casnasg'];
+        MySQL_Query("update uzivatele set patnactminut='$cas15',casnasg='$cassg' where cislo='$logcislo'");
+    endif;
 endif;
-endif;
-//----------------------*/
 
-
-if($zaznam1[heslo2]!=$heslob and ($zaznam1[rasa]==16 or $zaznam1[rasa]==17 or $zaznam1[rasa]==18) and $info!=1){echo "<script languague='JavaScript'>location.href='neprihlas.htm'</script>"; exit;};
-$zmraz=$zaznam1[hra];
-if($zaznam1[zmrazeni]<Date("U")){
-$zmraz=0;
-MySQL_Query("update uzivatele set hra=0 where cislo = '$logcilo'");
+if($zaznam1['heslo2']!=$heslob && ($zaznam1['rasa']==16 || $zaznam1['rasa']==17 || $zaznam1['rasa']==18) && $info!=1){
+    echo '<script type="text/javascript">location.href="neprihlasen.htm";</script>';
+    exit;
 }
-switch($zaznam1[skin]){
+
+$zmraz=$zaznam1['hra'];
+
+if($zaznam1['zmrazeni']<Date("U")){
+    $zmraz=0;
+    MySQL_Query("update uzivatele set hra=0 where cislo = '$logcilo'");
+}
+
+switch($zaznam1['skin']){
 	case 0: $table="borderColor=#ffffff borderColorDark=#ffffff borderColorLight=#ffffff cellspacing=0";
 			$border="border=1";
 			$borders="border=0";
@@ -103,25 +109,21 @@ switch($zaznam1[skin]){
 			$obr="background=info_obr/reet.jpg height=298 width=431 align=left";
 			$color_hr="#64afe8";			
 			break;					
-			};					
+}
+
 if($zmraz==1):
-	$cas = Date("H:i:s j.m.Y",$zaznam1[zmrazeni]);
-	echo "<center><h1>Tento login je zmrazen az do ".$cas.". Pokud je login zmrazen, tak s nÌm nelze nic dÏlat, ale ani na nÏj nejde ˙toËit.</h1></center>";
+	$cas = Date("H:i:s j.m.Y",$zaznam1['zmrazeni']);
+	echo "<center><h1>Tento login je zmrazen az do ".$cas.". Pokud je login zmrazen, tak s n√≠m nelze nic dƒõlat, ale ani na nƒõj nejde √∫toƒçit.</h1></center>";
 	exit;
 endif;
 
-$T=Date("U");
+$T = Date('U');
 MySQL_Query("update online set posl=$T where jmeno = '$logjmeno'");
 
-
-//deklarace ûold·k˘
-
-$zold_utok=80;
-$zold_obrana=80;
-$zold_cena=2000;
-$zold_nazev="N·jemn˝ vrah";
-$zold_mist=0;
-$max_sila=99999999999;
-//$zold_text="Tito nejlepöÌ bojovnÌci b˝val˝ch majitel˘ jsou zocelenÌ mÏsÌci trÈninku. B˝valÌ majitelÈ je prodali, ale jim to aû zas tak nevadÌ, bojujÌ za toho kdo d· vÌc. A ûe bojujÌ dob¯e! Jsou povaûov·ni za nejlepöÌ voj·ky galaxie! PoradÌ si s ËÌmkoliv, berou v˝zbroj, v˝stroj i stroje nep¯·tel i sv˝ch majitel˘! Zach·zej s nimi opatrnÏ.";
-$pocetras=9;
-?>
+$zold_utok   = 80;
+$zold_obrana = 80;
+$zold_cena   = 2000;
+$zold_nazev  = 'N√°jemn√≠ vrah';
+$zold_mist   = 0;
+$max_sila    = 99999999999;
+$pocetras    = 9;
