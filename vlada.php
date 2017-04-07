@@ -1,288 +1,104 @@
-<?
-
-mysql_query("SET NAMES cp1250");
-
-/*
-
-if (isset($HTTP_GET_VARS)){
-
-$refer = getenv("HTTP_REFERER");
-
-$PARAMS = explode('/', $refer); 
-
-if ($PARAMS[2]!='www.sg-rtg.net')die('To už nezkoušejte');
-
-}
-
-if (isset($HTTP_POST_VARS)){
-
-$refer = getenv("HTTP_REFERER");
-
-$PARAMS = explode('/', $refer); 
-
-if ($PARAMS[2]!='www.sg-rtg.net')die('To už nezkoušejte');
-
-}*/
-
-
-
+<?php
 unset($zaznam1);
-
 unset($ser);
-
 unset($zaznam2);
-
 unset($zaznam3);
-
 unset($zaznam4);
-
 unset($zaznam8);
-
 unset($zaznam888);
-
 unset($zaznam9);
-
 unset($zaznam99);
-
 unset($zaznam10);
-
 unset($zaznam11);
-
 unset($zaznam12);
-
 unset($vu);
-
 unset($vudce1);
-
 unset($vudce2);
-
 unset($kontrola);
-
 unset($kon);
-
 unset($zv);
-
 unset($rasa9);
-
 unset($ciny);
-
 unset($log);
-
-//**********
-
 unset($zaznam77);
-
 unset($pochracu);
-
 unset($zaznam777);
-
 unset($volen);
 
+require "data_1.php";
 
+if(isset($auto)):
+    if(($af=="on") && ($av=="on")){$aa=3;}
+    if(($af!="on") && ($av=="on")){$aa=2;}
+    if(($af=="on") && ($av!="on")){$aa=1;}
+    if(($af!="on") && ($av!="on")){$aa=0;}
+    MySQL_Query("update uzivatele set auto = $aa where cislo=$logcislo");
+endif;
 
+function fcis($a){
+    $a=number_format($a,0,""," ");
+    return $a;
+}
 
+$vys1 = MySQL_Query("SELECT jmeno,heslo,gold,silver,penize,volen,koho,rasa,status,ref,cislo,hra,zmrazeni,skin,vek,admin,reg FROM uzivatele where cislo=$logcislo");
+$zaznam1 = MySQL_Fetch_Array($vys1);
+$statusmuj=$zaznam1['status'];
+$nvyzk='upgrade vÅ¡eho';
+$cisloz=$zaznam1['cislo'];
+$vekhrace = $zaznam1['vek'];
 
+require 'kontrola.php';
 
-
-		require "data_1.php";
-
-
-
-
-
-	if(isset($auto)):
-
-		if(($af=="on") and ($av=="on")){$aa=3;};
-
-		if(($af!="on") and ($av=="on")){$aa=2;};
-
-		if(($af=="on") and ($av!="on")){$aa=1;};
-
-		if(($af!="on") and ($av!="on")){$aa=0;};
-
-		MySQL_Query("update uzivatele set auto = $aa where cislo=$logcislo");
-
-	endif;
-
-
-
-		function fcis($a){
-
-
-
-		$a=number_format($a,0,""," ");
-
-
-
-		return $a;	
-
-
-
-		}
-
-	
-
-	$vys1 = MySQL_Query("SELECT jmeno,heslo,gold,silver,penize,volen,koho,rasa,status,ref,cislo,hra,zmrazeni,skin,vek,admin,reg FROM uzivatele where cislo=$logcislo");
-
-	$zaznam1 = MySQL_Fetch_Array($vys1);
-
-	$statusmuj=$zaznam1[status];
-
-        $nvyzk='upgrade všeho';
-
-        $cisloz=$zaznam1[cislo];
-
-	$vekhrace = $zaznam1[vek];
-
-	require("kontrola.php");
-
-
-
-	$ser1 = MySQL_Query("SELECT cislo,vyzkum FROM servis where cislo=1");
-
-	$ser = MySQL_Fetch_Array($ser1);
-
-	
-
-	$cil=$ser[vyzkum];
-
-
-
-
-
+$ser1 = MySQL_Query("SELECT cislo,vyzkum FROM servis where cislo=1");
+$ser = MySQL_Fetch_Array($ser1);
+$cil=$ser['vyzkum'];
 ?>
 
 <center><font class='text_bili'>
-
 <br>
-
-<?
-
-if($vyber!=6):
-
-echo "<a href='hlavni.php?page=vlada&vyber=1' >Funkce</a>&nbsp;&nbsp;";
-
-
-
-endif;
-
-?>
-
-
-
-<?
+<?php
 
 if($vyber!=6):
-
-echo "<a href='hlavni.php?page=vlada&vyber=2' >Èiny vedení</a>&nbsp;&nbsp;";
-
-
-
+    echo "<a href='hlavni.php?page=vlada&amp;vyber=1'>Funkce</a>&nbsp;&nbsp;";
 endif;
-
-?>
-
-
-
-
-
-<?
 
 if($vyber!=6):
-
-echo "<a href='hlavni.php?page=vlada&vyber=5' >Fond / výzkum</a>&nbsp;&nbsp;";
-
-
-
+    echo "<a href='hlavni.php?page=vlada&vyber=2' >ï¿½iny vedenï¿½</a>&nbsp;&nbsp;";
 endif;
-
-?>
-
-
-
-<?
 
 if($vyber!=6):
-
-echo "<a href='hlavni.php?page=vlada&vyber=6' >Pøepoèet naquadahu</a>&nbsp;&nbsp;";
-
-
-
+    echo "<a href='hlavni.php?page=vlada&vyber=5' >Fond / vï¿½zkum</a>&nbsp;&nbsp;";
 endif;
-
-?>
-
-
-
-
-
-<?
 
 if($vyber!=6):
+    echo "<a href='hlavni.php?page=vlada&vyber=6' >Pï¿½epoï¿½et naquadahu</a>&nbsp;&nbsp;";
+endif;
 
-echo "<a href='hlavni.php?page=vlada&vyber=7' >Pøepoèety</a>&nbsp;&nbsp;";
+if($vyber!=6):
+    echo "<a href='hlavni.php?page=vlada&vyber=7' >Pï¿½epoï¿½ety</a>&nbsp;&nbsp;";
+endif;
 
-
-
+if($zaznam1[admin]==1 && $vyber!=6):
+    echo "<a href='hlavni.php?page=vlada&vyber=4' >ï¿½iny adminï¿½</a>&nbsp;&nbsp;";
 endif;
 
 ?>
-
-
-
-<?
-
-if($zaznam1[admin]==1 and $vyber!=6):
-
-echo "<a href='hlavni.php?page=vlada&vyber=4' >Èiny adminù</a>&nbsp;&nbsp;";
-
-
-
-endif;
-
-?>
-
-
-
 <br><br>
+<?php
 
+if($zaznam1[status]==4):
+    $a=1.5;
+else:
+    $a=1;
+endif;
 
-
-<?
-
-
-
-		if($zaznam1[status]==4):
-
-			$a=1.5;
-
-		else:
-
-			$a=1;
-
-		endif;
-
-
-
-
-
-	if(empty($vyber)){$vyber=1;};
-
+if(empty($vyber)){$vyber=1;}
 ?>
-
-
-
 </center></font>
-
-<?
-
-
-
-
-
+<?php
 $diletace=12;
 
-	if((Date("U")-$zaznam1[vek])<($diletace*3600) and $vyber!=5 and $vyber!=6){echo "<br><font class='text_cerveny'>Nemùžete volit vùdce. Vùdce je možno volit až po $diletace hodinách od registrace!</font>";
+if((Date("U")-$zaznam1['vek'])<($diletace*3600) && $vyber!=5 && $vyber!=6){echo "<br><font class='text_cerveny'>Nemï¿½ï¿½ete volit vï¿½dce. Vï¿½dce je moï¿½no volit aï¿½ po $diletace hodinï¿½ch od registrace!</font>";
 
     echo '</div> <div class="telo_paticka"></div> </div> </div> </div> </div>';
 
@@ -294,9 +110,9 @@ $diletace=12;
 
 	$rasa=$zaznam1[rasa];
 
-	if($rasa==98){echo "<font class='text_cerveny'><center>Vyvrhelové nemají vùdce!</center></font>";exit;};
+	if($rasa==98){echo "<font class='text_cerveny'><center>Vyvrhelovï¿½ nemajï¿½ vï¿½dce!</center></font>";exit;};
 
-	if($rasa==0){echo "<font class='text_cerveny'><center>Antikové nemají vùdce!</center></font>";exit;};
+	if($rasa==0){echo "<font class='text_cerveny'><center>Antikovï¿½ nemajï¿½ vï¿½dce!</center></font>";exit;};
 
 	$vys9 = MySQL_Query("SELECT rasa,min,fond,darz,dara,posta,minv,darv,rasova_zprava FROM vudce where rasa = $rasa");
 
@@ -374,11 +190,11 @@ $diletace=12;
 
 	echo "<tr>";
 
-	echo "<th>èas</th>";
+	echo "<th>ï¿½as</th>";
 
 	echo "<th>kdo (status)</th>";
 
-	echo "<th>èin</th>";
+	echo "<th>ï¿½in</th>";
 
 	echo "</tr>";
 
@@ -390,9 +206,9 @@ $diletace=12;
 
 		switch($ciny[status]){
 
-			case 1 :$status="vùdce";break;
+			case 1 :$status="vï¿½dce";break;
 
-			case 2 :$status="zástupce";break;
+			case 2 :$status="zï¿½stupce";break;
 
 			case 3 :$status="asistent";break;
 
@@ -400,25 +216,25 @@ $diletace=12;
 
 			case 5 :$status="poradce";break;
 
-			default: $status="obèan";
+			default: $status="obï¿½an";
 
 		};
 
 		switch($ciny[cin]){
 
-			case 1 :$cin="Pøijmul od vyvrhelù hráèe $ciny[koho]";break;
+			case 1 :$cin="Pï¿½ijmul od vyvrhelï¿½ hrï¿½ï¿½e $ciny[koho]";break;
 
-			case 2 :$cin="Vyhodil k vyvrhelùm hráèe $ciny[koho]";break;
+			case 2 :$cin="Vyhodil k vyvrhelï¿½m hrï¿½ï¿½e $ciny[koho]";break;
 
-			case 3 :$cin="Poslal hráèi $ciny[koho] ".number_format($ciny[cislo],0,0," ")." NQ";break;
+			case 3 :$cin="Poslal hrï¿½ï¿½i $ciny[koho] ".number_format($ciny[cislo],0,0," ")." NQ";break;
 
 			case 4 :$cin="Poslal rase $ciny[koho] ".number_format($ciny[cislo],0,0," ")." NQ";break;
 
-			case 5 :$cin="Poslal hráèi $ciny[koho] jednotky v hodnotì ".number_format($ciny[cislo],0,0," ")."NQ";break;			
+			case 5 :$cin="Poslal hrï¿½ï¿½i $ciny[koho] jednotky v hodnotï¿½ ".number_format($ciny[cislo],0,0," ")."NQ";break;			
 
 			case 6 :$cin="Poslal do fondu ".number_format($ciny[cislo],0,0," ")." NQ";break;			
 
-			case 7 :$cin="Poslal do rasové armády jednotky v hodnotì ".number_format($ciny[cislo],0,0," ")." NQ";break;						
+			case 7 :$cin="Poslal do rasovï¿½ armï¿½dy jednotky v hodnotï¿½ ".number_format($ciny[cislo],0,0," ")." NQ";break;						
 
 		  case 20 :$cin="Rasa $ciny[koho] poslala ".number_format($ciny[cislo],0,0," ")." NQ";break;
 
@@ -454,7 +270,7 @@ $diletace=12;
 
 	
 
-	if(isset($koho) and $_POST['over_post']==1):
+	if(isset($koho) && $_POST['over_post']==1):
 
 		if($koho==$kdo):
 
@@ -472,7 +288,7 @@ $diletace=12;
 
 			//$dobre=1;
 
-			if($dobre==1 and $rasa==$rasaj):
+			if($dobre==1 && $rasa==$rasaj):
 
 			   $i=0;
 
@@ -534,7 +350,7 @@ $diletace=12;
 
 			else:
 
-			   echo "<font class='text_cerveny'>Tento login neexistuje nebo není ze stejné rasy</font>";
+			   echo "<font class='text_cerveny'>Tento login neexistuje nebo nenï¿½ ze stejnï¿½ rasy</font>";
 
 			endif;		
 
@@ -546,7 +362,7 @@ $diletace=12;
 
 
 
-	if(isset($komu) and $_POST['over_post']==1):
+	if(isset($komu) && $_POST['over_post']==1):
 
 		$vys1 = MySQL_Query("SELECT jmeno,heslo,gold,silver,penize,volen,koho,rasa,status,ref,cislo,hra,zmrazeni,skin,vek,admin,reg,statusnovacek FROM uzivatele where rasa = $rasa");
 
@@ -562,7 +378,7 @@ $diletace=12;
 
 			$maxim=4;
 
-			$odes=" - zástupce";
+			$odes=" - zï¿½stupce";
 
  			$dat=Floor($zaznam9[fond]*0.2);
 
@@ -582,7 +398,7 @@ $diletace=12;
 
 			$maxim=999;
 
-			$odes=" - vùdce";
+			$odes=" - vï¿½dce";
 
       		$dat=$zaznam9[fond];
 
@@ -608,7 +424,7 @@ $diletace=12;
 
 	 if(is_numeric($kolik)):
 
-		if(($dal<$maxim) and ($kolik>0) ):
+		if(($dal<$maxim) && ($kolik>0) ):
 
 			if($dobre==1):
 
@@ -646,11 +462,11 @@ $diletace=12;
 
         			$dat = Date("U");
 
-                                $nazev="Zpráva fondu";
+                                $nazev="Zprï¿½va fondu";
 
           			$rasa5=AddSlashes($zaznam8["nazevrasy"]);
 
-          			$text= "Odesílatel Vám poslal z fondu " . fcis($kolik) ." naquadahu";
+          			$text= "Odesï¿½latel Vï¿½m poslal z fondu " . fcis($kolik) ." naquadahu";
 
 	  				$od=$logjmeno.$odes;
 
@@ -660,7 +476,7 @@ $diletace=12;
 
 					else:
 
-						echo"<h1>Neodeèetl se NAQ z fondu, zkuste to znovu</h1>";
+						echo"<h1>Neodeï¿½etl se NAQ z fondu, zkuste to znovu</h1>";
 
 						exit;
 
@@ -670,9 +486,9 @@ $diletace=12;
 
 					else:
 
-						echo"<h1>Nepøièetl se NAQ z fondu uživateli, kontaktujte nìjakého z adminù!!</h1>";
+						echo"<h1>Nepï¿½iï¿½etl se NAQ z fondu uï¿½ivateli, kontaktujte nï¿½jakï¿½ho z adminï¿½!!</h1>";
 
-						$texta="nedorazil naq hráèi".$komu."  celkem:".$kolik."";
+						$texta="nedorazil naq hrï¿½ï¿½i".$komu."  celkem:".$kolik."";
 
 						$komua="puchy2";
 
@@ -698,31 +514,31 @@ $diletace=12;
 
 				else:
 
-					echo "<font class='text_cerveny'>Nedostatek naquadahu ve fondu nebo nedovolenì velký pøíspìvek</font>";
+					echo "<font class='text_cerveny'>Nedostatek naquadahu ve fondu nebo nedovolenï¿½ velkï¿½ pï¿½ï¿½spï¿½vek</font>";
 
 				endif;
 
 			else:
 
-				echo "<font class='text_cerveny'>Neexistující jméno</font>";
+				echo "<font class='text_cerveny'>Neexistujï¿½cï¿½ jmï¿½no</font>";
 
 			endif;
 
 		else:
 
-			echo "<font class='text_cerveny'>Dnes jste dal už všechny pøíspìvky nebo jste zadal špatný typ èísla</font>";
+			echo "<font class='text_cerveny'>Dnes jste dal uï¿½ vï¿½echny pï¿½ï¿½spï¿½vky nebo jste zadal ï¿½patnï¿½ typ ï¿½ï¿½sla</font>";
 
 		endif;
 
 		else:
 
-			echo "<font class='text_cerveny'>Byl zadán špatný typ èísla</font>";
+			echo "<font class='text_cerveny'>Byl zadï¿½n ï¿½patnï¿½ typ ï¿½ï¿½sla</font>";
 
 		endif;
 
 		else:
 
-			echo "<font class='text_cerveny'>Zadejte dùvod</font>";
+			echo "<font class='text_cerveny'>Zadejte dï¿½vod</font>";
 
 		endif;
 
@@ -778,7 +594,7 @@ $diletace=12;
 
 	$overeni2=Date("j")*$cisloz*2005;
 
-	if(isset($f2rasa) and $_POST['over_post']==1 and $overeni2==$overeni):
+	if(isset($f2rasa) && $_POST['over_post']==1 && $overeni2==$overeni):
 
 	$kolik=StrTr($kolik,",",".");
 
@@ -788,7 +604,7 @@ $diletace=12;
 
 		//echo "<font class='text_bili'>$f2rasa</font>";
 
-    	$vud2 = MySQL_Query("SELECT rasa,fond,vudce FROM vudce where rasa and rasa ='$f2rasa'");
+    	$vud2 = MySQL_Query("SELECT rasa,fond,vudce FROM vudce where rasa && rasa ='$f2rasa'");
 
 		$vudce2 = MySQL_Fetch_Array($vud2);		
 
@@ -798,9 +614,9 @@ $diletace=12;
 
 		$zaznam11 = MySQL_Fetch_Array($vys11);
 
-		//$vys12 = MySQL_Query("SELECT rasa,vyr_vyrob,nazevrasy FROM rasy where rasa < 11 and rasa!=0 and  and  rasa = $f2rasa");
+		//$vys12 = MySQL_Query("SELECT rasa,vyr_vyrob,nazevrasy FROM rasy where rasa < 11 && rasa!=0 &&  &&  rasa = $f2rasa");
 
-		$vys12 = MySQL_Query("SELECT rasa,vyr_vyrob,nazevrasy FROM rasy where (rasa>'0' and rasa<'11') and  rasa = $f2rasa");
+		$vys12 = MySQL_Query("SELECT rasa,vyr_vyrob,nazevrasy FROM rasy where (rasa>'0' && rasa<'11') &&  rasa = $f2rasa");
 
 		
 
@@ -812,13 +628,13 @@ $diletace=12;
 
 		$prav=0;
 
-		if($statusmuj==1 or $statusmuj==5 ){$prav=1;};
+		if($statusmuj==1 || $statusmuj==5 ){$prav=1;};
 
 		
 
 		if ($procr <> ""){
 
-		if((($dat-$kolik)>=0) and ($kolik>0) and ($prav==1)):
+		if((($dat-$kolik)>=0) && ($kolik>0) && ($prav==1)):
 
 			$doslo=($kolik/$zaznam8[vyr_vyrob])*$zaznam12[vyr_vyrob];
 
@@ -838,7 +654,7 @@ $diletace=12;
 
 			$rasa6=AddSlashes($zaznam12["nazevrasy"]);
 
-          	$text= "Vùdce této rasy poslal ze svého do Vašeho fondu $kolik naquadahu, po pøevodu pøes Vesmírnou burzu došlo $doslo";
+          	$text= "Vï¿½dce tï¿½to rasy poslal ze svï¿½ho do Vaï¿½eho fondu $kolik naquadahu, po pï¿½evodu pï¿½es Vesmï¿½rnou burzu doï¿½lo $doslo";
 
 	  		$od=$logjmeno;
 
@@ -846,9 +662,9 @@ $diletace=12;
 
 
 
-	    //	$kon2 = MySQL_Query("SELECT rasa,fond,vudce FROM vudce where rasa < 11 and rasa!=0 and rasa!=7 and  rasa = $f2rasa");
+	    //	$kon2 = MySQL_Query("SELECT rasa,fond,vudce FROM vudce where rasa < 11 && rasa!=0 && rasa!=7 &&  rasa = $f2rasa");
 
-			$kon2 = MySQL_Query("SELECT rasa,fond,vudce FROM vudce where  (rasa>'0' and rasa<'11') and  rasa = '$f2rasa'");
+			$kon2 = MySQL_Query("SELECT rasa,fond,vudce FROM vudce where  (rasa>'0' && rasa<'11') &&  rasa = '$f2rasa'");
 
 			if($zaznam1[admin]==1){
 
@@ -882,7 +698,7 @@ $diletace=12;
 
 				
 
-        echo "<font class='text_bili'>Transakce se nezdaøila, zkuste znovu.</font>";
+        echo "<font class='text_bili'>Transakce se nezdaï¿½ila, zkuste znovu.</font>";
 
 			//echo $fon2;
 
@@ -890,7 +706,7 @@ $diletace=12;
 
 		else:
 
-			echo "<font class='text_cerveny'>Nedostatek naquadahu ve fondu nebo nedostatek oprávnìní</font>";
+			echo "<font class='text_cerveny'>Nedostatek naquadahu ve fondu nebo nedostatek oprï¿½vnï¿½nï¿½</font>";
 
 		endif;
 
@@ -900,7 +716,7 @@ $diletace=12;
 
 		{
 
-		echo "<font class='text_cerveny'>Zadejte dùvod poslání naqadahu</font>";
+		echo "<font class='text_cerveny'>Zadejte dï¿½vod poslï¿½nï¿½ naqadahu</font>";
 
     }
 
@@ -934,11 +750,11 @@ $diletace=12;
 
           
 
-	if(isset($posta) and $_POST['over_post']==1):
+	if(isset($posta) && $_POST['over_post']==1):
 
 		$prav=0;
 
-		if($statusmuj==1 or $statusmuj==5){$prav=1;};
+		if($statusmuj==1 || $statusmuj==5){$prav=1;};
 
 		if($prav==1):
 
@@ -952,7 +768,7 @@ $diletace=12;
 
 		else:
 
-			echo "<font class='text_cerveny'>K této akci nemáte dostatek pravomocí</font>";
+			echo "<font class='text_cerveny'>K tï¿½to akci nemï¿½te dostatek pravomocï¿½</font>";
 
 		endif;
 
@@ -960,11 +776,11 @@ $diletace=12;
 
 
 
-	if(isset($prijmi) and $_POST['over_post']==1):
+	if(isset($prijmi) && $_POST['over_post']==1):
 
 	  $prav=0;
 
-	  if($statusmuj==1 or $statusmuj==5 or $statusmuj==2){$prav=1;};
+	  if($statusmuj==1 || $statusmuj==5 || $statusmuj==2){$prav=1;};
 
 	  if($prav==1):
 
@@ -1000,19 +816,19 @@ $diletace=12;
 
 			else:
 
-				echo "<font class='text_cerveny'>Tento uživatel není v exilu</font>";			
+				echo "<font class='text_cerveny'>Tento uï¿½ivatel nenï¿½ v exilu</font>";			
 
 			endif;
 
 		else:
 
-			echo "<font class='text_cerveny'>neexistující jméno</font>";
+			echo "<font class='text_cerveny'>neexistujï¿½cï¿½ jmï¿½no</font>";
 
 		endif;
 
 	  else:
 
-		echo "<font class='text_cerveny'>K této akci nemáte dostatek pravomocí</font>";
+		echo "<font class='text_cerveny'>K tï¿½to akci nemï¿½te dostatek pravomocï¿½</font>";
 
 	  endif;					
 
@@ -1020,19 +836,19 @@ $diletace=12;
 
 
 
-	if(isset($fond) and $_POST['over_post']==1):
+	if(isset($fond) && $_POST['over_post']==1):
 
 
 
 	  $prav=0;
 
-	  if($statusmuj==1 or $statusmuj==5 or $statusmuj==2){$prav=1;};
+	  if($statusmuj==1 || $statusmuj==5 || $statusmuj==2){$prav=1;};
 
 	  if($prav==1):	
 
 	  if (is_numeric($fond)):
 
-		if(($fond<=50) and ($fond>=0)): 
+		if(($fond<=50) && ($fond>=0)): 
 
 			//$fon=$zaznam10["fond"]-$kolik;
 
@@ -1040,23 +856,23 @@ $diletace=12;
 
 			MySQL_Query("update vudce set min = $fond where rasa = $rasa");
 
-			MySQL_Query("update uzivatele set fond = $fond where rasa = $rasa and (auto=1 or auto=3)");
+			MySQL_Query("update uzivatele set fond = $fond where rasa = $rasa && (auto=1 || auto=3)");
 
 		else:
 
-			echo "<font class='text_cerveny'>Pøíliš velký minimální vklad nebo záporné èíslo</font>";
+			echo "<font class='text_cerveny'>Pï¿½ï¿½liï¿½ velkï¿½ minimï¿½lnï¿½ vklad nebo zï¿½pornï¿½ ï¿½ï¿½slo</font>";
 
 		endif;
 
 	  else:
 
-		echo "<font class='text_cerveny'>Vložte jen celé èíslo od 0 do 50</font>";		
+		echo "<font class='text_cerveny'>Vloï¿½te jen celï¿½ ï¿½ï¿½slo od 0 do 50</font>";		
 
 	endif;
 
 	else:
 
-	echo "<font class='text_cerveny'>Vložte jen celé èíslo od 0 do 50</font>";
+	echo "<font class='text_cerveny'>Vloï¿½te jen celï¿½ ï¿½ï¿½slo od 0 do 50</font>";
 
 	endif;
 
@@ -1064,37 +880,37 @@ $diletace=12;
 
 
 
-	if(isset($vyz) and $_POST['over_post']==1):
+	if(isset($vyz) && $_POST['over_post']==1):
 
 	  $prav=0;
 
-	  if($statusmuj==1 or $statusmuj==5 or $statusmuj==2){$prav=1;};
+	  if($statusmuj==1 || $statusmuj==5 || $statusmuj==2){$prav=1;};
 
 	  if($prav==1):
 
 	  if (is_numeric($vyz)):		
 
-		if(($vyz<=50) and ($vyz>=0)):
+		if(($vyz<=50) && ($vyz>=0)):
 
 			MySQL_Query("update vudce set minv = $vyz where rasa = $rasa");
 
-			MySQL_Query("update uzivatele set vyzkum = $vyz where rasa = $rasa and (auto=2 or auto=3)");
+			MySQL_Query("update uzivatele set vyzkum = $vyz where rasa = $rasa && (auto=2 || auto=3)");
 
 		else:
 
-			echo "<font class='text_cerveny'>Pøíliš velký minimální vklad nebo záporné èíslo</font>";
+			echo "<font class='text_cerveny'>Pï¿½ï¿½liï¿½ velkï¿½ minimï¿½lnï¿½ vklad nebo zï¿½pornï¿½ ï¿½ï¿½slo</font>";
 
 		endif;
 
 	  else:
 
-		echo "<font class='text_cerveny'>Vložte jen celé èíslo od 0 do 50</font>";
+		echo "<font class='text_cerveny'>Vloï¿½te jen celï¿½ ï¿½ï¿½slo od 0 do 50</font>";
 
 	endif;
 
 	else:
 
-	echo "<font class='text_cerveny'>Vložte jen celé èíslo od 0 do 50</font>";
+	echo "<font class='text_cerveny'>Vloï¿½te jen celï¿½ ï¿½ï¿½slo od 0 do 50</font>";
 
 	endif;
 
@@ -1102,7 +918,7 @@ $diletace=12;
 
 
 
-	if(isset($min1) and $_POST['over_post']==1):
+	if(isset($min1) && $_POST['over_post']==1):
 
 	  $prav=0;
 
@@ -1124,7 +940,7 @@ $diletace=12;
 
 
 
-			if($zaznam1[status]!=1){echo "<font class='text_cerveny'>Nejste vùdce ani premiér.</font>";break;};
+			if($zaznam1[status]!=1){echo "<font class='text_cerveny'>Nejste vï¿½dce ani premiï¿½r.</font>";break;};
 
 			$vys1 = MySQL_Query("SELECT jmeno,rasa,cislo,penize,gold,silver FROM uzivatele where jmeno='$min1' ");
 
@@ -1134,13 +950,13 @@ $diletace=12;
 
 			
 
-				if($min1==$zaznam1["jmeno"] or $min1==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo1=$zaznam1[cislo];break;};
+				if($min1==$zaznam1["jmeno"] || $min1==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo1=$zaznam1[cislo];break;};
 
 			endwhile;
 
 
 
-			if(($dobre!=1 or $rasavudce!=$rasaj) and $min1!=""){echo "<font class='text_cerveny'>Jméno 1. poradce neexistuje nebo není z Vaší rasy</font>";break;};
+			if(($dobre!=1 || $rasavudce!=$rasaj) && $min1!=""){echo "<font class='text_cerveny'>Jmï¿½no 1. poradce neexistuje nebo nenï¿½ z Vaï¿½ï¿½ rasy</font>";break;};
 
 			//echo "<h1>".$cislo1;			
 
@@ -1174,7 +990,7 @@ $diletace=12;
 
 	  else:
 
-		echo "<font class='text_cerveny'>K této akci nemáte dostatek pravomocí</font>";
+		echo "<font class='text_cerveny'>K tï¿½to akci nemï¿½te dostatek pravomocï¿½</font>";
 
 	  endif;				
 
@@ -1184,7 +1000,7 @@ $diletace=12;
 
 
 
-	if(isset($volitm) and $_POST['over_post']==1):
+	if(isset($volitm) && $_POST['over_post']==1):
 
 
 
@@ -1218,7 +1034,7 @@ $diletace=12;
 
 			
 
-			MySQL_Query("update uzivatele set koho='Neplatné' where koho = '$logjmeno'");
+			MySQL_Query("update uzivatele set koho='Neplatnï¿½' where koho = '$logjmeno'");
 
 		
 
@@ -1234,7 +1050,7 @@ $diletace=12;
 
 	  else:
 
-		echo "<font class='text_cerveny'>K této akci nemáte dostatek pravomocí</font>";
+		echo "<font class='text_cerveny'>K tï¿½to akci nemï¿½te dostatek pravomocï¿½</font>";
 
 	  endif;		
 
@@ -1250,7 +1066,7 @@ $diletace=12;
 
 
 
-	if(isset($min2) and $_POST['over_post']==1):
+	if(isset($min2) && $_POST['over_post']==1):
 
 	  $prav=0;
 
@@ -1278,7 +1094,7 @@ $diletace=12;
 
 
 
-			if($zaznam1[status]!=5){echo "<font class='text_cerveny'>Nejste vùdce ani premiér.</font>";break;};
+			if($zaznam1[status]!=5){echo "<font class='text_cerveny'>Nejste vï¿½dce ani premiï¿½r.</font>";break;};
 
 	
 
@@ -1290,13 +1106,13 @@ $diletace=12;
 
 			
 
-				if($min2==$zaznam1["jmeno"] or $min2==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo2=$zaznam1[cislo];break;};
+				if($min2==$zaznam1["jmeno"] || $min2==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo2=$zaznam1[cislo];break;};
 
 			endwhile;
 
 			
 
-			if(($dobre!=1 or $rasavudce!=$rasaj) and $min2!=""){echo "<font class='text_cerveny'>Jméno 1. ministra neexistuje nebo není z Vaší rasy</font>";break;};
+			if(($dobre!=1 || $rasavudce!=$rasaj) && $min2!=""){echo "<font class='text_cerveny'>Jmï¿½no 1. ministra neexistuje nebo nenï¿½ z Vaï¿½ï¿½ rasy</font>";break;};
 
 			
 
@@ -1306,13 +1122,13 @@ $diletace=12;
 
 			
 
-				if($min3==$zaznam1["jmeno"] or $min3==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo3=$zaznam1[cislo];break;};
+				if($min3==$zaznam1["jmeno"] || $min3==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo3=$zaznam1[cislo];break;};
 
 			endwhile;
 
 			
 
-			if(($dobre!=1 or $rasavudce!=$rasaj) and $min3!=""){echo "<font class='text_cerveny'>Jméno 2. ministra neexistuje nebo není z Vaší rasy</font>";break;};
+			if(($dobre!=1 || $rasavudce!=$rasaj) && $min3!=""){echo "<font class='text_cerveny'>Jmï¿½no 2. ministra neexistuje nebo nenï¿½ z Vaï¿½ï¿½ rasy</font>";break;};
 
 			
 
@@ -1322,13 +1138,13 @@ $diletace=12;
 
 			
 
-				if($min4==$zaznam1["jmeno"] or $min4==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo4=$zaznam1[cislo];break;};
+				if($min4==$zaznam1["jmeno"] || $min4==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo4=$zaznam1[cislo];break;};
 
 			endwhile;
 
 			
 
-			if(($dobre!=1 or $rasavudce!=$rasaj) and $min4!=""){echo "<font class='text_cerveny'>Jméno 3. ministra neexistuje nebo není z Vaší rasy</font>";break;};
+			if(($dobre!=1 || $rasavudce!=$rasaj) && $min4!=""){echo "<font class='text_cerveny'>Jmï¿½no 3. ministra neexistuje nebo nenï¿½ z Vaï¿½ï¿½ rasy</font>";break;};
 
 			
 
@@ -1338,13 +1154,13 @@ $diletace=12;
 
 			
 
-				if($min5==$zaznam1["jmeno"] or $min5==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo5=$zaznam1[cislo];break;};
+				if($min5==$zaznam1["jmeno"] || $min5==""){$dobre=1;$rasaj=$zaznam1[rasa];$cislo5=$zaznam1[cislo];break;};
 
 			endwhile;
 
 			
 
-			if(($dobre!=1 or $rasavudce!=$rasaj) and $min5!=""){echo "<font class='text_cerveny'>Jméno 4. ministra neexistuje nebo není z Vaší rasy</font>";break;};
+			if(($dobre!=1 || $rasavudce!=$rasaj) && $min5!=""){echo "<font class='text_cerveny'>Jmï¿½no 4. ministra neexistuje nebo nenï¿½ z Vaï¿½ï¿½ rasy</font>";break;};
 
 			//echo "<font class='text_bili'>11-$min5</font>";
 
@@ -1388,7 +1204,7 @@ $diletace=12;
 
 	  else:
 
-		echo "<font class='text_cerveny'>K této akci nemáte dostatek pravomocí</font>";
+		echo "<font class='text_cerveny'>K tï¿½to akci nemï¿½te dostatek pravomocï¿½</font>";
 
 	  endif;				
 
@@ -1400,43 +1216,47 @@ $diletace=12;
 
 	
 
-	if(isset($cpvyz) and $_POST['over_post']==1):
+	if(isset($cpvyz) && $_POST['over_post']==1):
 
 	  $prav=0;
 
-	  if($statusmuj==1 or $statusmuj==5 or $statusmuj==2){$prav=1;};
+	  if($statusmuj==1 || $statusmuj==5 || $statusmuj==2){$prav=1;};
 
 	  if($prav==1):		
 
-			if(is_double($cpvyz) or is_double($cpfond)){echo "<font class='text_bili'>Èísla musí být celá</font>";break;};
+			if(is_double($cpvyz) || is_double($cpfond)){
+                echo "<font class='text_bili'>ï¿½ï¿½sla musï¿½ bï¿½t celï¿½</font>";
+                //break;
+            }
 
-			if($zaznam1[status]!=1 and $zaznam1[status]!=5){echo "<font class='text_bili'>Toto smí jen vùdce a poradce</font>";break;};
+			if($zaznam1['status']!=1 && $zaznam1['status']!=5){
+                echo "<font class='text_bili'>Toto smï¿½ jen vï¿½dce a poradce</font>";
+                //break;
+            }
 
-			if($cpvyz<0 or $cpfond<0){echo "<font class='text_cerveny'>Èísla mùsí být kladná</font>";break;};
+			if($cpvyz<0 || $cpfond<0){
+                echo "<font class='text_cerveny'>ï¿½ï¿½sla mï¿½sï¿½ bï¿½t kladnï¿½</font>";
+                //break;
+            }
 
-			if(($cpvyz+$cpfond)>100){echo "<font class='text_cerveny'>Èísla mùsí dohormady dát maximálnì 100%</font>";break;};
+			if(($cpvyz+$cpfond)>100){
+                echo "<font class='text_cerveny'>ï¿½ï¿½sla mï¿½sï¿½ dohormady dï¿½t maximï¿½lnï¿½ 100%</font>";
+                //break;
+            }
 
-	  if (is_numeric($cpvyz) and is_numeric($cpfond)):		
-
-		if(($$cpfond<=50) and ($cpfond>=0)):
-
-                MySQL_Query("update cp set vyzkum=$cpvyz,fond=$cpfond where rasa=$rasa");
-
+	  if (is_numeric($cpvyz) && is_numeric($cpfond)):		
+		if(($$cpfond<=50) && ($cpfond>=0)):
+            MySQL_Query("update cp set vyzkum=$cpvyz,fond=$cpfond where rasa=$rasa");
 		else:
-
-			echo "<font class='text_cerveny'>Pøíliš velký minimální vklad nebo záporné èíslo</font>";
-
+			echo "<font class='text_cerveny'>Pï¿½ï¿½liï¿½ velkï¿½ minimï¿½lnï¿½ vklad nebo zï¿½pornï¿½ ï¿½ï¿½slo</font>";
 		endif;
-
 	  else:
-
-		echo "<font class='text_cerveny'>Vložte jen celé èíslo od 0 do 50</font>";
-
-	endif;
+		echo "<font class='text_cerveny'>Vloï¿½te jen celï¿½ ï¿½ï¿½slo od 0 do 50</font>";
+ 	endif;
 
 	else:
 
-	echo "<font class='text_cerveny'>Vložte jen celé èíslo od 0 do 50</font>";
+	echo "<font class='text_cerveny'>Vloï¿½te jen celï¿½ ï¿½ï¿½slo od 0 do 50</font>";
 
 	endif;
 
@@ -1444,7 +1264,7 @@ $diletace=12;
 
 
 
-  if(isset($_POST["ramsg"]) AND $_POST["over_post"]==1){
+  if(isset($_POST["ramsg"]) && $_POST["over_post"]==1){
 
     $ramsg = $_POST["ramsg"];
 
@@ -1452,7 +1272,7 @@ $diletace=12;
 
     $ramsg=NL2BR($ramsg);
 
-    $udpate = mysql_query("UPDATE vudce SET rasova_zprava = '$ramsg' WHERE rasa=$zaznam1[rasa]") or die("Nepodaøilo se uložit novou zpravu");
+    $udpate = mysql_query("UPDATE vudce SET rasova_zprava = '$ramsg' WHERE rasa=$zaznam1[rasa]") || die("Nepodaï¿½ilo se uloï¿½it novou zpravu");
 
   }
 
@@ -1460,25 +1280,13 @@ $diletace=12;
 
 
 
-	if(isset($vyvr) and $_POST['over_post']==1):
+	if(isset($vyvr) && $_POST['over_post']==1):
 
 	  $prav=0;
 
-	  if($statusmuj==1 or $statusmuj==5){$prav=1;};
+	  if($statusmuj==1 || $statusmuj==5){$prav=1;};
 
 	  if($prav==1):		
-
-		//if $zaznam9[hracu]>50 $vyv=20;
-
-		//if $zaznam9[hracu]<50 $vyv=10;
-
-
-
-
-
-
-
-///------------    if ($zaznam9[darv]<=($zaznam5[uzi])*0.2):
 
 
 
@@ -1498,7 +1306,7 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
     	do{
 
-			$kontrola1 = MySQL_Query("SELECT cislo,jmeno,rasa FROM uzivatele where (jmeno = '$vyvr' and rasa=$rasa)");
+			$kontrola1 = MySQL_Query("SELECT cislo,jmeno,rasa FROM uzivatele where (jmeno = '$vyvr' && rasa=$rasa)");
 
 			$i=0;
 
@@ -1518,7 +1326,7 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 		    	}while($dobre);
 
-			if($dobre==1){echo "<font class='text_cerveny'>Tento login neexistuje, nebo není z Váší rasy</font>";break;};
+			if($dobre==1){echo "<font class='text_cerveny'>Tento login neexistuje, nebo nenï¿½ z Vï¿½ï¿½ rasy</font>";break;};
 
 			$vys1 = MySQL_Query("SELECT cislo, jmeno, rasa, penize, koho, status, den, statusnovacek, jed1, jed2, jed3, jed4, jed5  FROM uzivatele where cislo=$cislovyvr");
 
@@ -1546,78 +1354,46 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
       if ($procv <> ""){
 
-			if(!($zaznam1["status"]==1 or $zaznam1["status"]==2 or $zaznam1["status"]==3 or $zaznam1["status"]==5 )){
+			if(!($zaznam1["status"]==1 || $zaznam1["status"]==2 || $zaznam1["status"]==3 || $zaznam1["status"]==5 )){
 
-			if(!($zaznam1["statusnovacek"]==1 and $neakt > $kdy_t)){
+			if(!($zaznam1["statusnovacek"]==1 && $neakt > $kdy_t)){
 
 
 
 				$p=($zaznam1[penize]/$zaznam8[vyr_vyrob])*$rasa9[vyr_vyrob];
 
-				$j1=$zaznam1[jed1];
-
-				$j2=$zaznam1[jed2];
-
-				$j3=$zaznam1[jed3];				
-
-				$j4=$zaznam1[jed4];
-
-				$j5=$zaznam1[jed5];				
-
-
+				$j1=$zaznam1['jed1'];
+				$j2=$zaznam1['jed2'];
+				$j3=$zaznam1['jed3'];				
+				$j4=$zaznam1['jed4'];
+				$j5=$zaznam1['jed5'];				
 
 				$sj1=$j1*$rasa9[jed1_obrana]+$j1*$rasa9[jed1_utok];
-
 				$tsj1=$j1*$zaznam8[jed1_obrana]+$j1*$zaznam8[jed1_utok];
-
 				$sj2=$j2*$rasa9[jed2_obrana]+$j2*$rasa9[jed2_utok];
-
 				$tsj2=$j2*$zaznam8[jed2_obrana]+$j2*$zaznam8[jed2_utok];
-
 				$sj4=$j4*$rasa9[jed4_obrana]+$j2*$rasa9[jed4_utok];
-
 				$tsj4=$j4*$zaznam8[jed4_obrana]+$j2*$zaznam8[jed4_utok];
 
-		
-
 				if($sj1>0):
-
 					$pomer1=$tsj1/$sj1;
-
 					$j1=Round($pomer1*$j1);
-
 				endif;
-
-
 
 				if($sj2>0):
-
 					$pomer2=$tsj2/$sj2;
-
 					$j2=Round($pomer2*$j2);
-
 				endif;
-
-
 
 				if($sj4>0):
-
 					$pomer4=$tsj4/$sj4;
-
 					$j4=Round($pomer4*$j4);
-
 				endif;
 
-				
-
 				$j1=Round($j1/2);
-
 				$j2=Round($j2/2);
-
 				$j3=Round($j3/2);
-
 				$j4=Round($j4/2);
-
 				$j5=Round($j5/2);
 
 
@@ -1632,7 +1408,7 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 			$vysvudb = MySQL_Query("SELECT * FROM vudce where vudce='$jmenovudce'");
 
-			$zaznamvudb = MySQL_Fetch_Array($vysvudb) or die("Chyba");
+			$zaznamvudb = MySQL_Fetch_Array($vysvudb) || die("Chyba");
 
 
 
@@ -1658,11 +1434,11 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 
 
-					MySQL_Query("update `uzivatele` set `koho` = 'Neplatné' where `koho`='$vyvr'");
+					MySQL_Query("update `uzivatele` set `koho` = 'Neplatnï¿½' where `koho`='$vyvr'");
 
 
 
-					MySQL_Query("update `planety` set `cislomaj`='$cislovudce' where `status`='2' and `cislomaj`='$cislovyvr'");
+					MySQL_Query("update `planety` set `cislomaj`='$cislovudce' where `status`='2' && `cislomaj`='$cislovyvr'");
 
 				
 
@@ -1674,7 +1450,7 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 
 
-					MySQL_Query("update uzivatele set koho = 'Neplatné' where koho='$vyvr'");
+					MySQL_Query("update uzivatele set koho = 'Neplatnï¿½' where koho='$vyvr'");
 
 				endif;
 
@@ -1710,7 +1486,7 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 			else{
 
-				echo "<font class='text_cerveny'>Nelze vyhodit nováèka, který je neaktivní ménì jak 6 dní.</font>";
+				echo "<font class='text_cerveny'>Nelze vyhodit novï¿½ï¿½ka, kterï¿½ je neaktivnï¿½ mï¿½nï¿½ jak 6 dnï¿½.</font>";
 
 				}
 
@@ -1718,7 +1494,7 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 			else{
 
-				echo "<font class='text_cerveny'>Nelze vyhodit premiéra, ministra, zástupce</font>";
+				echo "<font class='text_cerveny'>Nelze vyhodit premiï¿½ra, ministra, zï¿½stupce</font>";
 
 				}
 
@@ -1728,7 +1504,7 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 				 else{
 
-	   echo "<font class='text_cerveny'>Zadejte dùvod vyhození hráèe</font>";
+	   echo "<font class='text_cerveny'>Zadejte dï¿½vod vyhozenï¿½ hrï¿½ï¿½e</font>";
 
       }
 
@@ -1736,13 +1512,13 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 		else:
 
-                        echo "<font class=text_cerveny>Za den nesmíte vyhodit z rasy více než 1/5 hráèù.</font>";
+                        echo "<font class=text_cerveny>Za den nesmï¿½te vyhodit z rasy vï¿½ce neï¿½ 1/5 hrï¿½ï¿½ï¿½.</font>";
 
 		endif;
 
 	  else:
 
-		echo "<font class='text_cerveny'>K této akci nemáte dostatek pravomocí</font>";
+		echo "<font class='text_cerveny'>K tï¿½to akci nemï¿½te dostatek pravomocï¿½</font>";
 
 	  endif;			
 
@@ -1760,11 +1536,11 @@ if ($zaznam9[darv]<=($poc15)*0.2):
 
 
 
-if(($vyber==1) or (empty($vyber))):
+if(($vyber==1) || (empty($vyber))):
 
 
 
-	$vys1 = MySQL_Query("SELECT jmeno,volen,status,cislo,gold,silver,penize FROM uzivatele where (rasa = $rasa and status!=5) ORDER BY volen DESC");
+	$vys1 = MySQL_Query("SELECT jmeno,volen,status,cislo,gold,silver,penize FROM uzivatele where (rasa = $rasa && status!=5) ORDER BY volen DESC");
 
 	echo "<TABLE width=100%>";
 
@@ -1776,19 +1552,19 @@ if(($vyber==1) or (empty($vyber))):
 
 	$x=1;
 
-	echo "<span style=\"text-align: left; display: block;\"><font class='text_bili'><font class=text_modry>T</font>abulka hlasù</font></span>";
+	echo "<span style=\"text-align: left; display: block;\"><font class='text_bili'><font class=text_modry>T</font>abulka hlasï¿½</font></span>";
 
 	echo "<tr>";
 
-	echo "<td>poøadí</td>";
+	echo "<td>poï¿½adï¿½</td>";
 
-	echo "<td>jméno</td>";
+	echo "<td>jmï¿½no</td>";
 
-	echo "<td>hlasù</td>";
+	echo "<td>hlasï¿½</td>";
 
 	echo "</tr>";
 
-	MySQL_Query("update uzivatele set status = 0 where (rasa=$rasa and status!=4 and status!=5)");
+	MySQL_Query("update uzivatele set status = 0 where (rasa=$rasa && status!=4 && status!=5)");
 
 	while($zaznam1=MySQL_Fetch_Array($vys1)):
 
@@ -1886,15 +1662,15 @@ if(($vyber==1) or (empty($vyber))):
 
   	echo "<td>";
 
-		if($zaznam1["status"]==1 or $zaznam1["status"]==5 or $zaznam1["status"]==2):
+		if($zaznam1["status"]==1 || $zaznam1["status"]==5 || $zaznam1["status"]==2):
 
-			echo "<font class='text_bili'><font class=text_modry>U</font>vítací pošta</font>";
+			echo "<font class='text_bili'><font class=text_modry>U</font>vï¿½tacï¿½ poï¿½ta</font>";
 
 			echo "<form name='uv' method='post' action='hlavni.php?page=vlada'>";
 
 			echo "<textarea cols=50 rows=10 name='posta'>".$zaznam9["posta"]."</textarea><br>";
 
-			echo "<input type='hidden' name='over_post' value='1'><input type='submit' value='Zmìnit uvítací poštu'>";
+			echo "<input type='hidden' name='over_post' value='1'><input type='submit' value='Zmï¿½nit uvï¿½tacï¿½ poï¿½tu'>";
 
       			echo "</form>";
 
@@ -1952,7 +1728,7 @@ if(($vyber==1) or (empty($vyber))):
 
 
 
-				MySQL_Query("update `planety` set `cislomaj`='$zaznamvudb[cislo]' where `status`='2' and `cislomaj`='$hracc'");
+				MySQL_Query("update `planety` set `cislomaj`='$zaznamvudb[cislo]' where `status`='2' && `cislomaj`='$hracc'");
 
 
 
@@ -1972,7 +1748,7 @@ if(($vyber==1) or (empty($vyber))):
 
 
 
-			        MySQL_Query("update `uzivatele` set `koho` = 'Neplatné' `where` `koho` = '$hracn'");
+			        MySQL_Query("update `uzivatele` set `koho` = 'Neplatnï¿½' `where` `koho` = '$hracn'");
 
 
 
@@ -1996,7 +1772,7 @@ if(($vyber==1) or (empty($vyber))):
 
 
 
-if($zaznam1["gold"]==1 or $zaznam1["silver"]==1){
+if($zaznam1["gold"]==1 || $zaznam1["silver"]==1){
 
 
 
@@ -2012,7 +1788,7 @@ if($zaznam1["gold"]==1 or $zaznam1["silver"]==1){
 
 
 
-				MySQL_Query("update planety set cislomaj='$zaznamvudb[cislo]' where status='2' and cislomaj='$hracc'");
+				MySQL_Query("update planety set cislomaj='$zaznamvudb[cislo]' where status='2' && cislomaj='$hracc'");
 
 
 
@@ -2062,7 +1838,7 @@ if($zaznam1["gold"]==1 or $zaznam1["silver"]==1){
 
 
 
-			        MySQL_Query("update uzivatele set koho = 'Neplatné' where koho = '$hracn'");
+			        MySQL_Query("update uzivatele set koho = 'Neplatnï¿½' where koho = '$hracn'");
 
 
 
@@ -2072,7 +1848,7 @@ if($zaznam1["gold"]==1 or $zaznam1["silver"]==1){
 
 else{
 
-				echo "<font class='text_cerveny'>Nejste gold ani silver hráè.</font>";exit;
+				echo "<font class='text_cerveny'>Nejste gold ani silver hrï¿½ï¿½.</font>";exit;
 
 }
 
@@ -2168,7 +1944,7 @@ $pocitadlo=0;
 
 if($pocitadlo!=1){$koho = $zaznam777[jmeno];}
 
-MySQL_Query("update uzivatele set koho='$koho' where cislo='$zaznam777[cislo]'") or die(mysql_error());		
+MySQL_Query("update uzivatele set koho='$koho' where cislo='$zaznam777[cislo]'") || die(mysql_error());		
 
 //echo $zaznam777[jmeno],$koho;
 
@@ -2190,7 +1966,7 @@ $volen= MySQL_Num_Rows($vys3);
 
 //echo $volen,  $zaznam77[$i];echo"<BR>";
 
-MySQL_Query("update uzivatele set volen='$volen' where jmeno='$koho1'") or die(mysql_error());
+MySQL_Query("update uzivatele set volen='$volen' where jmeno='$koho1'") || die(mysql_error());
 
 
 
@@ -2204,7 +1980,7 @@ MySQL_Query("update uzivatele set volen='$volen' where jmeno='$koho1'") or die(m
 
   		$den = Date("U");
 
-	   	MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('6',$den,'vsichni','srovnání hlasù','N/A','$zaznam1[jmeno]')");
+	   	MySQL_Query("INSERT INTO log (cil,den,cilt,akce,konk,admin) VALUES ('6',$den,'vsichni','srovnï¿½nï¿½ hlasï¿½','N/A','$zaznam1[jmeno]')");
 
 
 
@@ -2232,7 +2008,7 @@ MySQL_Query("update uzivatele set volen='$volen' where jmeno='$koho1'") or die(m
 
 				$kolik=$$prom;
 
-				//echo $zaznam11[jmeno]." má hlasù: ".$kolik."<br>";
+				//echo $zaznam11[jmeno]." mï¿½ hlasï¿½: ".$kolik."<br>";
 
 				MySQL_Query("update uzivatele set volen=$kolik where cislo=$zaznam11[cislo]");
 
@@ -2253,22 +2029,14 @@ MySQL_Query("update uzivatele set volen='$volen' where jmeno='$koho1'") or die(m
 
 
 <form name="form" method="post" action="hlavni.php?page=vlada">
-
-<span style="text-align: left; display: block;"><input type="text" name="koho" value="<?echo $kdo;?>"><br>
-
+<span style="text-align: left; display: block;"><input type="text" name="koho" value="<?= $kdo?>"><br>
 <input type=hidden name=hlasy value=1>
-
 <input type=hidden value="srovnej">
-
 <input type='hidden' name='over_post' value='1'>
-
-<input type="submit" value="Zmìò volbu"></span>
-
+<input type="submit" value="ZmÄ›Åˆ volbu"></span>
 </form> 
 
-<?
-
-
+<?php
 
   	echo "</td>";
 
@@ -2276,49 +2044,37 @@ MySQL_Query("update uzivatele set volen='$volen' where jmeno='$koho1'") or die(m
 
 	echo "</table>";
 
-	echo "<font class=text_bili><font class='text_bili'><font class=text_modry>P</font>ráva ";
+	echo "<font class=text_bili><font class='text_bili'><font class=text_modry>P</font>rï¿½va ";
 
 	  switch ($zaznam1["status"]) {
 
-//*******************************************obèan************************************************	  
+//*******************************************obï¿½an************************************************	  
 
  			case 0:
 
-	    		echo "obèana: </font><br><br>";
+	    		echo "obï¿½ana: </font><br><br>";
 
 
 
-echo "Opustit stávající rasu a pøejít k vyvrhelùm.<br>(Po pøechodu k vyvrhelùm vám budou odejmutu všechny CP ve vašem držení, ztratíte všechen naquadah, pøijdete o budovu banky a 50% vašich jednotek. Rasu vyvrhelové mùžete opustit až po 48 hodinách.)<br><br>";
+echo "Opustit stï¿½vajï¿½cï¿½ rasu a pï¿½ejï¿½t k vyvrhelï¿½m.<br>(Po pï¿½echodu k vyvrhelï¿½m vï¿½m budou odejmutu vï¿½echny CP ve vaï¿½em drï¿½enï¿½, ztratï¿½te vï¿½echen naquadah, pï¿½ijdete o budovu banky a 50% vaï¿½ich jednotek. Rasu vyvrhelovï¿½ mï¿½ï¿½ete opustit aï¿½ po 48 hodinï¿½ch.)<br><br>";
 
 ?>
 
-
-
 <form name="form" method="post" action="hlavni.php?page=vlada">
-
-<input type='hidden' name="hracc" value="<?echo $zaznam1[cislo]?>">
-
-<input type='hidden' name="hracn" value="<?echo $zaznam1[jmeno]?>">
-
-<input type='hidden' name="prasa" value="<?echo $zaznam1[rasa]?>">
-
+<input type='hidden' name="hracc" value="<?= $zaznam1['cislo']?>">
+<input type='hidden' name="hracn" value="<?= $zaznam1['jmeno']?>">
+<input type='hidden' name="prasa" value="<?= $zaznam1['rasa']?>">
 <input type='hidden' name="prejdi" value="98">
-
-<input type="submit" value="Pøejdi"><br><br>
-
+<input type="submit" value="PÅ™ejdi"><br><br>
 </form>
 
-
-
-<?
-
-
+<?php
 
 //******************admins
 
 /*if ($zaznam1[admin]==1):
 
-$vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0 and rasa!=97 order by rasa");
+$vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 && rasa!=0 && rasa!=97 order by rasa");
 
 				echo "<form name='rasak' method='post' action='hlavni.php?page=vlada'>";
 
@@ -2334,7 +2090,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 	    		  	echo "</select>";
 
-				echo" z fondu ($zaznam9[fond] kg)<input type='text' name='kolik'>naquadahu <input type='hidden' name='over_post' value='1'><input type='submit' value='pošli'>";	
+				echo" z fondu ($zaznam9[fond] kg)<input type='text' name='kolik'>naquadahu <input type='hidden' name='over_post' value='1'><input type='submit' value='poï¿½li'>";	
 
 				$overeni1=Date("j")*$cisloz*2005;
 
@@ -2358,17 +2114,17 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
     		
 
-//*********************************************vùdce********************************************				
+//*********************************************vï¿½dce********************************************				
 
 			case 1:
 
-		        echo "vùdce: </font><br><br>";
+		        echo "vï¿½dce: </font><br><br>";
 
 
 
 				echo "<form name='rezig' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Rezignovat na post vùdce &nbsp;<input type='hidden' name='volitm'><input type='hidden' name='over_post' value='1'><input type='submit' value='Rezignace'>";				
+				echo "Rezignovat na post vï¿½dce &nbsp;<input type='hidden' name='volitm'><input type='hidden' name='over_post' value='1'><input type='submit' value='Rezignace'>";				
 
 				echo "</form><p />";
 
@@ -2378,12 +2134,12 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='poradci' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Jmenovat premiéra: &nbsp;<input type='text' name='min1' value='$zaznam9[min1]' size=15>";
+				echo "Jmenovat premiï¿½ra: &nbsp;<input type='text' name='min1' value='$zaznam9[min1]' size=15>";
 				
 
 
 
-				echo "<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='zmìò'></form><br>";
+				echo "<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='zmï¿½ï¿½'></form><br>";
 
 
 
@@ -2395,7 +2151,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 
 
-				echo "Poslat uživateli &nbsp;<input type='text' size='15' name='komu'> &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq. <input type='hidden' name='over_post' value='1'> z dùvodu <input type='text' size ='15' name='proc'>&nbsp;<input type='submit' value='pošli'>";	
+				echo "Poslat uï¿½ivateli &nbsp;<input type='text' size='15' name='komu'> &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq. <input type='hidden' name='over_post' value='1'> z dï¿½vodu <input type='text' size ='15' name='proc'>&nbsp;<input type='submit' value='poï¿½li'>";	
 
 
 
@@ -2403,7 +2159,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 
 
-				$vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0 and rasa!=97 order by rasa");
+				$vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 && rasa!=0 && rasa!=97 order by rasa");
 
 				echo "<form name='rasak' method='post' action='hlavni.php?page=vlada'>";
 
@@ -2419,7 +2175,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 	    		  	echo "</select>";
 
-				echo" &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq.<input type='hidden' name='over_post' value='1'>&nbsp; z dùvodu <input type='text' size ='15' name='procr'>&nbsp;<input type='submit' value='pošli'>";	
+				echo" &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq.<input type='hidden' name='over_post' value='1'>&nbsp; z dï¿½vodu <input type='text' size ='15' name='procr'>&nbsp;<input type='submit' value='poï¿½li'>";	
 
 				$overeni1=Date("j")*$cisloz*2005;
 
@@ -2439,7 +2195,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='mini' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad do fondu, maximálnì 50% &nbsp;<input type='text' size = '2' name='fond' value=$zaznam9[min]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";				
+				echo "Minimï¿½lnï¿½ vklad do fondu, maximï¿½lnï¿½ 50% &nbsp;<input type='text' size = '2' name='fond' value=$zaznam9[min]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";				
 
 				echo "</form><br>";
 
@@ -2449,7 +2205,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='mini' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad na výzkum, maximálnì 50% &nbsp;<input type='text' size = '2'  name='vyz' value=$zaznam9[minv]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";
+				echo "Minimï¿½lnï¿½ vklad na vï¿½zkum, maximï¿½lnï¿½ 50% &nbsp;<input type='text' size = '2'  name='vyz' value=$zaznam9[minv]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";
 
                                                                       				
 
@@ -2461,7 +2217,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='cp' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Pøíspìvky z centrálních planet: &nbsp;<input type='text' size = '2'  name='cpvyz' value=$zaznam10[vyzkum]>% z výroby na výzkum, &nbsp;<input type='text' size = '2' name='cpfond' value=$zaznam10[fond]>% z výroby do fondu. &nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='nastav'>";				
+				echo "Pï¿½ï¿½spï¿½vky z centrï¿½lnï¿½ch planet: &nbsp;<input type='text' size = '2'  name='cpvyz' value=$zaznam10[vyzkum]>% z vï¿½roby na vï¿½zkum, &nbsp;<input type='text' size = '2' name='cpfond' value=$zaznam10[fond]>% z vï¿½roby do fondu. &nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='nastav'>";				
 
 				echo "</form><p />";						
 
@@ -2469,7 +2225,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
  				echo "<form name='ramsgfor' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Rasová zpráva: <br />&nbsp;<textarea name='ramsg' cols='50' rows='5'>".$zaznam9["rasova_zprava"]."</textarea><input type='hidden' name='over_post' value='1'> &nbsp;<br /><input type='submit' value='Ulož zpravu'>";				
+				echo "Rasovï¿½ zprï¿½va: <br />&nbsp;<textarea name='ramsg' cols='50' rows='5'>".$zaznam9["rasova_zprava"]."</textarea><input type='hidden' name='over_post' value='1'> &nbsp;<br /><input type='submit' value='Uloï¿½ zpravu'>";				
 
 				echo "</form><p />";        
 
@@ -2479,41 +2235,41 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='vyvr' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Vyhodit k vyvrhelùm hráèe &nbsp;<input type='text' name='vyvr'>&nbsp; z dùvodu <input type='text' size ='15' name='procv'>&nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='vyhoï'> <br /> Dnes už bylo z naší rasy vyhozeno k vyvrhelùm $zaznam9[darv] hráèù ";				
+				echo "Vyhodit k vyvrhelï¿½m hrï¿½ï¿½e &nbsp;<input type='text' name='vyvr'>&nbsp; z dï¿½vodu <input type='text' size ='15' name='procv'>&nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='vyhoï¿½'> <br /> Dnes uï¿½ bylo z naï¿½ï¿½ rasy vyhozeno k vyvrhelï¿½m $zaznam9[darv] hrï¿½ï¿½ï¿½ ";				
 
 				echo "</form><p />";                       
 
         
 
-				echo "<font class='text_bili'><font class=text_modry>S</font>eznam obèanù</font>";
+				echo "<font class='text_bili'><font class=text_modry>S</font>eznam obï¿½anï¿½</font>";
 
 				echo "<TABLE ".$table." ".$border.">";
 
-				if(empty($xr) or $xr<0){$xr=0;};
+				if(empty($xr) || $xr<0){$xr=0;};
 
 				$vys99 = MySQL_Query("SELECT jmeno,volen,rasa,status,fond,planety,vyzkum,sila,cislo,den,hra,posl,vek,zmrazeni FROM uzivatele where rasa = $rasa ORDER BY volen DESC limit $xr,30");		
 
 				echo "<tr>";
 
-				echo "<th>jméno</th>";
+				echo "<th>jmï¿½no</th>";
 
-				echo "<th>vìk</th>";
+				echo "<th>vï¿½k</th>";
 
-				echo "<th>posl. pøihl.</th>";
+				echo "<th>posl. pï¿½ihl.</th>";
 
-				echo "<th>síla</th>";
+				echo "<th>sï¿½la</th>";
 
-				echo "<th>poèet planet</th>";
+				echo "<th>poï¿½et planet</th>";
 
 				echo "<th>volen</th>";
 
-				echo "<th>pøispívá % do fondu</th>";
+				echo "<th>pï¿½ispï¿½vï¿½ % do fondu</th>";
 
-				echo "<th>pøispívá % na výzkum</th>";
+				echo "<th>pï¿½ispï¿½vï¿½ % na vï¿½zkum</th>";
 
 				//echo "<th>exil</th>";
 
-				echo "<th>Vyhnanství</th>";
+				echo "<th>Vyhnanstvï¿½</th>";
 
 				echo "</tr>";
 
@@ -2579,7 +2335,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					if($zaznam99["planety"]<2):
 
-						echo "<td $bex>nemùže</td>";
+						echo "<td $bex>nemï¿½ï¿½e</td>";
 
 					else:
 
@@ -2587,7 +2343,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					endif;
 
-					if(!($zaznam99["status"]==1 or $zaznam99["status"]==2 or $zaznam99["status"]==5)):
+					if(!($zaznam99["status"]==1 || $zaznam99["status"]==2 || $zaznam99["status"]==5)):
 
 					//	echo "<td><input type='checkbox' name='".$zaznam99["cislo"]."' $vyh></td>";
 
@@ -2599,7 +2355,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					else:
 
-						echo "<td>Obèan</td>";
+						echo "<td>Obï¿½an</td>";
 
 					endif;
 
@@ -2627,7 +2383,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				//*********************
 
-				echo "Poslat do vyhnanství hráèe: ";
+				echo "Poslat do vyhnanstvï¿½ hrï¿½ï¿½e: ";
 
 				
 
@@ -2659,7 +2415,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
           //-------------------  	
 
-	     	echo "<br />Pøijmout z vyhnanství hráèe: ";
+	     	echo "<br />Pï¿½ijmout z vyhnanstvï¿½ hrï¿½ï¿½e: ";
 
 				
 
@@ -2679,7 +2435,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				endwhile;
 
-	    		  	echo "</select>&nbsp;<input type='hidden' name = 'zex' value='1'><input type='submit' value='Pøijmout'>";
+	    		  	echo "</select>&nbsp;<input type='hidden' name = 'zex' value='1'><input type='submit' value='Pï¿½ijmout'>";
 
 
 
@@ -2689,7 +2445,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 			/*	echo "<input type='hidden' name='exilan' value='1'>";
 
-				echo "Zaškrtnutí obèané jsou v exilu nezaškrtnutí nejsou <input type='hidden' name='over_post' value='1'><input type='submit' value='zmeò exil'><br>";
+				echo "Zaï¿½krtnutï¿½ obï¿½anï¿½ jsou v exilu nezaï¿½krtnutï¿½ nejsou <input type='hidden' name='over_post' value='1'><input type='submit' value='zmeï¿½ exil'><br>";
 
 			*/	echo "<input type=hidden name='xr' value='$xr'></form>";
 
@@ -2707,9 +2463,9 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				$b=$xr+31;
 
-				echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&xr=".$z."&vyber=1 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Profily s èíslem ".$m." - ".$a."</a><br>";
+				echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&xr=".$z."&vyber=1 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Profily s ï¿½ï¿½slem ".$m." - ".$a."</a><br>";
 
-				echo "<a href=hlavni.php?page=vlada&xr=".$y."&vyber=1 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Profily s èíslem ".$b." - ".$v."</a></font>";
+				echo "<a href=hlavni.php?page=vlada&xr=".$y."&vyber=1 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Profily s ï¿½ï¿½slem ".$b." - ".$v."</a></font>";
 
 	        	break;
 
@@ -2717,7 +2473,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 
 
-//*****************************************zástupce**************************************************				
+//*****************************************zï¿½stupce**************************************************				
 
 		 	case 2:
 
@@ -2725,9 +2481,9 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='penize' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Mùžete poslat za den 5 pøíspìvkù, každý v hodnotì 33% ze skladu.<br /> Dnes jste poslali pøíspìvkù: $zaznam9[darz]. <br /> Maximální nynìjší možný pøíspìvek: ".fcis(Floor($zaznam9[fond]*0.2))."<p>";
+				echo "Mï¿½ï¿½ete poslat za den 5 pï¿½ï¿½spï¿½vkï¿½, kaï¿½dï¿½ v hodnotï¿½ 33% ze skladu.<br /> Dnes jste poslali pï¿½ï¿½spï¿½vkï¿½: $zaznam9[darz]. <br /> Maximï¿½lnï¿½ nynï¿½jï¿½ï¿½ moï¿½nï¿½ pï¿½ï¿½spï¿½vek: ".fcis(Floor($zaznam9[fond]*0.2))."<p>";
 
-				echo "Poslat uživateli &nbsp;<input type='text' size='15' name='komu'> &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq. <input type='hidden' name='over_post' value='1'> z dùvodu <input type='text' size ='15' name='proc'>&nbsp;<input type='submit' value='pošli'>";if($zaznam9[minv]<0){die;};	
+				echo "Poslat uï¿½ivateli &nbsp;<input type='text' size='15' name='komu'> &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq. <input type='hidden' name='over_post' value='1'> z dï¿½vodu <input type='text' size ='15' name='proc'>&nbsp;<input type='submit' value='poï¿½li'>";if($zaznam9[minv]<0){die;};	
 
 			        
                                
@@ -2736,7 +2492,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='mini' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad do fondu, maximálnì 50% &nbsp;<input type='text' size = '2' name='fond' value=$zaznam9[min]>% &nbsp;<input type='hidden' name='over_post' value='1'>&nbsp;<input type='submit' value='nastav'>";
+				echo "Minimï¿½lnï¿½ vklad do fondu, maximï¿½lnï¿½ 50% &nbsp;<input type='text' size = '2' name='fond' value=$zaznam9[min]>% &nbsp;<input type='hidden' name='over_post' value='1'>&nbsp;<input type='submit' value='nastav'>";
 
                                                                     				
 
@@ -2746,7 +2502,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='miniv' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad na výzkum, maximálnì 50% &nbsp;<input type='text' name='vyz' size = '2' value=$zaznam9[minv]>% &nbsp;<input type='hidden' name='over_post' value='1'>&nbsp;<input type='submit' value='nastav'>";
+				echo "Minimï¿½lnï¿½ vklad na vï¿½zkum, maximï¿½lnï¿½ 50% &nbsp;<input type='text' name='vyz' size = '2' value=$zaznam9[minv]>% &nbsp;<input type='hidden' name='over_post' value='1'>&nbsp;<input type='submit' value='nastav'>";
 
                                                                       				
 
@@ -2756,7 +2512,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='ramsgfor' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Rasová zpráva: <br />&nbsp;<textarea name='ramsg' cols='50' rows='5'>".$zaznam9["rasova_zprava"]."</textarea><input type='hidden' name='over_post' value='1'> &nbsp;<br /><input type='submit' value='Ulož zpravu'>";				
+				echo "Rasovï¿½ zprï¿½va: <br />&nbsp;<textarea name='ramsg' cols='50' rows='5'>".$zaznam9["rasova_zprava"]."</textarea><input type='hidden' name='over_post' value='1'> &nbsp;<br /><input type='submit' value='Uloï¿½ zpravu'>";				
 
 				echo "</form><p />";  
 
@@ -2764,35 +2520,35 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='prijm' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Pøijmout uživatele &nbsp;<input type='text' name='prijmi'> &nbsp;z exilu &nbsp;<input type='hidden' name='over_post' value='1'>&nbsp;<input type='submit' value='pøijmi'>";				
+				echo "Pï¿½ijmout uï¿½ivatele &nbsp;<input type='text' name='prijmi'> &nbsp;z exilu &nbsp;<input type='hidden' name='over_post' value='1'>&nbsp;<input type='submit' value='pï¿½ijmi'>";				
 
 				echo "</form><p />";
 
-				echo "<font class='text_bili'><font class=text_modry>S</font>eznam obèanù</font>";
+				echo "<font class='text_bili'><font class=text_modry>S</font>eznam obï¿½anï¿½</font>";
 
 				echo "<TABLE ".$table." ".$border.">";
 
-				if(empty($xr) or $xr<0){$xr=0;};
+				if(empty($xr) || $xr<0){$xr=0;};
 
 				$vys99 = MySQL_Query("SELECT jmeno,volen,rasa,status,fond,planety,sila,vyzkum,den,posl,vek FROM uzivatele where rasa = $rasa ORDER BY volen DESC limit $xr,30");		
 
 				echo "<tr>";
 
-				echo "<th>jméno</th>";
+				echo "<th>jmï¿½no</th>";
 
-				echo "<th>vìk</th>";
+				echo "<th>vï¿½k</th>";
 
-				echo "<th>posl. pøihl.</th>";
+				echo "<th>posl. pï¿½ihl.</th>";
 
-				echo "<th>síla</th>";
+				echo "<th>sï¿½la</th>";
 
-				echo "<th>poèet planet</th>";
+				echo "<th>poï¿½et planet</th>";
 
 				echo "<th>volen</th>";
 
-				echo "<th>pøispívá % do fondu</th>";
+				echo "<th>pï¿½ispï¿½vï¿½ % do fondu</th>";
 
-				echo "<th>pøispívá % na výzkum</th>";
+				echo "<th>pï¿½ispï¿½vï¿½ % na vï¿½zkum</th>";
 
 				echo "<th>exil</th>";
 
@@ -2842,7 +2598,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					if($zaznam99["planety"]<2):
 
-						echo "<td>nemùže</td>";
+						echo "<td>nemï¿½ï¿½e</td>";
 
 					else:
 
@@ -2872,9 +2628,9 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				$b=$xr+31;
 
-				echo "<center><br><font class='text_bili'><a href=hlavni.php?page=vlada&xr=".$z."&vyber=1 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Profily s èíslem ".$m." - ".$a."</a><br>";
+				echo "<center><br><font class='text_bili'><a href=hlavni.php?page=vlada&xr=".$z."&vyber=1 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Profily s ï¿½ï¿½slem ".$m." - ".$a."</a><br>";
 
-				echo "<a href=hlavni.php?page=vlada&xr=".$y."&vyber=1 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Profily s èíslem ".$b." - ".$v."</a></font>";
+				echo "<a href=hlavni.php?page=vlada&xr=".$y."&vyber=1 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Profily s ï¿½ï¿½slem ".$b." - ".$v."</a></font>";
 
 			    break;
 
@@ -2886,9 +2642,9 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='penize' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Mùžete poslat za den 2 pøíspìvky, každý v hodnotì 10% ze skladu. Dnes jste poslali pøíspìvkù: $zaznam9[dara]. Maximální nynìjší možný pøíspìvek: ".Floor($zaznam9[fond]*0.1)."<br>";
+				echo "Mï¿½ï¿½ete poslat za den 2 pï¿½ï¿½spï¿½vky, kaï¿½dï¿½ v hodnotï¿½ 10% ze skladu. Dnes jste poslali pï¿½ï¿½spï¿½vkï¿½: $zaznam9[dara]. Maximï¿½lnï¿½ nynï¿½jï¿½ï¿½ moï¿½nï¿½ pï¿½ï¿½spï¿½vek: ".Floor($zaznam9[fond]*0.1)."<br>";
 
-				echo "Poslat uživateli <input type='text' name='komu'> z fondu (ve fondu je $zaznam9[fond] kg) <input type='text' name='kolik'>naquadahu <input type='submit' value='pošli'>";	
+				echo "Poslat uï¿½ivateli <input type='text' name='komu'> z fondu (ve fondu je $zaznam9[fond] kg) <input type='text' name='kolik'>naquadahu <input type='submit' value='poï¿½li'>";	
 
 			
 
@@ -2896,7 +2652,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='mini' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad do fondu, maximálnì 50%<input type='text' name='fond' value=$zaznam9[min]><input type='submit' value='nastav'>";				
+				echo "Minimï¿½lnï¿½ vklad do fondu, maximï¿½lnï¿½ 50%<input type='text' name='fond' value=$zaznam9[min]><input type='submit' value='nastav'>";				
 
 				echo "</form><br>";
 
@@ -2904,7 +2660,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='mini' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad na výzkum, maximálnì 50% <input type='text' name='vyz' value=$zaznam9[minv]>%<input type='submit' value='nastav'>";				
+				echo "Minimï¿½lnï¿½ vklad na vï¿½zkum, maximï¿½lnï¿½ 50% <input type='text' name='vyz' value=$zaznam9[minv]>%<input type='submit' value='nastav'>";				
 
 				echo "</form><br>";
 
@@ -2920,29 +2676,23 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				
 
-echo "Opustit stávající rasu a pøejít k vyvrhelùm.<br>(Po pøechodu k vyvrhelùm vám budou odejmutu všechny CP ve vašem držení, ztratíte všechen naquadah, pøijdete o budovu banky a 50% vašich jednotek. Rasu vyvrhelové mùžete opustit až po 48 hodinách.)<br><br>";
+echo "Opustit stï¿½vajï¿½cï¿½ rasu a pï¿½ejï¿½t k vyvrhelï¿½m.<br>(Po pï¿½echodu k vyvrhelï¿½m vï¿½m budou odejmutu vï¿½echny CP ve vaï¿½em drï¿½enï¿½, ztratï¿½te vï¿½echen naquadah, pï¿½ijdete o budovu banky a 50% vaï¿½ich jednotek. Rasu vyvrhelovï¿½ mï¿½ï¿½ete opustit aï¿½ po 48 hodinï¿½ch.)<br><br>";
 
 ?>
 
 
 
 <form name="form" method="post" action="hlavni.php?page=vlada">
-
-<input type='hidden' name="hracc" value="<?echo $zaznam1[cislo]?>">
-
-<input type='hidden' name="hracn" value="<?echo $zaznam1[jmeno]?>">
-
-<input type='hidden' name="prasa" value="<?echo $zaznam1[rasa]?>">
-
+<input type='hidden' name="hracc" value="<?= $zaznam1['cislo']?>">
+<input type='hidden' name="hracn" value="<?= $zaznam1['jmeno']?>">
+<input type='hidden' name="prasa" value="<?= $zaznam1['rasa']?>">
 <input type='hidden' name="prejdi" value="98">
-
-<input type="submit" value="pøejdi">
-
+<input type="submit" value="pÅ™ejdi">
 </form>
 
 
 
-<?
+<?php
 
 			    break;
 
@@ -2956,7 +2706,7 @@ echo "Opustit stávající rasu a pøejít k vyvrhelùm.<br>(Po pøechodu k vyvrhelùm v
 
 				echo "<form name='rezign' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Rezignovat - vzdát se funkce ministra <input type='hidden' name='over_post' value='1'><input type='submit' value='pošli'><input type=hidden name=rezignace value=1>";	
+				echo "Rezignovat - vzdï¿½t se funkce ministra <input type='hidden' name='over_post' value='1'><input type='submit' value='poï¿½li'><input type=hidden name=rezignace value=1>";	
 
 				echo "</form><p>";	
 
@@ -2968,9 +2718,9 @@ echo "Opustit stávající rasu a pøejít k vyvrhelùm.<br>(Po pøechodu k vyvrhelùm v
 
 				echo "<form name='poradci' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Jmenovat vládu:<br>1. ministr: <input type='text' name='min2' value='$zaznam9[min2]' size=15><br>2. ministr: <input type='text' name='min3' value='$zaznam9[min3]' size=15><br>3. ministr: <input type='text' name='min4' value='$zaznam9[min4]' size=15><br>4. ministr: <input type='text' name='min5' value='$zaznam9[min5]' size=15>";
+				echo "Jmenovat vlï¿½du:<br>1. ministr: <input type='text' name='min2' value='$zaznam9[min2]' size=15><br>2. ministr: <input type='text' name='min3' value='$zaznam9[min3]' size=15><br>3. ministr: <input type='text' name='min4' value='$zaznam9[min4]' size=15><br>4. ministr: <input type='text' name='min5' value='$zaznam9[min5]' size=15>";
 
-				echo "<br><input type='hidden' name='over_post' value='1'><input type='submit' value='zmìò'></form><p>";
+				echo "<br><input type='hidden' name='over_post' value='1'><input type='submit' value='zmï¿½ï¿½'></form><p>";
 
                                 else:
 
@@ -2984,13 +2734,13 @@ echo "Opustit stávající rasu a pøejít k vyvrhelùm.<br>(Po pøechodu k vyvrhelùm v
 
 
 
-                                if($zaznam9[min1]==$logjmeno or $zaznam9[min3]==$logjmeno or $zaznam9[min2]==$logjmeno):
+                                if($zaznam9[min1]==$logjmeno || $zaznam9[min3]==$logjmeno || $zaznam9[min2]==$logjmeno):
 
 				echo "<form name='penize' method='post' action='hlavni.php?page=vlada'>";
 
 				
 
-				echo "Poslat uživateli&nbsp;<input type='text' size='15' name='komu'>&nbsp;z fondu&nbsp;(".fcis($zaznam9[fond])." kg)&nbsp;<input type='text' size='10' name='kolik'>&nbsp;naq.<input type='hidden' name='over_post' value='1'> z dùvodu <input type='text' size ='13' name='proc'>&nbsp;<input type='submit' value='pošli'>";	
+				echo "Poslat uï¿½ivateli&nbsp;<input type='text' size='15' name='komu'>&nbsp;z fondu&nbsp;(".fcis($zaznam9[fond])." kg)&nbsp;<input type='text' size='10' name='kolik'>&nbsp;naq.<input type='hidden' name='over_post' value='1'> z dï¿½vodu <input type='text' size ='13' name='proc'>&nbsp;<input type='submit' value='poï¿½li'>";	
 
 
 
@@ -3008,9 +2758,9 @@ echo "Opustit stávající rasu a pøejít k vyvrhelùm.<br>(Po pøechodu k vyvrhelùm v
 
 
 
-                                if($zaznam9[min1]==$logjmeno or $zaznam9[min3]==$logjmeno):
+                                if($zaznam9[min1]==$logjmeno || $zaznam9[min3]==$logjmeno):
 
-$vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0 and rasa!=97 order by rasa");
+$vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 && rasa!=0 && rasa!=97 order by rasa");
 
 				echo "<form name='rasak' method='post' action='hlavni.php?page=vlada'>";
 
@@ -3026,7 +2776,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 	    		  	echo "</select>";
 
-				echo" &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq. &nbsp;<input type='hidden' name='over_post' value='1'> z dùvodu <input type='text' size ='15' name='procr'>&nbsp;<input type='submit' value='pošli'>";	
+				echo" &nbsp;z fondu &nbsp;(".fcis($zaznam9[fond])." kg) &nbsp;<input type='text' size='10' name='kolik'> &nbsp;naq. &nbsp;<input type='hidden' name='over_post' value='1'> z dï¿½vodu <input type='text' size ='15' name='procr'>&nbsp;<input type='submit' value='poï¿½li'>";	
 
 				$overeni1=Date("j")*$cisloz*2005;
 
@@ -3054,13 +2804,13 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 
 
-                                if($zaznam9[min1]==$logjmeno or $zaznam9[min2]==$logjmeno):
+                                if($zaznam9[min1]==$logjmeno || $zaznam9[min2]==$logjmeno):
 
 
 
 				echo "<form name='mini' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad do fondu, maximálnì 50% &nbsp;<input type='text' size = '2' name='fond' value=$zaznam9[min]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";				
+				echo "Minimï¿½lnï¿½ vklad do fondu, maximï¿½lnï¿½ 50% &nbsp;<input type='text' size = '2' name='fond' value=$zaznam9[min]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";				
 
 				echo "</form><br>";
 
@@ -3070,7 +2820,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				echo "<form name='mini' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Minimální vklad na výzkum, maximálnì 50% &nbsp;<input type='text' size = '2'  name='vyz' value=$zaznam9[minv]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";
+				echo "Minimï¿½lnï¿½ vklad na vï¿½zkum, maximï¿½lnï¿½ 50% &nbsp;<input type='text' size = '2'  name='vyz' value=$zaznam9[minv]>% &nbsp;<input type='hidden' name='over_post' value='1'> &nbsp;<input type='submit' value='nastav'>";
 
                                                                       				
 
@@ -3080,7 +2830,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					echo "<form name='cp' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Pøíspìvky z centrálních planet: &nbsp;<input type='text' size = '2'  name='cpvyz' value=$zaznam10[vyzkum]>% z výroby na výzkum, &nbsp;<input type='text' size = '2' name='cpfond' value=$zaznam10[fond]>% z výroby do fondu. &nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='nastav'>";				
+				echo "Pï¿½ï¿½spï¿½vky z centrï¿½lnï¿½ch planet: &nbsp;<input type='text' size = '2'  name='cpvyz' value=$zaznam10[vyzkum]>% z vï¿½roby na vï¿½zkum, &nbsp;<input type='text' size = '2' name='cpfond' value=$zaznam10[fond]>% z vï¿½roby do fondu. &nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='nastav'>";				
 
 				echo "</form><p />";	
 
@@ -3098,7 +2848,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
  			echo "<form name='ramsgfor' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Rasová zpráva: <br />&nbsp;<textarea name='ramsg' cols='50' rows='5'>".$zaznam9["rasova_zprava"]."</textarea><input type='hidden' name='over_post' value='1'> &nbsp;<br /><input type='submit' value='Ulož zpravu'>";				
+				echo "Rasovï¿½ zprï¿½va: <br />&nbsp;<textarea name='ramsg' cols='50' rows='5'>".$zaznam9["rasova_zprava"]."</textarea><input type='hidden' name='over_post' value='1'> &nbsp;<br /><input type='submit' value='Uloï¿½ zpravu'>";				
 
 				echo "</form><p />";                                
 
@@ -3110,11 +2860,11 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
                                 
 
-                                       if($zaznam9[min5]==$logjmeno or $zaznam9[min4]==$logjmeno or $zaznam9[min1]==$logjmeno):
+                                       if($zaznam9[min5]==$logjmeno || $zaznam9[min4]==$logjmeno || $zaznam9[min1]==$logjmeno):
 
 				echo "<form name='vyvr' method='post' action='hlavni.php?page=vlada'>";
 
-				echo "Vyhodit k vyvrhelùm hráèe <input type='text' name='vyvr'> z dùvodu <input type='text' size ='15' name='procv'>&nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='vyhoï'> <br /> Dnes už bylo z naší rasy vyhozeno k vyvrhelùm $zaznam9[darv] hráèù ";				
+				echo "Vyhodit k vyvrhelï¿½m hrï¿½ï¿½e <input type='text' name='vyvr'> z dï¿½vodu <input type='text' size ='15' name='procv'>&nbsp;<input type='hidden' name='over_post' value='1'><input type='submit' value='vyhoï¿½'> <br /> Dnes uï¿½ bylo z naï¿½ï¿½ rasy vyhozeno k vyvrhelï¿½m $zaznam9[darv] hrï¿½ï¿½ï¿½ ";				
 
 				echo "</form><br>";
 
@@ -3128,35 +2878,35 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 			
 
-				echo "<font class='text_bili'><font class=text_modry>S</font>eznam obèanù</font>";
+				echo "<font class='text_bili'><font class=text_modry>S</font>eznam obï¿½anï¿½</font>";
 
 				echo "<TABLE ".$table." ".$border.">";
 
-				if(empty($xr) or $xr<0){$xr=0;};
+				if(empty($xr) || $xr<0){$xr=0;};
 
 				$vys99 = MySQL_Query("SELECT jmeno,volen,rasa,status,fond,planety,vyzkum,sila,cislo,den,hra,posl,vek FROM uzivatele where rasa = $rasa ORDER BY volen DESC Limit $xr,30");		
 
 				echo "<tr>";
 
-				echo "<th>jméno</th>";
+				echo "<th>jmï¿½no</th>";
 
-				echo "<th>vìk</th>";
+				echo "<th>vï¿½k</th>";
 
-				echo "<th>posl. pøihl.</th>";
+				echo "<th>posl. pï¿½ihl.</th>";
 
-				echo "<th>síla</th>";
+				echo "<th>sï¿½la</th>";
 
-				echo "<th>poèet planet</th>";
+				echo "<th>poï¿½et planet</th>";
 
 				echo "<th>volen</th>";
 
-				echo "<th>pøispívá % do fondu</th>";
+				echo "<th>pï¿½ispï¿½vï¿½ % do fondu</th>";
 
-				echo "<th>pøispívá % na výzkum</th>";
+				echo "<th>pï¿½ispï¿½vï¿½ % na vï¿½zkum</th>";
 
         //echo "<th>exil</th>";
 
-				echo "<th>Vyhnanství</th>";
+				echo "<th>Vyhnanstvï¿½</th>";
 
 				echo "</tr>";
 
@@ -3222,7 +2972,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					if($zaznam99["planety"]<2):
 
-						echo "<td $bex>nemùže</td>";
+						echo "<td $bex>nemï¿½ï¿½e</td>";
 
 					else:
 
@@ -3230,7 +2980,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					endif;
 
-					if(!($zaznam99["status"]==1 or $zaznam99["status"]==2 or $zaznam99["status"]==5)):
+					if(!($zaznam99["status"]==1 || $zaznam99["status"]==2 || $zaznam99["status"]==5)):
 
 					//	echo "<td><input type='checkbox' name='".$zaznam99["cislo"]."' $vyh></td>";
 
@@ -3242,7 +2992,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 					else:
 
-						echo "<td>Obèan</td>";
+						echo "<td>Obï¿½an</td>";
 
 					endif;
 
@@ -3270,7 +3020,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				//*********************
 
-				echo "Poslat do vyhnanství hráèe: ";
+				echo "Poslat do vyhnanstvï¿½ hrï¿½ï¿½e: ";
 
 				
 
@@ -3302,7 +3052,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
           //-------------------  	
 
-	     	echo "<br />Pøijmout z vyhnanství hráèe: ";
+	     	echo "<br />Pï¿½ijmout z vyhnanstvï¿½ hrï¿½ï¿½e: ";
 
 				
 
@@ -3322,7 +3072,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				endwhile;
 
-	    		  	echo "</select>&nbsp;<input type='hidden' name = 'zex' value='1'><input type='submit' value='Pøijmout'>";
+	    		  	echo "</select>&nbsp;<input type='hidden' name = 'zex' value='1'><input type='submit' value='Pï¿½ijmout'>";
 
 
 
@@ -3332,7 +3082,7 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 			/*	echo "<input type='hidden' name='exilan' value='1'>";
 
-				echo "Zaškrtnutí obèané jsou v exilu nezaškrtnutí nejsou <input type='hidden' name='over_post' value='1'><input type='submit' value='zmeò exil'><br>";
+				echo "Zaï¿½krtnutï¿½ obï¿½anï¿½ jsou v exilu nezaï¿½krtnutï¿½ nejsou <input type='hidden' name='over_post' value='1'><input type='submit' value='zmeï¿½ exil'><br>";
 
 			*/echo "<input type=hidden name='xr' value='$xr'></form>";
 
@@ -3350,9 +3100,9 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 
 				$b=$xr+31;
 
-				echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&xr=".$z."&vyber=1 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Profily s èíslem ".$m." - ".$a."</a><br>";
+				echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&xr=".$z."&vyber=1 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>Profily s ï¿½ï¿½slem ".$m." - ".$a."</a><br>";
 
-				echo "<a href=hlavni.php?page=vlada&xr=".$y."&vyber=1 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Profily s èíslem ".$b." - ".$v."</a></font>";				
+				echo "<a href=hlavni.php?page=vlada&xr=".$y."&vyber=1 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>Profily s ï¿½ï¿½slem ".$b." - ".$v."</a></font>";				
 
 	        	break;				
 
@@ -3361,24 +3111,19 @@ $vys4 = MySQL_Query("SELECT rasa,nazevrasy FROM rasy where rasa < 10 and rasa!=0
 elseif($vyber==2):
 
 
-
-
-
 echo "<form name='form' method='post' action='hlavni.php?page=vlada&vyber=2'>";
 
 ?>
 
 
 
-<font class='text_bili'>Vypsat posledních &nbsp;<input type='text' name='kolik' value='10' size='3'>&nbsp; èinù hráèe &nbsp;<input type='text' name='ci' value='Zadejte jméno' size='15'>
+<font class='text_bili'>Vypsat poslednï¿½ch &nbsp;<input type='text' name='kolik' value='10' size='3'>&nbsp; ï¿½inï¿½ hrï¿½ï¿½e &nbsp;<input type='text' name='ci' value='Zadejte jmï¿½no' size='15'>
 
 <input type=submit value='Vypsat' name='vypsat'></font>
 
+<?php
 
-
-<?
-
-	if(($x<0 or empty($x))){$x=0;};
+	if(($x<0 || empty($x))){$x=0;};
 
 	$ciny2 = MySQL_Query("SELECT * FROM ciny where rasa = $rasa ORDER BY cas DESC LIMIT $x,30");
 
@@ -3388,13 +3133,13 @@ echo "<form name='form' method='post' action='hlavni.php?page=vlada&vyber=2'>";
 
 	echo "<tr>";
 
-	echo "<th>èas</th>";
+	echo "<th>ï¿½as</th>";
 
 	echo "<th>kdo (status)</th>";
 
-	echo "<th>èin</th>";
+	echo "<th>ï¿½in</th>";
 
-	echo "<th>dùvod</th>";
+	echo "<th>dï¿½vod</th>";
 
 	echo "</tr>";
 
@@ -3406,9 +3151,9 @@ echo "<form name='form' method='post' action='hlavni.php?page=vlada&vyber=2'>";
 
 		switch($ciny[status]){
 
-			case 1 :$status="vùdce";break;
+			case 1 :$status="vï¿½dce";break;
 
-			case 2 :$status="zástupce";break;
+			case 2 :$status="zï¿½stupce";break;
 
 			case 3 :$status="asistent";break;
 
@@ -3416,25 +3161,25 @@ echo "<form name='form' method='post' action='hlavni.php?page=vlada&vyber=2'>";
 
 			case 5 :$status="poradce";break;
 
-			default: $status="obèan";
+			default: $status="obï¿½an";
 
 		};
 
 		switch($ciny[cin]){
 
-			case 1 :$cin="Pøijmul od vyvrhelù hráèe $ciny[koho]";break;
+			case 1 :$cin="Pï¿½ijmul od vyvrhelï¿½ hrï¿½ï¿½e $ciny[koho]";break;
 
-			case 2 :$cin="Vyhodil k vyvrhelùm hráèe $ciny[koho]";break;
+			case 2 :$cin="Vyhodil k vyvrhelï¿½m hrï¿½ï¿½e $ciny[koho]";break;
 
-			case 3 :$cin="Poslal hráèi $ciny[koho] ".number_format($ciny[cislo],0,0," ")." NQ";break;
+			case 3 :$cin="Poslal hrï¿½ï¿½i $ciny[koho] ".number_format($ciny[cislo],0,0," ")." NQ";break;
 
 			case 4 :$cin="Poslal rase $ciny[koho] ".number_format($ciny[cislo],0,0," ")." NQ";break;
 
-			case 5 :$cin="Poslal hráèi $ciny[koho] jednotky v hodnotì ".number_format($ciny[cislo],0,0," ")." NQ";break;			
+			case 5 :$cin="Poslal hrï¿½ï¿½i $ciny[koho] jednotky v hodnotï¿½ ".number_format($ciny[cislo],0,0," ")." NQ";break;			
 
 			case 6 :$cin="Poslal do fondu ".number_format($ciny[cislo],0,0," ")." NQ";break;			
 
-			case 7 :$cin="Poslal do rasové armády jednotky v hodnotì ".number_format($ciny[cislo],0,0," ")." NQ";break;						
+			case 7 :$cin="Poslal do rasovï¿½ armï¿½dy jednotky v hodnotï¿½ ".number_format($ciny[cislo],0,0," ")." NQ";break;						
 
 	    case 20 :$cin="Rasa $ciny[koho] poslala ".number_format($ciny[cislo],0,0," ")." NQ";break;
 
@@ -3462,9 +3207,9 @@ echo "<form name='form' method='post' action='hlavni.php?page=vlada&vyber=2'>";
 
 	$z=$x-30;
 
-	echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&x=".$z."&vyber=2 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>30 novìjších èinù</a><br>";
+	echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&x=".$z."&vyber=2 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>30 novï¿½jï¿½ï¿½ch ï¿½inï¿½</a><br>";
 
-	echo "<a href=hlavni.php?page=vlada&x=".$y."&vyber=2 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>30 starších èinù</a></font>";
+	echo "<a href=hlavni.php?page=vlada&x=".$y."&vyber=2 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>30 starï¿½ï¿½ch ï¿½inï¿½</a></font>";
 
 
 
@@ -3503,16 +3248,13 @@ elseif($vyber==7):
     include "logprep.php";
 
 
-
-
-
 				
 
 	//***********ciny adminu***************
 
 elseif($vyber==4):
 
-	if(($x<0 or empty($x))){$x=0;};
+	if(($x<0 || empty($x))){$x=0;};
 
 	$log2 = MySQL_Query("SELECT * FROM log ORDER BY den DESC LIMIT $x,30");
 
@@ -3522,11 +3264,11 @@ elseif($vyber==4):
 
 	echo "<tr>";
 
-	echo "<th>èas</th>";
+	echo "<th>ï¿½as</th>";
 
 	echo "<th>admin</th>";	
 
-	echo "<th>èin</th>";		
+	echo "<th>ï¿½in</th>";		
 
 	echo "</tr>";
 
@@ -3538,41 +3280,41 @@ elseif($vyber==4):
 
     switch($log[cil]){
 
-			case 1 :$cil="Poslal hráèi $log[cilt] $log[konk] NQ";break;
+			case 1 :$cil="Poslal hrï¿½ï¿½i $log[cilt] $log[konk] NQ";break;
 
-			case 2 :$cil="Smazal hráèe $log[cilt]";break;
+			case 2 :$cil="Smazal hrï¿½ï¿½e $log[cilt]";break;
 
 			case 3 :$cil="Poslal rase $log[cilt] $log[konk] NQ";break;
 
-			case 4 :$cil="Pøesunul hráèe $log[cilt]"; $cil.=" k rase "; $cil.=$log[konk];break;
+			case 4 :$cil="Pï¿½esunul hrï¿½ï¿½e $log[cilt]"; $cil.=" k rase "; $cil.=$log[konk];break;
 
-			case 5 :$cil="Smazal hráèi $log[cilt] planetu $log[konk]";break;			
+			case 5 :$cil="Smazal hrï¿½ï¿½i $log[cilt] planetu $log[konk]";break;			
 
 			case 6 :$cil="Srovnal hlasy";break;			
 
-			case 7 :$cil="Srovnal sílu";break;
+			case 7 :$cil="Srovnal sï¿½lu";break;
 
-			case 8 :$cil="Vytvoøil rase $log[cilt] národního hrdinu $log[konk]";break;
+			case 8 :$cil="Vytvoï¿½il rase $log[cilt] nï¿½rodnï¿½ho hrdinu $log[konk]";break;
 
-			case 9 :$cil="Vytvoøil rase $log[cilt] CP se jménem $log[konk]";break;
+			case 9 :$cil="Vytvoï¿½il rase $log[cilt] CP se jmï¿½nem $log[konk]";break;
 
-			case 10 :$cil="Vytvoøil rase $log[cilt] PP se jménem $log[konk]";break;
+			case 10 :$cil="Vytvoï¿½il rase $log[cilt] PP se jmï¿½nem $log[konk]";break;
 
-			case 11 :$cil="Zmìnil rase $log[cilt] stav rasové armády $log[konk]";break;
+			case 11 :$cil="Zmï¿½nil rase $log[cilt] stav rasovï¿½ armï¿½dy $log[konk]";break;
 
 			case 12 :$cil="Zastavil hru";break;
 
 			case 13 :$cil="Spustil hru";break;
 
-			case 14 :$cil="Zastavil útok";break;
+			case 14 :$cil="Zastavil ï¿½tok";break;
 
-			case 15 :$cil="Spustil útok";break;
+			case 15 :$cil="Spustil ï¿½tok";break;
 
-			case 16 :$cil="Spustil mezivìk";break;
+			case 16 :$cil="Spustil mezivï¿½k";break;
 
-			case 17 :$cil="Ukonèil mezivìk";break;
+			case 17 :$cil="Ukonï¿½il mezivï¿½k";break;
 
-			case 18 :$cil="Zboøil banku hráèi $log[cilt]";break;
+			case 18 :$cil="Zboï¿½il banku hrï¿½ï¿½i $log[cilt]";break;
 
 		};
 
@@ -3594,9 +3336,9 @@ elseif($vyber==4):
 
 	$z=$x-30;
 
-	echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&x=".$z."&vyber=4 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>30 novìjších èinù</a><br>";
+	echo "<center><font class='text_bili'><a href=hlavni.php?page=vlada&x=".$z."&vyber=4 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>30 novï¿½jï¿½ï¿½ch ï¿½inï¿½</a><br>";
 
-	echo "<a href=hlavni.php?page=vlada&x=".$y."&vyber=4 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>30 starších èinù</a></font>";				
+	echo "<a href=hlavni.php?page=vlada&x=".$y."&vyber=4 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>30 starï¿½ï¿½ch ï¿½inï¿½</a></font>";				
 
 
 
@@ -3617,10 +3359,4 @@ else:
 endif;
 
 	echo "</font>";
-
-	//MySQL_Close($spojeni);			
-
-?>
-
-
 

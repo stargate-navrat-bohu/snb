@@ -5,5 +5,5 @@ function Rozsvitit(id) {
 
 
 function Zhasnout(id) {
-  document.all.item(id).style.color = "<?echo $color_hr?>";
+  document.all.item(id).style.color = "<?= $color_hr ?>";
 }

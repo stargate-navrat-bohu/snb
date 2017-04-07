@@ -1,4 +1,4 @@
-<?
+<?php
 
 mysql_query("SET NAMES cp1250");	
 	function fcislo($a){
@@ -21,17 +21,17 @@ mysql_query("SET NAMES cp1250");
   
                         
 
-echo "<h6><font class='text_modry'>V</font>ýpis bankovních transakcí hráèe ".$ciny." </h6>";
+echo "<h6><font class='text_modry'>V</font>ï¿½pis bankovnï¿½ch transakcï¿½ hrï¿½ï¿½e ".$ciny." </h6>";
 
 echo "<table border='1'>";
 echo "<tr>";
 
-echo "<th>Datum pøevodu</th>";
-echo "<th>Typ pøevodu</th>";
-echo "<th>Pøevádìná èástka</th>";
-echo "<th>Poplatek za pøevod</th>";
-echo "<th>Vázáno v bance do</th>";
-echo "<th>Úrok</th>";
+echo "<th>Datum pï¿½evodu</th>";
+echo "<th>Typ pï¿½evodu</th>";
+echo "<th>Pï¿½evï¿½dï¿½nï¿½ ï¿½ï¿½stka</th>";
+echo "<th>Poplatek za pï¿½evod</th>";
+echo "<th>Vï¿½zï¿½no v bance do</th>";
+echo "<th>ï¿½rok</th>";
 echo "</tr>";
 
 
@@ -66,8 +66,8 @@ echo "<center>";
 
 	$y=$x+20;
 	$z=$x-20;
-	echo "<h6><a href=hlavni.php?page=admin15&x=".$z." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>20 novìjších transakcí</a><br>";
-	echo "<a href=hlavni.php?page=admin15&x=".$y." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>20 starších transakcí</a></h6>";	
+	echo "<h6><a href=hlavni.php?page=admin15&x=".$z." id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>20 novï¿½jï¿½ï¿½ch transakcï¿½</a><br>";
+	echo "<a href=hlavni.php?page=admin15&x=".$y." id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>20 starï¿½ï¿½ch transakcï¿½</a></h6>";	
 
 
 		endif;
@@ -84,19 +84,19 @@ echo "<center>";
                         MySQL_Query("update uzivatele set kontrolabankabudova='0' where jmeno='$komu'");
 
 
-			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,admin) VALUES ('18','$den','$komu','Zbourání banky','$logjmeno')");
+			MySQL_Query("INSERT INTO log (cil,den,cilt,akce,admin) VALUES ('18','$den','$komu','Zbourï¿½nï¿½ banky','$logjmeno')");
 
 
-			echo "<font class='text_cerveny'>Byla zbourána banka hráèi ".$komu.".</font>";exit;
+			echo "<font class='text_cerveny'>Byla zbourï¿½na banka hrï¿½ï¿½i ".$komu.".</font>";exit;
                            
 
 		endif;
 
 
 ?>
-<h6><font class='text_modry'>K</font>ontrola bankovních pøevodù.</h6>
+<h6><font class='text_modry'>K</font>ontrola bankovnï¿½ch pï¿½evodï¿½.</h6>
 
-<h6>Vyhledat hráèe kteøí mají postavenou banku.</h6>
+<h6>Vyhledat hrï¿½ï¿½e kteï¿½ï¿½ majï¿½ postavenou banku.</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin15'>
 <font class=text_bili>
 <input type=hidden name=jebanka value=1>
@@ -106,11 +106,11 @@ echo "<center>";
 
 
 
-<h6>Postavit banku hráèi:</h6>
+<h6>Postavit banku hrï¿½ï¿½i:</h6>
 <form name='form1' method='post' action='hlavni.php?page=admin15'>
 <font class=text_bili>
 <input type='text' name='postav_b' size='8' value=<?echo $postav_b;?>>
-<input type=submit value="proveï"><br>
+<input type=submit value="proveï¿½"><br>
 </font>
 </form>
 
@@ -137,17 +137,17 @@ echo "<center>";
 
 			echo "<TABLE ".$table." ".$border." width='25%' align=center>";
 			echo "<tr>";
-			echo "<th colspan=8><font color='FF0D0D'>Majitelé bank</font></th>";
+			echo "<th colspan=8><font color='FF0D0D'>Majitelï¿½ bank</font></th>";
 			echo "</tr>";
 			echo "<tr>";
-			echo "<th>Jméno</th>";
+			echo "<th>Jmï¿½no</th>";
 			echo "<th>V bance</th>";
 			echo "<th>Budova</th>";
 			echo "<th>Kontrola</th>";
 			echo "<th>Rasa</th>";
 			echo "<th>Hotovost</th>";
 			echo "<th>Zbourat banku</th>";
-			echo "<th>Vypsat bankovní transakce</th>";
+			echo "<th>Vypsat bankovnï¿½ transakce</th>";
 			echo "</tr>";
 			while ($zaznam1c = MySQL_Fetch_Array($vys1c)):
 
@@ -245,7 +245,7 @@ $color="#2DF96B";
 
 
 
-echo "<form name='form1' method='post' action='hlavni.php?page=admin15'><h6>Vypsat posledních 20 bankovních transakcí hráèe <input type='text' size='10' name='ciny' value='$ciny'>.</h6>";
+echo "<form name='form1' method='post' action='hlavni.php?page=admin15'><h6>Vypsat poslednï¿½ch 20 bankovnï¿½ch transakcï¿½ hrï¿½ï¿½e <input type='text' size='10' name='ciny' value='$ciny'>.</h6>";
 echo "<input type=submit name='nove' value='Vypsat'></form>";
 
 

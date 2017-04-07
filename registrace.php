@@ -380,7 +380,7 @@ $prumuzi = Round($celkuzi / $pocetras);
 				<font class="text_modry">Jméno:</font>
 			</td>
 			<td class="b">
-				<input type="text" name="jmeno1" size=15 value="<?echo $jmeno1; ?>" class="input">
+				<input type="text" name="jmeno1" size=15 value="<?= $jmeno1?>" class="input">
 			</td>
 		</tr>
 		<tr>
@@ -598,7 +598,7 @@ $prumuzi = Round($celkuzi / $pocetras);
 
 <font class="text_bili"><h2>Detaily</h2></font>
 <font class="text_modry">Na vyváženost ras je ovlivňován počet uživatelů v jednotlivých rasách. Je to počet lidí v rase s nejmenším počtem hráčů s maximálním navýšením 
-<?echo $konstrozdil; ?> 
+<?= $konstrozdil?> 
 uživatelů. V následující tabulce je přehled ras s počty uživatelů v nich.<br />
 Limit: <?
 /*$limit = $prumuzi+$konstrozdil;*/

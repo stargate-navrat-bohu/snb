@@ -1,13 +1,8 @@
-<?
+<?php
 mysql_query("SET NAMES cp1250");
 setcookie("logjmeno",$jmeno1,time()+10800);
 setcookie("logheslo",md5($heslo1),time()+10800);
-/*
-if(empty($k)):
-	mt_srand(time());
-	$c=mt_rand(1000000000,9999999999);
-	setcookie("k",$c,time()+5184001);
-endif;*/
+
 Header ("Cache control: no-cache");
 ?>
 <html>
@@ -21,17 +16,17 @@ Header ("Cache control: no-cache");
 #tab{background-repeat:no-repeat;}
 </style>
 </head>
-<?
+<?php
 if($color_hr==""){$color_hr="#cc6600";};
 
 	$dobre=0;
 		require "data_1.php";
 
-if($zaznam1[jmeno]!='puchy2' and $zaznam1[jmeno]!='george111' and $zaznam1[jmeno]!='ACE1' and $zaznam1[jmeno]!='Bandur'){echo "<h1>Nejste admin proto nemáte pøístup do admin rozhraní.</h1>";exit;};
+if($zaznam1[jmeno]!='puchy2' and $zaznam1[jmeno]!='george111' and $zaznam1[jmeno]!='ACE1' and $zaznam1[jmeno]!='Bandur'){echo "<h1>Nejste admin proto nemï¿½te pï¿½ï¿½stup do admin rozhranï¿½.</h1>";exit;};
 
 		@$vysledek = MySQL_Query("SELECT jmeno,admin,heslo,cislo,rasa FROM  uzivatele ORDER BY jmeno");
 		if (!$vysledek):
-		  echo "<h1>Bohužel se nepodaøilo pøipojit k DB</h1>";
+		  echo "<h1>Bohuï¿½el se nepodaï¿½ilo pï¿½ipojit k DB</h1>";
 		  exit;
 		endif;
 
@@ -52,7 +47,7 @@ if($zaznam1[jmeno]!='puchy2' and $zaznam1[jmeno]!='george111' and $zaznam1[jmeno
 				$cislo=$zaznam[cislo];
 	
 				if (($dobre==1) && ($zaznam["heslo"]==$heslo1)):
-					if($jmeno1=="kronikáø"):
+					if($jmeno1=="kronikï¿½ï¿½"):
 						echo "<script languague='JavaScript'>location.href='kron.php'</script>";
 					else:
 						@$kuk = MySQL_Query("SELECT * FROM  mul where jmeno = '$jmeno1'");
@@ -96,21 +91,21 @@ if($zaznam1[jmeno]!='puchy2' and $zaznam1[jmeno]!='george111' and $zaznam1[jmeno
 						  document.cookie= jmeno+"="+hodnota+";expires="+datum.toGMTString();
 							}
 
-						uloz("logcislo",<?echo $cislo?>,2);
+						uloz("logcislo",<?= $cislo?>,2);
 						</script>
-<?
+<?php
 						//echo $adresa;
 						//exit;".$adresa."
 						echo "<script languague='JavaScript'>location.href='hlavni.php'</script>";
 					endif;
 				elseif($dobre==0):
-					echo "<h1>Chyba neexistuje tento uživatel</h1>";
+					echo "<h1>Chyba neexistuje tento uï¿½ivatel</h1>";
 				else:
-					echo "<h1>špatné heslo</h1>";
+					echo "<h1>ï¿½patnï¿½ heslo</h1>";
 				endif;	
 			endif;
 		elseif(isset($jmeno1)):
-			echo "<h1>Špatné heslo</h1>";
+			echo "<h1>ï¿½patnï¿½ heslo</h1>";
 		endif;		
 
 		$vys5 = MySQL_Query("SELECT jmeno FROM uzivatele");
@@ -137,23 +132,23 @@ if($zaznam1[jmeno]!='puchy2' and $zaznam1[jmeno]!='george111' and $zaznam1[jmeno
 <body bgColor=#000000><center>
 <br><br>
 <CENTER>
-<h1>Toto je servisní pøístup, jen pro zvanné.</h1>
+<h1>Toto je servisnï¿½ pï¿½ï¿½stup, jen pro zvannï¿½.</h1>
 <FONT class=info>
 <P align=center><IMG src="hlavni_pozadi.jpg"> 
-<P><FONT color=#cc6600>V</FONT><FONT color=#ffffff>ítejte na úvodní stránce hry 
-STARGATE, inspirovanou televizním filmem a následnì seriálem stargate(hvìzdná 
-brána). Abyste si mohli zahrát staèá se jen <A id=a onmouseover="Rozsvitit('a')" 
+<P><FONT color=#cc6600>V</FONT><FONT color=#ffffff>ï¿½tejte na ï¿½vodnï¿½ strï¿½nce hry 
+STARGATE, inspirovanou televiznï¿½m filmem a nï¿½slednï¿½ seriï¿½lem stargate(hvï¿½zdnï¿½ 
+brï¿½na). Abyste si mohli zahrï¿½t staï¿½ï¿½ se jen <A id=a onmouseover="Rozsvitit('a')" 
 onmouseout="Zhasnout('a')" 
-href="registrace.php">zaregistrovat</A> a pak se už 
-pøihlásit a hrát. Doporuèuji si pøeèít <A id=b onmouseover="Rozsvitit('b')" 
+href="registrace.php">zaregistrovat</A> a pak se uï¿½ 
+pï¿½ihlï¿½sit a hrï¿½t. Doporuï¿½uji si pï¿½eï¿½ï¿½t <A id=b onmouseover="Rozsvitit('b')" 
 onmouseout="Zhasnout('b')" href="help/" 
-target=_blank>help</A>. Kdykoliv si svùj profil mùžete <A id=c 
+target=_blank>help</A>. Kdykoliv si svï¿½j profil mï¿½ï¿½ete <A id=c 
 onmouseover="Rozsvitit('c')" onmouseout="Zhasnout('c')" 
 href="smazat.php">smazat</A>. Statistiky ras <A id=d 
 onmouseover="Rozsvitit('d')" onmouseout="Zhasnout('d')" 
-href="stat.php" target=_blank> zde</A>. Upozoròuji, že tyto stránky 
-potøebují podporu javascriptu, kaskádových stylù (cascading style sheet) a 
-povolení ukládání cookies. Pøeji pøíjemnou hru.&nbsp;</FONT> </P>
+href="stat.php" target=_blank> zde</A>. Upozorï¿½uji, ï¿½e tyto strï¿½nky 
+potï¿½ebujï¿½ podporu javascriptu, kaskï¿½dovï¿½ch stylï¿½ (cascading style sheet) a 
+povolenï¿½ uklï¿½dï¿½nï¿½ cookies. Pï¿½eji pï¿½ï¿½jemnou hru.&nbsp;</FONT> </P>
 <P></FONT></P>
 </font>
 <FORM name=form action=servis.php method=post><INPUT type=hidden value=1 
@@ -167,7 +162,7 @@ name=zpracuj>
       <TABLE height=112 width=194>
         <TBODY>
         <TR>
-          <TD width=100 height=25><B><FONT class=kapital>J</FONT>méno:</B> </TD>
+          <TD width=100 height=25><B><FONT class=kapital>J</FONT>mï¿½no:</B> </TD>
           <TD width=85 height=25><B><input type="text" name="jmeno1" size=15 value=''></B></TD></TR>
         <TR>
           <TD width=100 height=25><B><FONT class=kapital>H</FONT>eslo:</B> </TD>
@@ -177,46 +172,46 @@ name=zpracuj>
           <TD width=85 height=25><B><input type="password" name="ahu" size=15 value=''></B></TD></TR>		  
         <TR>
           <TD width=100 height=19><B><FONT 
-            class=kapital>P</FONT>rofilù:&nbsp;&nbsp;</B> </TD>
-          <TD width=85 height=19><B><FONT color=#cc6600><?echo $hhh;?></FONT></B></TD></TR>
+            class=kapital>P</FONT>rofilï¿½:&nbsp;&nbsp;</B> </TD>
+          <TD width=85 height=19><B><FONT color=#cc6600><?= $hhh?></FONT></B></TD></TR>
         <TR>
           <TD width=100 height=19><B><FONT 
-            class=kapital>O</FONT>nline hráèù:&nbsp;&nbsp;</B> </TD>
-          <TD width=85 height=19><B><FONT color=#cc6600><?echo $o;?></FONT></B></TD></TR>
+            class=kapital>O</FONT>nline hrï¿½ï¿½ï¿½:&nbsp;&nbsp;</B> </TD>
+          <TD width=85 height=19><B><FONT color=#cc6600><?= $o?></FONT></B></TD></TR>
         <TR>
           <TD width=100 height=19><B><FONT 
-            class=kapital>D</FONT>nes hráèù:&nbsp;&nbsp;</B> </TD>
-          <TD width=85 height=19><B><FONT color=#cc6600><?echo $dnes;?></FONT></B></TD></TR>		  
+            class=kapital>D</FONT>nes hrï¿½ï¿½ï¿½:&nbsp;&nbsp;</B> </TD>
+          <TD width=85 height=19><B><FONT color=#cc6600><?= $dnes?></FONT></B></TD></TR>		  
         <TR>
- <?
+ <?php
 	if($o<=100):	
-		echo "<TD align=middle width=162 colSpan=2 height=27><B><INPUT type=submit value=Pøihlaš name=B3></B>";
+		echo "<TD align=middle width=162 colSpan=2 height=27><B><INPUT type=submit value=Pï¿½ihlaï¿½ name=B3></B>";
 	else:
-		echo "<TD align=middle width=162 colSpan=2 height=27><B>Je pøíliš online hráèù, zkuste pozdìji.</B>";	
+		echo "<TD align=middle width=162 colSpan=2 height=27><B>Je pï¿½ï¿½liï¿½ online hrï¿½ï¿½ï¿½, zkuste pozdï¿½ji.</B>";	
 	endif;
 ?>
-    <br><font class=info><a href="heslozap.php" id=e onmouseover="Rozsvitit('e')" onmouseout="Zhasnout('e')"><i>Zapomnìli jste své heslo?</i></a></font>
+    <br><font class=info><a href="heslozap.php" id=e onmouseover="Rozsvitit('e')" onmouseout="Zhasnout('e')"><i>Zapomnï¿½li jste svï¿½ heslo?</i></a></font>
 	</TR></TBODY></TABLE></TD></TR>
   <TR>
     <TD width=193 height=48><B>&nbsp;</B></TD></TR></TBODY></TABLE><INPUT 
 type=hidden value=1 name=zpracuj> </FORM>
 <iframe frameborder="1" noresize="resize" height="300" width="90%" src="http://www.sweb.cz/aegor/reklama.htm" name="reklama"></iframe>
 
-<P class=info align=left><FONT color=#ffffff>Jákekoliv dotazy pripomínky mi 
-piste na postu v sg na jméno sg. Nebo na <A 
+<P class=info align=left><FONT color=#ffffff>Jï¿½kekoliv dotazy pripomï¿½nky mi 
+piste na postu v sg na jmï¿½no sg. Nebo na <A 
 href="mailto:sgweb@seznam.cz">sgweb@seznam.cz</A></FONT><br><FONT 
 class=kapital>C</FONT><FONT color=#ffffff>redits:</FONT></P>
 <P align=left>
 <TABLE width="34%" border=0>
   <TBODY>
   <TR>
-    <TD width="33%">.<FONT color=#ffffff>: Tomáš Fechtner</FONT></TD>
+    <TD width="33%">.<FONT color=#ffffff>: Tomï¿½ Fechtner</FONT></TD>
     <TD align=middle width="33%"><FONT color=#cc6600>sg</FONT></TD>
     <TD align=right width="34%"><FONT color=#ffffff>programing, DB :.</FONT></TD></TR>
   <TR>
-    <TD width="33%"><FONT color=#ffffff>.: Laïa Loukota</FONT></TD>
+    <TD width="33%"><FONT color=#ffffff>.: Laï¿½a Loukota</FONT></TD>
     <TD align=middle width="33%"><FONT color=#cc6600>Raynor</FONT></TD>
-    <TD align=right width="34%"><FONT color=#ffffff>obrázky a texty 
+    <TD align=right width="34%"><FONT color=#ffffff>obrï¿½zky a texty 
     :.</FONT></TD></TR>
   <TR>
     <TD width="33%"><FONT color=#ffffff>.: Johny Idler</FONT></TD>
@@ -235,20 +230,19 @@ class=kapital>C</FONT><FONT color=#ffffff>redits:</FONT></P>
     <TR>
     <TD width="33%"><FONT color=#ffffff>.: Sinuhet</FONT></TD>
     <TD align=middle width="33%"><FONT color=#cc6600>&nbsp;</FONT></TD>
-    <TD align=right width="34%"><FONT color=#ffffff>strážce brány 
+    <TD align=right width="34%"><FONT color=#ffffff>strï¿½ce brï¿½ny 
   :.</FONT></TD></TR>
     <TR>
-    <TD width="33%"><FONT color=#ffffff>.: Láïa Farják</FONT></TD>
+    <TD width="33%"><FONT color=#ffffff>.: Lï¿½ï¿½a Farjï¿½k</FONT></TD>
     <TD align=middle width="33%"><FONT color=#cc6600>&nbsp;</FONT></TD>
     <TD align=right width="34%"><FONT color=#ffffff>programing
   :.</FONT></TD></TR>     </TBODY></TABLE>
 <center>
 
 <br><br>
-<center><font class=info>Použité obrazové materiály z her série Command&Conquer, Empire Earth, StarCraft, Warcraft, World of Warcraft, Civilization-3, Homeworld-2, Fallout Tactics, Fallout-2, Sid Meier's Alpha Centauri, Serious Sam, Treasure Planet: Battle for Natrolis, Age of Mythology, Republic:the revolution, Atlantia Underwordl Tyccon, Mafia, Imperium Galactica-3, ; seriálù Star Trek:Voyager, Enterprise, Stargate SG-1 ; filmu Terminátor-3 ; dále použity materiály (nejen obrazové) z SG Game a 3D-UK.</font></center>
+<center><font class=info>Pouï¿½itï¿½ obrazovï¿½ materiï¿½ly z her sï¿½rie Command&Conquer, Empire Earth, StarCraft, Warcraft, World of Warcraft, Civilization-3, Homeworld-2, Fallout Tactics, Fallout-2, Sid Meier's Alpha Centauri, Serious Sam, Treasure Planet: Battle for Natrolis, Age of Mythology, Republic:the revolution, Atlantia Underwordl Tyccon, Mafia, Imperium Galactica-3, ; seriï¿½lï¿½ Star Trek:Voyager, Enterprise, Stargate SG-1 ; filmu Terminï¿½tor-3 ; dï¿½le pouï¿½ity materiï¿½ly (nejen obrazovï¿½) z SG Game a 3D-UK.</font></center>
 
-<?
-//<iframe noresize=noresize frameborder=0 height=200 width=100% src="novinky.php" name="novinky"></iframe>
+<?php
 	echo "</center>";
 	MySQL_Close($spojeni);
 ?>

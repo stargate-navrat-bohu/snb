@@ -3,8 +3,8 @@
 @import url(default.css);
 </style>
 
-<?
-	require 'data_1.php';
+<?php
+require 'data_1.php';
 
 mysql_query("SET NAMES cp1250");
 
@@ -28,42 +28,42 @@ function kont2($co,$cim){
   }
 
     // narodnosti
-    $bonusy[1]="Žádné klady";
-  	$negativy[1]="Žádné zápory";
-  	$bonusy[2]="-20% cena tìžebny";
-  	$negativy[2]="-10 útok, +10% cena pìchoty";
-  	$bonusy[3]="-15% ceny v obchodì, +5% výzkum";
-  	$negativy[3]="+30% cena tìžebny";
-  	$bonusy[4]="-25% cena pìchoty, -5% ceny ZHN";
-  	$negativy[4]="-20% spokojenost, +20% ceny v obchodì";
+    $bonusy[1]="ï¿½ï¿½dnï¿½ klady";
+  	$negativy[1]="ï¿½ï¿½dnï¿½ zï¿½pory";
+  	$bonusy[2]="-20% cena tï¿½ebny";
+  	$negativy[2]="-10 ï¿½tok, +10% cena pï¿½choty";
+  	$bonusy[3]="-15% ceny v obchodï¿½, +5% vï¿½zkum";
+  	$negativy[3]="+30% cena tï¿½ebny";
+  	$bonusy[4]="-25% cena pï¿½choty, -5% ceny ZHN";
+  	$negativy[4]="-20% spokojenost, +20% ceny v obchodï¿½";
   	$bonusy[5]="+20% spokojenost, +10% obrana";
-  	$negativy[5]="+20% cena pìchoty, +100% ceny ZHN";
-  	$bonusy[6]="+30% na výzkum";
-  	$negativy[6]="-15% útok, +100% ceny ZHN";
+  	$negativy[5]="+20% cena pï¿½choty, +100% ceny ZHN";
+  	$bonusy[6]="+30% na vï¿½zkum";
+  	$negativy[6]="-15% ï¿½tok, +100% ceny ZHN";
   	$bonusy[7]="+25% obrana";
-  	$negativy[7]="+15% cena pìchoty, -10% útok";
-  	$bonusy[8]="+10% spokojenost, +10% na výzkum";
-  	$negativy[8]="+50% cena tìžebny, +100% ceny ZHN";
-  	$bonusy[9]="-25% cena tìžebny";
-  	$negativy[9]="-20% útok";
+  	$negativy[7]="+15% cena pï¿½choty, -10% ï¿½tok";
+  	$bonusy[8]="+10% spokojenost, +10% na vï¿½zkum";
+  	$negativy[8]="+50% cena tï¿½ebny, +100% ceny ZHN";
+  	$bonusy[9]="-25% cena tï¿½ebny";
+  	$negativy[9]="-20% ï¿½tok";
 
     // statni zrizeni
-  	$bonusy1[1]="Žádné klady";
-  	$negativy1[1]="Žádné zápory";
+  	$bonusy1[1]="ï¿½ï¿½dnï¿½ klady";
+  	$negativy1[1]="ï¿½ï¿½dnï¿½ zï¿½pory";
   	$bonusy1[2]="+10% spokojenost";
-  	$negativy1[2]="-20% útok";
-  	$bonusy1[3]="-20% cena bojových jednotek";
-  	$negativy1[3]="-15% spokojenost, +10% cena tìžebny";
-  	$bonusy1[4]="+25% útok, -10% cena ZHN";
+  	$negativy1[2]="-20% ï¿½tok";
+  	$bonusy1[3]="-20% cena bojovï¿½ch jednotek";
+  	$negativy1[3]="-15% spokojenost, +10% cena tï¿½ebny";
+  	$bonusy1[4]="+25% ï¿½tok, -10% cena ZHN";
   	$negativy1[4]="-25% spokojenost, -10% obrana";
- 	  $bonusy1[5]="+25% na výzkum";
-  	$negativy1[5]="-10% útok, nemožnost budovat ZHN";
+ 	  $bonusy1[5]="+25% na vï¿½zkum";
+  	$negativy1[5]="-10% ï¿½tok, nemoï¿½nost budovat ZHN";
   	$bonusy1[6]="+50% obrana, -20% cena ZHN";
-  	$negativy1[6]="-25% útok";
-  	$bonusy1[7]="-25% cena tìžebny";
-  	$negativy1[7]="-10% útok";
+  	$negativy1[6]="-25% ï¿½tok";
+  	$bonusy1[7]="-25% cena tï¿½ebny";
+  	$negativy1[7]="-10% ï¿½tok";
   	$bonusy1[8]="-30% cena planety";
-  	$negativy1[8]="-5% útok, +10% cena bojových jednotek";
+  	$negativy1[8]="-5% ï¿½tok, +10% cena bojovï¿½ch jednotek";
   	$bonusy1[9]="-50% cena ZHN";
   	$negativy1[9]="-50% spokojenost";
 
@@ -73,7 +73,7 @@ function kont2($co,$cim){
 	$zaznam1 = MySQL_Fetch_Array($vys1);	
 
 
-if($zaznam1[rasa]!=77){ echo"<font class='text_cerveny' size='19'>..:Zde nemáte právo být:..</font>";exit; }
+if($zaznam1[rasa]!=77){ echo"<font class='text_cerveny' size='19'>..:Zde nemï¿½te prï¿½vo bï¿½t:..</font>";exit; }
 
 
 	$vys2 = MySQL_Query("SELECT rasa,uzi,nazevrasy FROM rasy where (rasa!=99 and rasa!=0 and rasa!=98 and rasa!=97) order by rasa");
@@ -88,7 +88,7 @@ if($zaznam1[rasa]!=77){ echo"<font class='text_cerveny' size='19'>..:Zde nemáte 
 
 echo "<center>";
 
-echo "<h6>Právì probìhl restart hry. Prosíme vyberte si rasu, dobu svého pøepoètu a druh politiky a odešlete formuláø.</h6>";
+echo "<h6>Prï¿½vï¿½ probï¿½hl restart hry. Prosï¿½me vyberte si rasu, dobu svï¿½ho pï¿½epoï¿½tu a druh politiky a odeï¿½lete formulï¿½ï¿½.</h6>";
 
 echo "</center>";
 
@@ -98,13 +98,13 @@ if($zaznam1[rasa]!=77){
 	
 
 
-echo "<h1>Zde nemáte co pohledávat!!!</h1>";exit;}
+echo "<h1>Zde nemï¿½te co pohledï¿½vat!!!</h1>";exit;}
 
 
 
 
 
-//****************************************************Výbìr Restart SQL************************************
+//****************************************************Vï¿½bï¿½r Restart SQL************************************
 
 
 	if(isset($vyber_restart)):
@@ -125,7 +125,7 @@ $ppenize=200000*$penize_2["vyr_vyrob"];
 
 
 
-//****************************************************Restart Formuláø************************************
+//****************************************************Restart Formulï¿½ï¿½************************************
 
     $border= 'border=1';
 
@@ -133,7 +133,7 @@ $ppenize=200000*$penize_2["vyr_vyrob"];
 
 		echo "<form action='vyber_rasy_restart.php' method='post'>";
 
-                echo "<tr><th colspan=2>Vyplòte formuláø</th></tr>";
+                echo "<tr><th colspan=2>Vyplï¿½te formulï¿½ï¿½</th></tr>";
 
 		echo "<tr>";
 		echo "<th>Rasa</th>";
@@ -144,7 +144,7 @@ $ppenize=200000*$penize_2["vyr_vyrob"];
 
 	 <select name='rasa' class='input'>
         <option value='77'>vyberte</option>
-      <? 
+      <?php
 		  for($i=0;$i<$udaju;$i++):
 		    $j = $i; $js = $i+1;
 		    if(($prumuzi+$konstrozdil)>$pocuziv[$i]){echo "<option value=".$js." "; kont2($rasa1, $js); echo ">".$rasn[$j]."</option>\r\n";}
@@ -153,10 +153,10 @@ $ppenize=200000*$penize_2["vyr_vyrob"];
 
       </select></th>
      </tr>
-<?
+<?php
 
 		echo "<tr>";
-		echo "<th>Pøepoèet</th>";
+		echo "<th>Pï¿½epoï¿½et</th>";
 		echo "<th>
 	<select name='prepocet'>
   		  <option selected>00
@@ -188,7 +188,7 @@ $ppenize=200000*$penize_2["vyr_vyrob"];
 
 
 		echo "<tr>";
-		echo "<th>Národ</th>";
+		echo "<th>Nï¿½rod</th>";
 		echo "<th>      
 	<select name='narrod' class='input'>
         <option value='1'>vyberte</option>
@@ -207,7 +207,7 @@ $ppenize=200000*$penize_2["vyr_vyrob"];
 
 
 		echo "<tr>";
-		echo "<th>Zøízení</th>";
+		echo "<th>Zï¿½ï¿½zenï¿½</th>";
 		echo "<th>      
 	<select name='zrizeni' class='input'>
         <option value='1'>vyberte</option>
@@ -243,17 +243,17 @@ $ppenize=200000*$penize_2["vyr_vyrob"];
 ?>
 
 <font class="text_bili"><h2>Detaily</h2></font>
-<font class="text_modry">Na vyváženost ras je ovlivòován poèet uživatelù v jednotlivých rasách. Je to prùmìr uživatelu na jednu rasu s maximálním navýšením 
-<?echo $konstrozdil; ?> 
-uživatelù. V následující tabulce je pøehled ras s poèty uživatelù v nich.
-Limit: <?echo ($prumuzi+$konstrozdil); ?></font>
+<font class="text_modry">Na vyvï¿½enost ras je ovlivï¿½ovï¿½n poï¿½et uï¿½ivatelï¿½ v jednotlivï¿½ch rasï¿½ch. Je to prï¿½mï¿½r uï¿½ivatelu na jednu rasu s maximï¿½lnï¿½m navï¿½ï¿½enï¿½m 
+<?= $konstrozdil ?> 
+uï¿½ivatelï¿½. V nï¿½sledujï¿½cï¿½ tabulce je pï¿½ehled ras s poï¿½ty uï¿½ivatelï¿½ v nich.
+Limit: <?= ($prumuzi+$konstrozdil); ?></font>
 <table class='table' align="center" cellpadding=0 cellspacing=0>
   <tr class="vrsek">
-    <th>Název rasy</th>
-    <th>Poèet uživatelù</th>
-    <th>Pøihlásit</th>
+    <th>Nï¿½zev rasy</th>
+    <th>Poï¿½et uï¿½ivatelï¿½</th>
+    <th>Pï¿½ihlï¿½sit</th>
   </tr>
-<?
+<?php
 
 	$i=0;
 	while($i<$pocetras):
@@ -276,14 +276,15 @@ Limit: <?echo ($prumuzi+$konstrozdil); ?></font>
       ?>
 </table>
 <br>
-<font class="text_bili"><h2>Seznam národností</h2></font>
+<font class="text_bili"><h2>Seznam nï¿½rodnostï¿½</h2></font>
 <table class="table" align="center" cellpadding=0 cellspacing=0>
   <tr class="vrsek">
-    <th>Èíslo</th>
+    <th>ï¿½ï¿½slo</th>
     <th>Bonusy</th>
     <th>Negativy</th>
   </tr>
-  <?  	$i=1;
+  <?php
+      $i=1;
 	  while($i<10):
 		  echo "<tr class='spodek'>";
 		  echo "<td><font color='".$barva."'>".$i."</font></td>";
@@ -296,14 +297,15 @@ Limit: <?echo ($prumuzi+$konstrozdil); ?></font>
 </table>
 
 <br>
-<font class="text_bili"><h2>Seznam stáních zøizení</h2></font>
+<font class="text_bili"><h2>Seznam stï¿½nï¿½ch zï¿½izenï¿½</h2></font>
 <table class='table' align="center" cellpadding=0 cellspacing=0>
   <tr class="vrsek">
-    <th>Èíslo</th>
+    <th>ï¿½ï¿½slo</th>
     <th>Bonusy</th>
     <th>Negativy</th>
   </tr>
-  <?  	$i=1;
+  <?php
+      $i=1;
 	  while($i<10):
 		  echo "<tr class='spodek'>";
 		  echo "<td><font color='".$barva."'>".$i."</font></td>";
