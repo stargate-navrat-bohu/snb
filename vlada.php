@@ -25,7 +25,8 @@ unset($pochracu);
 unset($zaznam777);
 unset($volen);
 
-require "data_1.php";
+require 'data_1.php';
+require 'functions.php';
 
 if(isset($auto)):
     if(($af=="on") && ($av=="on")){$aa=3;}
@@ -34,11 +35,6 @@ if(isset($auto)):
     if(($af!="on") && ($av!="on")){$aa=0;}
     MySQL_Query("update uzivatele set auto = $aa where cislo=$logcislo");
 endif;
-
-function fcis($a){
-    $a=number_format($a,0,""," ");
-    return $a;
-}
 
 $vys1 = MySQL_Query("SELECT jmeno,heslo,gold,silver,penize,volen,koho,rasa,status,ref,cislo,hra,zmrazeni,skin,vek,admin,reg FROM uzivatele where cislo=$logcislo");
 $zaznam1 = MySQL_Fetch_Array($vys1);

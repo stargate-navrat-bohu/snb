@@ -1,17 +1,9 @@
-
 <?php
-		$mezi_ovl=1;
+$mezi_ovl=1;
 
-mysql_query("SET NAMES cp1250");
-require "data_1.php";
+require 'data_1.php';
+require 'functions.php';
 
-		function fcis($a){
-
-		$a=number_format($a,0,""," ");
-
-		return $a;	
-
-		}
 
   
 
@@ -23,7 +15,7 @@ require "data_1.php";
 			$zaznam2 = MySQL_Fetch_Array($vys2);
 			$vys3 = MySQL_Query("SELECT * FROM planety where cislo = '$kam'");
 			$zaznam3 = MySQL_Fetch_Array($vys3);
-			if($zaznam3[cislomaj]!=$logcislo){echo "<font class='text_cerveny'>Tato planeta není vaše</font>";exit;};
+			if($zaznam3[cislomaj]!=$logcislo){echo "<font class='text_cerveny'>Tato planeta nenï¿½ vaï¿½e</font>";exit;};
       		$stavitel2 = MySQL_Query("SELECT * FROM hrdinove where (cislomaj=$logcislo and typ=8 and mrtev!=1)") or die(mysql_error());
 			@$stav = MySQL_Fetch_Array($stavitel2);
 		 	$typhs2 = MySQL_Query("SELECT * FROM typh where typ=8");
@@ -61,17 +53,17 @@ require "data_1.php";
 			//echo gettype($mmes);
 			
 		   do{
-			if($zaznam3[status]==2){echo "<P align=center><font class='text_cerveny'>Na CP se nesmí  stavìt ani bourat žádné budovy<font>";break;};
-			//if(($mkas<0 || $mvyr<0 || $mmes<0)){echo "<font class='text_cerveny'>Èísla nesmí být záporné</font>";break;};
+			if($zaznam3[status]==2){echo "<P align=center><font class='text_cerveny'>Na CP se nesmï¿½  stavï¿½t ani bourat ï¿½ï¿½dnï¿½ budovy<font>";break;};
+			//if(($mkas<0 || $mvyr<0 || $mmes<0)){echo "<font class='text_cerveny'>ï¿½ï¿½sla nesmï¿½ bï¿½t zï¿½pornï¿½</font>";break;};
 			
 			$c=$zaznam3[cas]+43200;
 			if(Date("U")<$c):
 				$kdy=Date("h:i:s j.m.Y",$c);
 				if(($mkas<0) or ($mvyr<0) or ($mmes<0) or ($msdi<0) or ($mpar<0) or ($mlab<0) or ($mbra<0) or ($mpol<0))
-					{echo "<font class='text_cerveny'>Na planetì ".$zaznam3[nazev]." nemùžeme prodávat budovy kvùli jejímu nedávnému obsazení. Prodávat budovy mùžeme nejdøíve v ".$kdy."</font>";break;};
+					{echo "<font class='text_cerveny'>Na planetï¿½ ".$zaznam3[nazev]." nemï¿½ï¿½eme prodï¿½vat budovy kvï¿½li jejï¿½mu nedï¿½vnï¿½mu obsazenï¿½. Prodï¿½vat budovy mï¿½ï¿½eme nejdï¿½ï¿½ve v ".$kdy."</font>";break;};
 			endif;
 
-			if((Is_double($mkas) || Is_double($mvyr) || Is_double($mmes) || Is_double($msdi)|| Is_double($mpar)|| Is_double($mlab)|| Is_double($mbra))){echo "<font class='text_cerveny'>Èísla nesmí být desetinné</font>";break;};
+			if((Is_double($mkas) || Is_double($mvyr) || Is_double($mmes) || Is_double($msdi)|| Is_double($mpar)|| Is_double($mlab)|| Is_double($mbra))){echo "<font class='text_cerveny'>ï¿½ï¿½sla nesmï¿½ bï¿½t desetinnï¿½</font>";break;};
 
 			if(($mkas+$zaznam3["kasarna"])<0){$mkas=0;$cmkas=0;};
 			if(($mvyr+$zaznam3["vyrobna"])<0){$mvyr=0;$cmvyr=0;};
@@ -89,7 +81,7 @@ require "data_1.php";
 			if($mpar<0){$cmpar*=0.25;};
 			if($mlab<0){$cmlab*=0.25;};
 			if($mpol<0){$cmpol*=0.25;};
-			//if($mbra<0){$cmbra*=0.25;}; neprodávání bran
+			//if($mbra<0){$cmbra*=0.25;}; neprodï¿½vï¿½nï¿½ bran
 			if($mbra<0){$cmbra*=0;};																	
 
       $celkpenez=$cmvyr*$zaznam2["vyr_cena"]*$bstav*$politika[cenas]/100*$politika[cenat]/100*$narod[cenav]/100*$zriz[cenav]/100;
@@ -104,13 +96,13 @@ require "data_1.php";
 
 $zbyva=($zaznam2["mest"]*$zaznam3["mesta"])-$zaznam3["kasarna"]-$zaznam3["vyrobna"]-$zaznam3["sdi"];
              
-             if(Is_double($pol)){echo "<font class='text_cerveny'>Nepovolený poèet staveb.</font><BR>";break;}
+             if(Is_double($pol)){echo "<font class='text_cerveny'>Nepovolenï¿½ poï¿½et staveb.</font><BR>";break;}
              if ($pol<0){
-             if($zaznam3[pol] < (abs($pol)) ){echo "".$pol." ".$zaznam3["pol"]."<font class='text_cerveny'>Nepovolený poèet staveb.</font><BR>";break;}
+             if($zaznam3[pol] < (abs($pol)) ){echo "".$pol." ".$zaznam3["pol"]."<font class='text_cerveny'>Nepovolenï¿½ poï¿½et staveb.</font><BR>";break;}
               }
 
 
-                //if($pol<0 or $zbyva<$pol){echo "".$zaznam3["pol"]."<font class='text_cerveny'>Nepovolený poèet staveb.</font><BR>";break;}
+                //if($pol<0 or $zbyva<$pol){echo "".$zaznam3["pol"]."<font class='text_cerveny'>Nepovolenï¿½ poï¿½et staveb.</font><BR>";break;}
 
 			if($celkpenez<=$zaznam1["penize"]):
 				$celklidi=($mvyr+$zaznam3["vyrobna"])*$zaznam2["vyr_lidi"];
@@ -153,7 +145,7 @@ $zbyva=($zaznam2["mest"]*$zaznam3["mesta"])-$zaznam3["kasarna"]-$zaznam3["vyrobn
 							$brany=$zaznam1["bran"]+$mbra;
 							MySQL_Query("update uzivatele set penize='$npez',bran='$brany' where cislo='$logcislo'");
 						else:
-							echo "<font class='text_cerveny'>Na jedné planetì mùže být jen jedna hvìzdná brána.</font>";
+							echo "<font class='text_cerveny'>Na jednï¿½ planetï¿½ mï¿½ï¿½e bï¿½t jen jedna hvï¿½zdnï¿½ brï¿½na.</font>";
 						endif;	
 
 						$zkusn=($celkpenez/$zaznam2["mes_cena"]);
@@ -168,13 +160,13 @@ $zbyva=($zaznam2["mest"]*$zaznam3["mesta"])-$zaznam3["kasarna"]-$zaznam3["vyrobn
 						if($lv>20){$lv=20;$zkusn=$lv*$lv*1000;};
 						MySQL_Query("update `hrdinove` set `zkus`='$zkusn',`level`='$lv' where `cislo`='$cislos'");					
 					else:
-						echo "<font class='text_cerveny'>Málo místa nebo málo mìst</font>";
+						echo "<font class='text_cerveny'>Mï¿½lo mï¿½sta nebo mï¿½lo mï¿½st</font>";
 					endif;
 				else:
-					echo "<font class='text_cerveny'>Málo nezamìstnaných lidí na planetì</font>";			
+					echo "<font class='text_cerveny'>Mï¿½lo nezamï¿½stnanï¿½ch lidï¿½ na planetï¿½</font>";			
 				endif;
 			else:
-				echo "<font class='text_cerveny'>Mate málo naquadahu</font>";							
+				echo "<font class='text_cerveny'>Mate mï¿½lo naquadahu</font>";							
 			endif;
 		   }while(false);
 		};
@@ -223,7 +215,7 @@ $presunod=$rot3[presunod];
 $casted=Date("U");  
 $b=((86400-($casted-$presunod))/3600);
 //echo "".$casted." ".$presunod.""; 
-if($casted-$presunod<=86400){echo "<center><font class='text_cerveny'>Další pøesun je možný až za ".number_format($b,1,"."," ")." hodin</h1></center>";die;};  
+if($casted-$presunod<=86400){echo "<center><font class='text_cerveny'>Dalï¿½ï¿½ pï¿½esun je moï¿½nï¿½ aï¿½ za ".number_format($b,1,"."," ")." hodin</h1></center>";die;};  
 
 
 
@@ -238,9 +230,9 @@ if($casted-$presunod<=86400){echo "<center><font class='text_cerveny'>Další pøes
 			$zaznam5 = MySQL_Fetch_Array($vys5);
 
                         $presunod=Date("U");
-			if($zaznam5[rasa]!=$rasahrace){echo "<font class='text_cerveny'>Planeta není v držení Vaší rasy</font>";break;};
-			if($zaznam2[rasa]!=$rasahrace){echo "<font class='text_cerveny'>Tento hráè není z Vaší rasy</font>";break;};
-			if($zaznam10[status]!=1 and $zaznam10[status]!=5){echo "<font class='text_cerveny'>Toto mùže dìlat jedinì vùdce nebo ministr.</font>";break;};
+			if($zaznam5[rasa]!=$rasahrace){echo "<font class='text_cerveny'>Planeta nenï¿½ v drï¿½enï¿½ Vaï¿½ï¿½ rasy</font>";break;};
+			if($zaznam2[rasa]!=$rasahrace){echo "<font class='text_cerveny'>Tento hrï¿½ï¿½ nenï¿½ z Vaï¿½ï¿½ rasy</font>";break;};
+			if($zaznam10[status]!=1 and $zaznam10[status]!=5){echo "<font class='text_cerveny'>Toto mï¿½ï¿½e dï¿½lat jedinï¿½ vï¿½dce nebo ministr.</font>";break;};
 			
 			MySQL_Query("update planety set cislomaj=$zaznam2[cislo] where cislo=$planeta");
                         MySQL_Query("update rasy set presunod='$presunod' where rasa='$rasahrace'");
@@ -263,12 +255,12 @@ if($casted-$presunod<=86400){echo "<center><font class='text_cerveny'>Další pøes
 				echo "</tr>";
 				echo "<tr>";
 			endif;
-			echo "<th>název</th>";
+			echo "<th>nï¿½zev</th>";
 			echo "<th>rasy</th>";
 			echo "<th>majitel</th>";
 			echo "</tr>";
 			$vys1 = MySQL_Query("SELECT * FROM planety where status>1 order by majitel");
-			$nadpis = "Centrální planety";	
+			$nadpis = "Centrï¿½lnï¿½ planety";	
 			while ($zaznam1 = MySQL_Fetch_Array($vys1)):
 				$cislomaj=$zaznam1[cislomaj];
 				$vys3 = MySQL_Query("SELECT jmeno,rasa FROM uzivatele where cislo=$cislomaj");
@@ -284,7 +276,7 @@ if($casted-$presunod<=86400){echo "<center><font class='text_cerveny'>Další pøes
 				echo "<tr>";
 				if(($zaznam10[status]==1 or $zaznam10[status]==5) and ($a==$c)){
 					echo "<form name='form' method='post' action='hlavni.php?page=planety&vyber=3'>";
-					echo "<td><input type=submit value='zmìò'></td>";
+					echo "<td><input type=submit value='zmï¿½ï¿½'></td>";
 					}
 				elseif($zaznam10[status]==1 or $zaznam10[status]==5){echo "<td>&nbsp;</td>";};
 				echo "<td>".$zaznam1[nazev]."</td>";
@@ -304,7 +296,7 @@ if($casted-$presunod<=86400){echo "<center><font class='text_cerveny'>Další pøes
 			echo "</table>";
 
 
-//****************************************************Nové************************************	
+//****************************************************Novï¿½************************************	
 	elseif($vyber==4):
 
 	include "planety2x.php";
@@ -374,11 +366,11 @@ echo "<center><br><br><font class='text_bili'><font class='text_modry'>B</font>a
 
 
 echo "<div align = 'left' style='margin-left: 10px'><font class='text_bili'>Naquadah: <font class='text_cerveny'>".number_format($bankao,0,0," ")."</font><br /> 
-Termínovaný vklad: <font class='text_cerveny'>".number_format($bankau1,0,0," ")."</font><br />
-Klasický úèet: <font class='text_cerveny'>".number_format($banka1,0,0," ")."</font><p /> </div>";
+Termï¿½novanï¿½ vklad: <font class='text_cerveny'>".number_format($bankau1,0,0," ")."</font><br />
+Klasickï¿½ ï¿½ï¿½et: <font class='text_cerveny'>".number_format($banka1,0,0," ")."</font><p /> </div>";
 
 if($jebudova!=1):
-echo "<center><font class='text_cerveny'>Boužel ještì nemáte banku. Banku mùžete postavit, ale bude vás to stát ".fcis($cenabanky).".</font> <br><br><form name='form' method='post' action='hlavni.php?page=planety&vyber=5'><input type='hidden' value='1' name='budova'>
+echo "<center><font class='text_cerveny'>Bouï¿½el jeï¿½tï¿½ nemï¿½te banku. Banku mï¿½ï¿½ete postavit, ale bude vï¿½s to stï¿½t ".fcis($cenabanky).".</font> <br><br><form name='form' method='post' action='hlavni.php?page=planety&vyber=5'><input type='hidden' value='1' name='budova'>
 <input type='submit' value='Postavit banku'></form></center>";
 
 if(isset($budova)):
@@ -394,11 +386,11 @@ MySQL_Query("update uzivatele set penize = '$zustatekv' where jmeno='$logjmeno'"
 echo "<font class='text_cerveny'><center>Banka byla postavena.</font></center>";
 
 }
-else{echo "<font class='text_cerveny'><center>Nemáte naquadah na postavení banky.</font></center>";
+else{echo "<font class='text_cerveny'><center>Nemï¿½te naquadah na postavenï¿½ banky.</font></center>";
 }
 
 }
-else{echo "<font class='text_cerveny'><center>Nemùžete postavit více jak jednu banku.</font></center>";
+else{echo "<font class='text_cerveny'><center>Nemï¿½ï¿½ete postavit vï¿½ce jak jednu banku.</font></center>";
 }
 
 endif;
@@ -427,29 +419,29 @@ MySQL_Query("INSERT INTO banka (den,kdo,kdojmeno,typ,castka,vazano,urok,poplatek
 MySQL_Query("update uzivatele set banka = '$zustatekbanka' where jmeno='$logjmeno'");
 MySQL_Query("update uzivatele set penize = '$zustatek' where jmeno='$logjmeno'");
 
-echo "<font class='text_cerveny'><center>Bylo vloženo ".fcis($vloz)." naquadahu.</font></center>";
+echo "<font class='text_cerveny'><center>Bylo vloï¿½eno ".fcis($vloz)." naquadahu.</font></center>";
 
 }
-else{echo "<font class='text_cerveny'><center>Banka vám takto obrovský obnos odmítla pøijmout.</font></center>";
+else{echo "<font class='text_cerveny'><center>Banka vï¿½m takto obrovskï¿½ obnos odmï¿½tla pï¿½ijmout.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Banka vám již uložila maximální možný obnos.</font></center>";
+else{echo "<font class='text_cerveny'><center>Banka vï¿½m jiï¿½ uloï¿½ila maximï¿½lnï¿½ moï¿½nï¿½ obnos.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Zadané èíslo nesmí být desetinné.</font></center>";
+else{echo "<font class='text_cerveny'><center>Zadanï¿½ ï¿½ï¿½slo nesmï¿½ bï¿½t desetinnï¿½.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladné èíslo.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladnï¿½ ï¿½ï¿½slo.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze vkládat pouze celá èísla.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze vklï¿½dat pouze celï¿½ ï¿½ï¿½sla.</font></center>";
 }
 
 }
-else{echo "<font class='text_cerveny'><center>Tolik naquadahu nemáte.</font></center>";
+else{echo "<font class='text_cerveny'><center>Tolik naquadahu nemï¿½te.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Nelze vložit 0 naquadahu.</font></center>";
+else{echo "<font class='text_cerveny'><center>Nelze vloï¿½it 0 naquadahu.</font></center>";
 }
 endif;
 
@@ -498,34 +490,34 @@ MySQL_Query("update uzivatele set bankap = '1' where jmeno='$logjmeno'");
 $dokdyv=Date("G:i:s j.m.Y",$vazanoa);
 $cilc=$vlozt+$uroka;
 
-echo "<font class='text_cerveny'><center>Bylo vloženo ".fcis($vlozt)." naquadahu, vklad je vázán do ".$dokdyv." a cílová èástka je ".fcis($cilc).".</font></center>";
+echo "<font class='text_cerveny'><center>Bylo vloï¿½eno ".fcis($vlozt)." naquadahu, vklad je vï¿½zï¿½n do ".$dokdyv." a cï¿½lovï¿½ ï¿½ï¿½stka je ".fcis($cilc).".</font></center>";
 
 
 
 }
-else{echo "<font class='text_cerveny'><center>Lze vložit pouze jeden termínovaný vklad. Další vklad bude umožnìn až po vyzvednutí souèasného vkladu.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze vloï¿½it pouze jeden termï¿½novanï¿½ vklad. Dalï¿½ï¿½ vklad bude umoï¿½nï¿½n aï¿½ po vyzvednutï¿½ souï¿½asnï¿½ho vkladu.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Banka vám takto obrovský obnos odmítla pøijmout.</font></center>";
+else{echo "<font class='text_cerveny'><center>Banka vï¿½m takto obrovskï¿½ obnos odmï¿½tla pï¿½ijmout.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Banka vám již uložila maximální možný obnos.</font></center>";
+else{echo "<font class='text_cerveny'><center>Banka vï¿½m jiï¿½ uloï¿½ila maximï¿½lnï¿½ moï¿½nï¿½ obnos.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Zadané èíslo nesmí být desetinné.</font></center>";
+else{echo "<font class='text_cerveny'><center>Zadanï¿½ ï¿½ï¿½slo nesmï¿½ bï¿½t desetinnï¿½.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladné èíslo.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladnï¿½ ï¿½ï¿½slo.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze vkládat pouze celá èísla.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze vklï¿½dat pouze celï¿½ ï¿½ï¿½sla.</font></center>";
 }
 
 }
-else{echo "<font class='text_cerveny'><center>Tolik naquadahu nemáte.</font></center>";
+else{echo "<font class='text_cerveny'><center>Tolik naquadahu nemï¿½te.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Nelze vložit 0 naquadahu.</font></center>";
+else{echo "<font class='text_cerveny'><center>Nelze vloï¿½it 0 naquadahu.</font></center>";
 }
 endif;
 
@@ -544,7 +536,7 @@ $zustatekb=$zaznam1[penize]+($vyberb-$poplatekc);
 $zustatekbankab=$zaznam1[banka]-$vyberb;
 
 $denv=Date("U");
-$typv="Výbìr";
+$typv="Vï¿½bï¿½r";
 
 
 MySQL_Query("INSERT INTO banka (den,kdo,kdojmeno,typ,castka,vazano,urok,poplatek) VALUES ($denv,'$logcislo','$logjmeno','$typv','$vyberb','0','0','$poplatekc')");
@@ -552,23 +544,23 @@ MySQL_Query("update uzivatele set banka = '$zustatekbankab' where jmeno='$logjme
 MySQL_Query("update uzivatele set penize = '$zustatekb' where jmeno='$logjmeno'");
 
 
-echo "<font class='text_cerveny'><center>Bylo vybráno ".fcis($vyberb)." naquadahu.</font></center>";
+echo "<font class='text_cerveny'><center>Bylo vybrï¿½no ".fcis($vyberb)." naquadahu.</font></center>";
 
 }
-else{echo "<font class='text_cerveny'><center>Banka vám takto obrovský obnos odmítla vydat.</font></center>";
+else{echo "<font class='text_cerveny'><center>Banka vï¿½m takto obrovskï¿½ obnos odmï¿½tla vydat.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Zadané èíslo nesmí být desetinné.</font></center>";
+else{echo "<font class='text_cerveny'><center>Zadanï¿½ ï¿½ï¿½slo nesmï¿½ bï¿½t desetinnï¿½.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladné èíslo.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladnï¿½ ï¿½ï¿½slo.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze vkládat pouze celá èísla.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze vklï¿½dat pouze celï¿½ ï¿½ï¿½sla.</font></center>";
 }
 
 }
-else{echo "<font class='text_cerveny'><center>V bance tolik naquadahu není.</font></center>";
+else{echo "<font class='text_cerveny'><center>V bance tolik naquadahu nenï¿½.</font></center>";
 }
 }
 else{echo "<font class='text_cerveny'><center>Nelze vybrat 0 naquadahu.</font></center>";
@@ -592,37 +584,37 @@ $zustatekb=$zaznam1[penize]+($vybert);
 $zustatekbankab=$zaznam1[bankau]-$vybert;
 
 $denv=Date("U");
-$typv="Výbìr";
+$typv="Vï¿½bï¿½r";
 
 MySQL_Query("INSERT INTO banka (den,kdo,kdojmeno,typ,castka,vazano,urok,poplatek) VALUES ($denv,'$logcislo','$logjmeno','$typv','$vybert','0','0','0')");
 MySQL_Query("update uzivatele set bankau = '$zustatekbankab' where jmeno='$logjmeno'");
 MySQL_Query("update uzivatele set penize = '$zustatekb' where jmeno='$logjmeno'");
 MySQL_Query("update uzivatele set bankap = '0' where jmeno='$logjmeno'");
 
-echo "<font class='text_cerveny'><center>Bylo vybráno ".fcis($bankau1)." z vašeho termínovaného úètu.</font></center>";
+echo "<font class='text_cerveny'><center>Bylo vybrï¿½no ".fcis($bankau1)." z vaï¿½eho termï¿½novanï¿½ho ï¿½ï¿½tu.</font></center>";
 
 }
 else
 {
-echo "<font class='text_cerveny'><center>Tento vklad je vázán do ".$mmmm." .</center></font>";
+echo "<font class='text_cerveny'><center>Tento vklad je vï¿½zï¿½n do ".$mmmm." .</center></font>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Pokuï chcete vybírat musíte také nìco vložit.</font></center>";
+else{echo "<font class='text_cerveny'><center>Pokuï¿½ chcete vybï¿½rat musï¿½te takï¿½ nï¿½co vloï¿½it.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Banka vám takto obrovský obnos odmítla vydat.</font></center>";
+else{echo "<font class='text_cerveny'><center>Banka vï¿½m takto obrovskï¿½ obnos odmï¿½tla vydat.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Zadané èíslo nesmí být desetinné.</font></center>";
+else{echo "<font class='text_cerveny'><center>Zadanï¿½ ï¿½ï¿½slo nesmï¿½ bï¿½t desetinnï¿½.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladné èíslo.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladnï¿½ ï¿½ï¿½slo.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze vkládat pouze celá èísla.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze vklï¿½dat pouze celï¿½ ï¿½ï¿½sla.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>V bance tolik naquadahu není.</font></center>";
+else{echo "<font class='text_cerveny'><center>V bance tolik naquadahu nenï¿½.</font></center>";
 }
 }
 else{echo "<font class='text_cerveny'><center>Nelze vybrat 0 naquadahu.</font></center>";
@@ -672,7 +664,7 @@ $prevedlo=$pppp*$prevodmeny;
 
 
 $denv=Date("U");
-$typv="Pøevod";
+$typv="Pï¿½evod";
 $datumposlp=Date("U")+(30*60);
 
 
@@ -681,7 +673,7 @@ $rasabb=$zaznam1["rasa"];
 $vys8 = MySQL_Query("SELECT * FROM rasy where rasa = $rasabb");
 $zaznam8 = MySQL_Fetch_Array($vys8);
 $rasa5=AddSlashes($zaznam8["nazevrasy"]);
-$text= "Odesílatel Vám bankovním pøevodem zaslal ".$prevedlo." naquadahu";
+$text= "Odesï¿½latel Vï¿½m bankovnï¿½m pï¿½evodem zaslal ".$prevedlo." naquadahu";
 
 MySQL_Query("INSERT INTO banka (den,kdo,kdojmeno,typ,castka,vazano,urok,poplatek,komu) VALUES ($denv,'$logcislo','$logjmeno','$typv','$prevodb','0','0','$poplatekpp','$prevodj')");
 MySQL_Query("update uzivatele set banka = '$zustatekpenez' where jmeno='$logjmeno'");
@@ -690,46 +682,46 @@ MySQL_Query("update uzivatele set bankaposl = '$datumposlp' where jmeno='$logjme
 
 MySQL_Query("update uzivatele set banka = '$zustatekpenezb' where jmeno='$prevodj'");
 MySQL_Query("update uzivatele set posta3 = '$p' WHERE jmeno = '$prevodj'");
-MySQL_Query("INSERT INTO posta (den,odesilatel,adresat,nazev,rasa,rasa2,text,stav,nepr,typ,smaz) VALUES ($denv,'$logjmeno','$prevodj','Bankovní pøevod','$rasa5','$rasa6','$text','1','1','3','0')");
+MySQL_Query("INSERT INTO posta (den,odesilatel,adresat,nazev,rasa,rasa2,text,stav,nepr,typ,smaz) VALUES ($denv,'$logjmeno','$prevodj','Bankovnï¿½ pï¿½evod','$rasa5','$rasa6','$text','1','1','3','0')");
                               
 
 
 
-echo "<font class='text_cerveny'><center>Z vašeho úètu bylo pøevedeno ".$prevodb." naquadahu na úèet hráèe ".$prevodj.", v jeho mìnì to bylo ".$prevedlo.".</font></center>";
+echo "<font class='text_cerveny'><center>Z vaï¿½eho ï¿½ï¿½tu bylo pï¿½evedeno ".$prevodb." naquadahu na ï¿½ï¿½et hrï¿½ï¿½e ".$prevodj.", v jeho mï¿½nï¿½ to bylo ".$prevedlo.".</font></center>";
 
 
 }
-else{echo "<font class='text_cerveny'><center>Cílový login nemá banku.</font></center>";
+else{echo "<font class='text_cerveny'><center>Cï¿½lovï¿½ login nemï¿½ banku.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Minimální èástka pro pøevod je ".$minpovoleno." naquadahu.</font></center>";
+else{echo "<font class='text_cerveny'><center>Minimï¿½lnï¿½ ï¿½ï¿½stka pro pï¿½evod je ".$minpovoleno." naquadahu.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Další bankovní pøevod je možný až za ".number_format($bvb,1,"."," ")." minut.</font></center>";
+else{echo "<font class='text_cerveny'><center>Dalï¿½ï¿½ bankovnï¿½ pï¿½evod je moï¿½nï¿½ aï¿½ za ".number_format($bvb,1,"."," ")." minut.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Nelze posílat naquadah sám sobì.</font></center>";
+else{echo "<font class='text_cerveny'><center>Nelze posï¿½lat naquadah sï¿½m sobï¿½.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Cílový úèet neexistuje.</font></center>";
+else{echo "<font class='text_cerveny'><center>Cï¿½lovï¿½ ï¿½ï¿½et neexistuje.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Banka vám takto obrovský obnos odmítla pøevést.</font></center>";
+else{echo "<font class='text_cerveny'><center>Banka vï¿½m takto obrovskï¿½ obnos odmï¿½tla pï¿½evï¿½st.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Zadané èíslo nesmí být desetinné.</font></center>";
+else{echo "<font class='text_cerveny'><center>Zadanï¿½ ï¿½ï¿½slo nesmï¿½ bï¿½t desetinnï¿½.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladné èíslo.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze zadat pouze kladnï¿½ ï¿½ï¿½slo.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Lze vkládat pouze celá èísla.</font></center>";
+else{echo "<font class='text_cerveny'><center>Lze vklï¿½dat pouze celï¿½ ï¿½ï¿½sla.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Tolik naquadahu nemáte.</font></center>";
+else{echo "<font class='text_cerveny'><center>Tolik naquadahu nemï¿½te.</font></center>";
 }
 }
-else{echo "<font class='text_cerveny'><center>Cílový úèet neexistuje.</font></center>";
+else{echo "<font class='text_cerveny'><center>Cï¿½lovï¿½ ï¿½ï¿½et neexistuje.</font></center>";
 }
 endif;
 
@@ -744,13 +736,13 @@ endif;
 
 <th><font class='text_modry'>Typ</th>
 
-<th><font class='text_modry'>Zadejte èástku</th>
+<th><font class='text_modry'>Zadejte ï¿½ï¿½stku</th>
 
-<th><font class='text_modry'>Cílový úèet</th>
+<th><font class='text_modry'>Cï¿½lovï¿½ ï¿½ï¿½et</th>
 
-<th><font class='text_modry'>Poznámka</th>
+<th><font class='text_modry'>Poznï¿½mka</th>
 
-<th><font class='text_modry'>Provést</font></th>
+<th><font class='text_modry'>Provï¿½st</font></th>
 
 
 </tr>
@@ -758,7 +750,7 @@ endif;
 
 <tr>
 
-<th><font class='text_bili'>Vložit do banky bez možnosti úroèení</font></th>
+<th><font class='text_bili'>Vloï¿½it do banky bez moï¿½nosti ï¿½roï¿½enï¿½</font></th>
 
 <form name='form' method='post' action='hlavni.php?page=planety&vyber=5'>
 
@@ -766,15 +758,15 @@ endif;
 
 <th>&nbsp;</th>
 
-<th><font class='text_bili'>Klasický - netermínovaný vklad bez možnosti úroèení</font></th>
+<th><font class='text_bili'>Klasickï¿½ - netermï¿½novanï¿½ vklad bez moï¿½nosti ï¿½roï¿½enï¿½</font></th>
 
-<th><input type='submit' value='Vložit' name=bankav></form></th>
+<th><input type='submit' value='Vloï¿½it' name=bankav></form></th>
 
 </tr>
 
 <tr>
 
-<th><font class='text_bili'>Termínovaný vklad klasik</font></th>
+<th><font class='text_bili'>Termï¿½novanï¿½ vklad klasik</font></th>
 
 <form name='form' method='post' action='hlavni.php?page=planety&vyber=5'>
 
@@ -783,15 +775,15 @@ endif;
 
 <th>&nbsp;</th>
 
-<th><font class='text_bili'>Termínovaný vklad (s tímto vkladem nelze nakládat po dobu 5 dnù, vklad je úroèen 10%)</font></th>
+<th><font class='text_bili'>Termï¿½novanï¿½ vklad (s tï¿½mto vkladem nelze naklï¿½dat po dobu 5 dnï¿½, vklad je ï¿½roï¿½en 10%)</font></th>
 
-<th><input type='submit' value='Vložit' name=bankat></form></th>
+<th><input type='submit' value='Vloï¿½it' name=bankat></form></th>
 
 </tr>
 
 <tr>
 
-<th><font class='text_bili'>Termínovaný vklad plus</font></th>
+<th><font class='text_bili'>Termï¿½novanï¿½ vklad plus</font></th>
 
 <form name='form' method='post' action='hlavni.php?page=planety&vyber=5'>
 
@@ -800,15 +792,15 @@ endif;
 
 <th>&nbsp;</th>
 
-<th><font class='text_bili'>Termínovaný vklad (s tímto vkladem nelze nakládat po dobu 10 dnù, vklad je úroèen 30%)</font></th>
+<th><font class='text_bili'>Termï¿½novanï¿½ vklad (s tï¿½mto vkladem nelze naklï¿½dat po dobu 10 dnï¿½, vklad je ï¿½roï¿½en 30%)</font></th>
 
-<th><input type='submit' value='Vložit' name=bankat></form></th>
+<th><input type='submit' value='Vloï¿½it' name=bankat></form></th>
 
 </tr>
 
 <tr>
 
-<th><font class='text_bili'>Termínovaný vklad extra</font></th>
+<th><font class='text_bili'>Termï¿½novanï¿½ vklad extra</font></th>
 
 <form name='form' method='post' action='hlavni.php?page=planety&vyber=5'>
 
@@ -817,15 +809,15 @@ endif;
 
 <th>&nbsp;</th>
 
-<th><font class='text_bili'>Termínovaný vklad (s tímto vkladem nelze nakládat po dobu 30 dnù, vklad je úroèen 150%)</font></th>
+<th><font class='text_bili'>Termï¿½novanï¿½ vklad (s tï¿½mto vkladem nelze naklï¿½dat po dobu 30 dnï¿½, vklad je ï¿½roï¿½en 150%)</font></th>
 
-<th><input type='submit' value='Vložit' name=bankat></form></th>
+<th><input type='submit' value='Vloï¿½it' name=bankat></form></th>
 
 </tr>
 
 <tr>
 
-<th><font class='text_bili'>Vybrat z klasického úètu</font></th>
+<th><font class='text_bili'>Vybrat z klasickï¿½ho ï¿½ï¿½tu</font></th>
 
 <form name='form' method='post' action='hlavni.php?page=planety&vyber=5'>
 
@@ -835,7 +827,7 @@ endif;
 
 <?
 
-echo "<th><font class='text_bili'>Poplatek za výbìr ".$poplatek."% z výšky výbìru.</font></th>";
+echo "<th><font class='text_bili'>Poplatek za vï¿½bï¿½r ".$poplatek."% z vï¿½ï¿½ky vï¿½bï¿½ru.</font></th>";
 ?>
 
 <th><input type='submit' value='Vyber' name=bankab></form></th>
@@ -844,7 +836,7 @@ echo "<th><font class='text_bili'>Poplatek za výbìr ".$poplatek."% z výšky výbìr
 
 <tr>
 
-<th><font class='text_bili'>Vybrat z termínovaného úètu</font></th>
+<th><font class='text_bili'>Vybrat z termï¿½novanï¿½ho ï¿½ï¿½tu</font></th>
 
 <form name='form' method='post' action='hlavni.php?page=planety&vyber=5'>
 
@@ -855,7 +847,7 @@ echo "<th><font class='text_bili'><input type='hidden' value='".$bankau1."' name
 <th>&nbsp;</th>
 
 
-<th><font class='text_bili'>Výbìr z termínovaného úètu (lze jen celou èástku)</font></th>
+<th><font class='text_bili'>Vï¿½bï¿½r z termï¿½novanï¿½ho ï¿½ï¿½tu (lze jen celou ï¿½ï¿½stku)</font></th>
 
 
 <th><input type='submit' value='Vyber' name=bankatv></form></th>
@@ -866,7 +858,7 @@ echo "<th><font class='text_bili'><input type='hidden' value='".$bankau1."' name
 
 <tr>
 
-<th><font class='text_bili'>Pøevod naquadahu</font></th>
+<th><font class='text_bili'>Pï¿½evod naquadahu</font></th>
 
 <form name='form' method='post' action='hlavni.php?page=planety&vyber=5'>
 
@@ -874,10 +866,10 @@ echo "<th><font class='text_bili'><input type='hidden' value='".$bankau1."' name
 <th><input type='text' value='<? echo $prevodj;?>' size='10' name='prevodj'></th>
 
 <?
-echo "<th><font class='text_bili'>Pøevést naquadah na úèet jiného hráèe, poplatek za pøevod ".$poplatekp."% z výšky pøevázenýho naquadahu.</font></th>";
+echo "<th><font class='text_bili'>Pï¿½evï¿½st naquadah na ï¿½ï¿½et jinï¿½ho hrï¿½ï¿½e, poplatek za pï¿½evod ".$poplatekp."% z vï¿½ï¿½ky pï¿½evï¿½zenï¿½ho naquadahu.</font></th>";
 ?>
 
-<th><input type='submit' value='Pøeveï' name=prevod></form></th>
+<th><input type='submit' value='Pï¿½eveï¿½' name=prevod></form></th>
 
 </tr>
 
@@ -893,18 +885,18 @@ echo "<th><font class='text_bili'>Pøevést naquadah na úèet jiného hráèe, poplate
 
 <?
 
-echo "<br><br><font class='text_bili'><font class='text_modry'>V</font>ýpis bankovních transakcí</font><br><br>";
+echo "<br><br><font class='text_bili'><font class='text_modry'>V</font>ï¿½pis bankovnï¿½ch transakcï¿½</font><br><br>";
 
 echo "<table border='1'>";
 echo "<tr>";
 
-echo "<th><font class='text_modry'>Datum pøevodu</font></th>";
-echo "<th><font class='text_modry'>Typ pøevodu</font></th>";
-echo "<th><font class='text_modry'>Pøevádìná èástka</font></th>";
-echo "<th><font class='text_modry'>Cílový úèet</font></th>";
-echo "<th><font class='text_modry'>Poplatek za pøevod</font></th>";
-echo "<th><font class='text_modry'>Vázáno v bance do</font></th>";
-echo "<th><font class='text_modry'>Úrok</font></th>";
+echo "<th><font class='text_modry'>Datum pï¿½evodu</font></th>";
+echo "<th><font class='text_modry'>Typ pï¿½evodu</font></th>";
+echo "<th><font class='text_modry'>Pï¿½evï¿½dï¿½nï¿½ ï¿½ï¿½stka</font></th>";
+echo "<th><font class='text_modry'>Cï¿½lovï¿½ ï¿½ï¿½et</font></th>";
+echo "<th><font class='text_modry'>Poplatek za pï¿½evod</font></th>";
+echo "<th><font class='text_modry'>Vï¿½zï¿½no v bance do</font></th>";
+echo "<th><font class='text_modry'>ï¿½rok</font></th>";
 echo "</tr>";
 
 
@@ -971,8 +963,8 @@ endwhile;
 
 	$y=$x+20;
 	$z=$x-20;
-	echo "<a href=planety.php?x=".$z."&vyber=5 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>20 novìjších transakcí</a><br>";
-	echo "<a href=planety.php?x=".$y."&vyber=5 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>20 starších transakcí</a>";	
+	echo "<a href=planety.php?x=".$z."&vyber=5 id=ww onMouseOver = Rozsvitit('ww') onMouseOut=Zhasnout('ww')>20 novï¿½jï¿½ï¿½ch transakcï¿½</a><br>";
+	echo "<a href=planety.php?x=".$y."&vyber=5 id=qq onMouseOver = Rozsvitit('qq') onMouseOut=Zhasnout('qq')>20 starï¿½ï¿½ch transakcï¿½</a>";	
 
 endif;
 endif;
@@ -1036,7 +1028,7 @@ endif;
 		$mbra=$zaznam1["penize"]/(($zaznam2[bra_cena]*2*$brany)*$brany*$bstav*$politika[cenas]/100);
 		$mbra=Floor($mbra);
 		
-		echo "<br><br><center><font class=text_bili><font class=text_modry>D</font>oplòkové stavby</font><br><br>";
+		echo "<br><br><center><font class=text_bili><font class=text_modry>D</font>oplï¿½kovï¿½ stavby</font><br><br>";
 		
 
 		$vys3 = MySQL_Query("SELECT * FROM planety where cislomaj = '$logcislo' order by nazev ASC")or die(mysql_error());
@@ -1047,10 +1039,10 @@ endif;
 		echo "<th><font class=text_modry>Budova:</th>";
 		echo "<th>&nbsp;</th>";
 
-		echo "<th><a href='hlavni.php?page=budovy&vybe=5'>Laboratoø</font></th>";
+		echo "<th><a href='hlavni.php?page=budovy&vybe=5'>Laboratoï¿½</font></th>";
 		echo "<th><a href='hlavni.php?page=budovy&vybe=8'>".$zaznam2[pol_nazev]."</font></th>";
 		echo "<th><a href='hlavni.php?page=budovy&vybe=6'>".$zaznam2[park_nazev]."</font></th>";
-		echo "<th><a href='hlavni.php?page=budovy&vybe=7'>Brána</font></th>";
+		echo "<th><a href='hlavni.php?page=budovy&vybe=7'>Brï¿½na</font></th>";
 	
 		echo "</tr>";	
 
@@ -1065,7 +1057,7 @@ endif;
 		echo "</tr>";
 
 		echo "<tr>";
-		echo "<th><font class=text_modry>Máte na:</th>";
+		echo "<th><font class=text_modry>Mï¿½te na:</th>";
 		echo "<th>&nbsp;</th>";	
 
 		echo "<th><font class=text_bili>".fcis($mlab)."</font></th>";
@@ -1076,7 +1068,7 @@ endif;
 		echo "</tr>";
 
 		echo "<tr>";
-		echo "<th><font class=text_modry>Výbìr:</th>";	
+		echo "<th><font class=text_modry>Vï¿½bï¿½r:</th>";	
 		echo "<th>"
 ?>	
                 <form name='form' method='post' action='hlavni.php?page=planety&vyber=2' >
@@ -1109,18 +1101,18 @@ endif;
 		
 		/*
 		echo "<tr>";
-		echo "<th colspan='6'>Postavit na každou planetu <input type='text' name='kolkobudov' size = '5'> krát budovu&nbsp;<select name='akubudovu'>";
+		echo "<th colspan='6'>Postavit na kaï¿½dou planetu <input type='text' name='kolkobudov' size = '5'> krï¿½t budovu&nbsp;<select name='akubudovu'>";
     
     echo "
     <option value='' selected></option>
-    <option value='Mìsto'>Mìsto</option>
+    <option value='Mï¿½sto'>Mï¿½sto</option>
     <option value='".$zaznam2['vyr_nazev']."'>".$zaznam2['vyr_nazev']."</option>
     <option value='Obrana'>Obrana</option>
-    <option value='Kasárna'>Kasárna</option>
-    <option value='Laboratoø'>Laboratoø</option>
+    <option value='Kasï¿½rna'>Kasï¿½rna</option>
+    <option value='Laboratoï¿½'>Laboratoï¿½</option>
     <option value='".$zaznam2['pol_nazev']."'>".$zaznam2['pol_nazev']."</option>
     <option value='".$zaznam2['park_nazev']."'>".$zaznam2['park_nazev']."</option>
-    <option value='Brána'>Brána</option>
+    <option value='Brï¿½na'>Brï¿½na</option>
     ";
     
     echo"</select>&nbsp;<input type='submit' value='Postavit'></th>";
@@ -1128,13 +1120,13 @@ endif;
 */
 
 		echo "<tr>";
-		echo "<th><font class=text_modry>Jméno planety</font></th>";
-		echo "<th><font class=text_bili>zastavìno/možno</font></th>";
+		echo "<th><font class=text_modry>Jmï¿½no planety</font></th>";
+		echo "<th><font class=text_bili>zastavï¿½no/moï¿½no</font></th>";
 
-		echo "<th><font class=text_bili>možno postavit</font></th>";
-		echo "<th><font class=text_bili>možno postavit</font></th>";
-		echo "<th><font class=text_bili>možno postavit</font></th>";
-		echo "<th><font class=text_bili>možno postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
 		echo "</tr>";	
 
 
@@ -1320,10 +1312,10 @@ endif;
 		echo "<th><font class=text_modry>Budova:</font></th>";
 
 		echo "<th>&nbsp;</th>";	
-		echo "<th><a href='hlavni.php?page=budovy&vybe=1'>Mìsto</font></a></th>";
+		echo "<th><a href='hlavni.php?page=budovy&vybe=1'>Mï¿½sto</font></a></th>";
 		echo "<th><a href='hlavni.php?page=budovy&vybe=2'>".$zaznam2["vyr_nazev"]."</font></a></th>";
 		echo "<th><a href='hlavni.php?page=budovy&vybe=3'>Obrana</font></a></th>";
-		echo "<th><a href='hlavni.php?page=budovy&vybe=4'>Kasárna</font></a></th>";
+		echo "<th><a href='hlavni.php?page=budovy&vybe=4'>Kasï¿½rna</font></a></th>";
 		echo "</tr>";	
 
 		echo "<tr>";
@@ -1337,7 +1329,7 @@ endif;
 		echo "</tr>";
 
 		echo "<tr>";
-		echo "<th><font class=text_modry>Máte na:</font></th>";
+		echo "<th><font class=text_modry>Mï¿½te na:</font></th>";
 
 		echo "<th>&nbsp;</th>";	
 		echo "<th><font class=text_bili>".fcis($mmest)."</font></th>";
@@ -1347,7 +1339,7 @@ endif;
 		echo "</tr>";
 
 		echo "<tr>";
-		echo "<th><font class=text_modry>Výbìr:</font></th>";	
+		echo "<th><font class=text_modry>Vï¿½bï¿½r:</font></th>";	
 		//echo "<th>";
 ?>	
                 <form name='form' method='post' action='hlavni.php?page=planety&vyber=1' ><th>
@@ -1381,17 +1373,17 @@ echo "</th>";
     
     /*		
 		echo "<tr>";
-		echo "<th colspan='6'>Postavit na každou planetu <input type='text' name='kolkobudov' size = '5'> krát budovu&nbsp;<select name='akubudovu'>";
+		echo "<th colspan='6'>Postavit na kaï¿½dou planetu <input type='text' name='kolkobudov' size = '5'> krï¿½t budovu&nbsp;<select name='akubudovu'>";
     
     echo "
-    <option value='Mìsto'>Mìsto</option>
+    <option value='Mï¿½sto'>Mï¿½sto</option>
     <option value='".$zaznam2['vyr_nazev']."'>".$zaznam2['vyr_nazev']."</option>
     <option value='Obrana'>Obrana</option>
-    <option value='Kasárna'>Kasárna</option>
-    <option value='Laboratoø'>Laboratoø</option>
+    <option value='Kasï¿½rna'>Kasï¿½rna</option>
+    <option value='Laboratoï¿½'>Laboratoï¿½</option>
     <option value='".$zaznam2['pol_nazev']."'>".$zaznam2['pol_nazev']."</option>
     <option value='".$zaznam2['park_nazev']."'>".$zaznam2['park_nazev']."</option>
-    <option value='Brána'>Brána</option>
+    <option value='Brï¿½na'>Brï¿½na</option>
     ";
     
     echo"</select>&nbsp;<input type='submit' value='Postavit'></th>";
@@ -1400,13 +1392,13 @@ echo "</th>";
 //*****
 
 		echo "<tr>";
-		echo "<th><font class=text_modry>Jméno planety</font></th>";
-		echo "<th><font class=text_bili>zastavìno/možno</font></th>";
+		echo "<th><font class=text_modry>Jmï¿½no planety</font></th>";
+		echo "<th><font class=text_bili>zastavï¿½no/moï¿½no</font></th>";
 
-		echo "<th><font class=text_bili>možno postavit</font></th>";
-		echo "<th><font class=text_bili>možno postavit</font></th>";
-		echo "<th><font class=text_bili>možno postavit</font></th>";
-		echo "<th><font class=text_bili>možno postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
+		echo "<th><font class=text_bili>moï¿½no postavit</font></th>";
 		echo "</tr>";	
 
 
@@ -1515,7 +1507,3 @@ if($nnn7>$zbyva){$nnn7=$zbyva;}
 		endwhile;
 endif;
 		echo "</table>";
-//MySQL_Close($spojeni);
-?>
-
-
